@@ -1,0 +1,29 @@
+/* SignUp.css */
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .signup-heading {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em; /* Adjust the size as needed */
+    font-weight: 600; /* Optional: for a bolder heading */
+  }
+  
+  .signup-form {
+    width: 100%;
+    max-width: 500px; /* Set a max width for the form */
+  }
+  
+  .signup-form .form-group {
+    margin-bottom: 15px; /* Space between form fields */
+  }
+  
+  .signup-form .btn {
+    margin-top: 10px; /* Space above the button */
+  }
+  

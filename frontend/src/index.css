@@ -9,7 +9,7 @@
 body {
   background: #f1f1f1;
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
 }
 header {
   background: #fff;
@@ -26,7 +26,7 @@ header a {
   color: #333;
   text-decoration: none;
 }
-.pages{
+.pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
@@ -34,17 +34,45 @@ header a {
 
 /* homepage */
 .home {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
-}
-.blog-details {
-  background: #fff;
-  border-radius: 4px;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  position: relative;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  background-image: url('./images/background.png'); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Containers for form and blog details */
+.blog-form, .blogs {
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+  border-radius: 8px; /* Rounded corners for the box */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Slight shadow for the box */
+  backdrop-filter: blur(10px); /* Optional: adds a blur effect behind the box */
+}
+
+/* Ensure vertical stacking */
+.blog-form {
+  margin-bottom: 20px;
+}
+
+.blogs {
+  margin-top: 20px;
+}
+
+/* Blog details styling */
+.blog-details {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 .blog-details h4 {
   margin: 0 0 10px 0;
@@ -85,7 +113,7 @@ form button {
   border: 0;
   color: #fff;
   padding: 10px;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -95,5 +123,5 @@ div.error {
   border: 1px solid var(--error);
   color: var(--error);
   border-radius: 4px;
-  margin: 20px 0;
+  margin: 20px 0;
 }

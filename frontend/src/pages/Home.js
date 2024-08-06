@@ -1,35 +1,40 @@
-import{useEffect, useState} from 'react'
-import { useBlogsContext } from '../hooks/useBlogsContext'
+import { useEffect } from 'react';
+import { useBlogsContext } from '../hooks/useBlogsContext';
 
-//components
-import BlogDetails from '../components/BlogDetails'
-import BlogForm from '../components/BlogForm'
+// Components
+import BlogDetails from '../components/BlogDetails';
+import BlogForm from '../components/BlogForm';
 
-const Home =() => {
-    const {blogs, dispatch} = useBlogsContext()
+const Home = () => {
+    const { blogs, dispatch } = useBlogsContext();
 
     useEffect(() => {
         const fetchBlogs = async () => {
-            const response = await fetch('/api/blogs') 
-            const json = await response.json()
+            const response = await fetch('/api/blogs');
+            const json = await response.json();
 
             if (response.ok) {
-                dispatch({type: 'SET_BLOGS', payload:json})
+                dispatch({ type: 'SET_BLOGS', payload: json });
             }
-        }
-        fetchBlogs()
-    }, [])
+        };
+        fetchBlogs();
+    }, [dispatch]);
+
     return (
         <div className="home">
-            <div className ="blogs">
+            {/* Blog Form at the top */}
+            <div className="blog-form">
+                <BlogForm />
+            </div>
+
+            {/* Display previously added blogs */}
+            <div className="blogs">
                 {blogs && blogs.map((blog) => (
                     <BlogDetails key={blog._id} blog={blog} />
                 ))}
             </div>
-            <BlogForm/>
-
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

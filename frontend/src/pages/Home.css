@@ -1,0 +1,30 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .blog-form {
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+    margin-bottom: 20px;
+  }
+  
+  .blogs {
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the blogs */
+  }
+  
+  .blog-details {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  

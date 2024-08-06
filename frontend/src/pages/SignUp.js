@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import './LogIn.css'; // Import the CSS file for styling
+import './SignUp.css'; // Import the CSS file for styling
 
-const LogIn = () => {
+const SignUp = () => {
   return (
-    <Container className="login-container">
-      <h2 className="login-heading">Log In</h2>
-      <Form className="login-form">
+    <Container className="signup-container">
+      <h2 className="signup-heading">Sign Up</h2>
+      <Form className="signup-form">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
@@ -18,11 +18,11 @@ const LogIn = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Log In
+          Sign Up
         </Button>
       </Form>
     </Container>
   );
 }
 
-export default LogIn;
+export default SignUp;

@@ -1,24 +1,22 @@
+// src/components/Navbar.js
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Ensure this file is updated
+import './Navbar.css'; // Ensure this CSS file is correctly linked
 
 const Navbar = () => {
-    return (
-        <header className="navbar">
-            <div className="container">
-                <div className="brand">
-                    <Link to="/">
-                        <h1>Blog Buddy</h1>
-                    </Link>
-                </div>
-                <nav className="nav-links">
-                    <Link to="/">Home</Link>
-                    <Link to="/contact">Contact Us</Link>
-                    <Link to="/signin">Sign In</Link>
-                    <Link to="/login">Log In</Link>
-                </nav>
-            </div>
-        </header>
-    );
-}
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <h1 className="navbar-title">Blog Buddy</h1>
+        <div className="navbar-buttons">
+          <Link to="/">Home</Link>
+          <Link to="/contact">Contact Us</Link>
+          <Link to="/signin">Sign In</Link>
+          <Link to="/login">Log In</Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

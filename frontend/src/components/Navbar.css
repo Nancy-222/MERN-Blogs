@@ -1,31 +1,40 @@
+/* src/components/Navbar.css */
+
 .navbar {
-    background-color: #333; /* Dark background for the navbar */
-    padding: 10px;
+  background: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px; /* Optional: to constrain the width */
-    margin: 0 auto; /* Center the container */
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.brand h1 {
-    color: #fff; /* White color for the brand */
-    margin: 0;
+.navbar-title {
+  margin: 0;
+  font-size: 2.5em; /* Increase font size if desired */
+  color: #1a1a1a; /* Change this to your preferred color */
+  font-family: 'Merriweather', serif; /* Apply a classic font (Ensure it's imported in your main CSS file) */
+  text-transform: uppercase; /* Optional: transform text to uppercase */
+  letter-spacing: 2px; /* Optional: add letter spacing for a more distinct look */
 }
 
-.nav-links {
-    display: flex; /* Align links in a row */
+.navbar-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 30px; /* Increase spacing between buttons */
 }
 
-.nav-links a {
-    color: #fff; /* White color for links */
-    text-decoration: none;
-    margin-left: 20px; /* Spacing between links */
+.navbar-buttons a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
 }
 
-.nav-links a:hover {
-    text-decoration: underline; /* Underline effect on hover */
+.navbar-buttons a:hover {
+  color: var(--primary);
 }
