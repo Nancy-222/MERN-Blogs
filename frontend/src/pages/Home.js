@@ -1,18 +1,20 @@
 import{useEffect, useState} from 'react'
+import { useBlogsContext } from '../hooks/useBlogsContext'
 
 //components
 import BlogDetails from '../components/BlogDetails'
 import BlogForm from '../components/BlogForm'
 
 const Home =() => {
-    const [blogs, setBlogs ] = useState(null)
+    const {blogs, dispatch} = useBlogsContext()
+
     useEffect(() => {
         const fetchBlogs = async () => {
             const response = await fetch('/api/blogs') 
             const json = await response.json()
 
             if (response.ok) {
-                setBlogs(json)
+                dispatch({type: 'SET_BLOGS', payload:json})
             }
         }
         fetchBlogs()
