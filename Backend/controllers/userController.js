@@ -1,5 +1,5 @@
 const User = require('../models/userModel')
-const Hasher = require('crypto')
+const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 
 
@@ -12,8 +12,8 @@ const createUser = async (req, res) => {
             const user = await User.findOne({email: email})
             if (user == null)
             {
-                //const hashedPassword = Hasher.createHash('sha1').update(password).digest('utf8')
-                const user = await User.create({firstName, lastName, email, password})
+                const hashedPassword = await bcrypt.hash(password, 10)
+                const user = await User.create({firstName, lastName, email, password: hashedPassword})
                 res.status(200).json(user)
             }
             else{
@@ -37,11 +37,11 @@ const authUser = async (req, res) => {
     try {
         //check that all fields are filled
         if (email != null && email != "" && password != null && password != '') {
-            const user = await User.findOne({email: email, password: password})
+            const hashedPassword = await bcrypt.hash(password, 10)
+            const user = await User.findOne({email: email, password: hashedPassword})
             if (user != null)
             {
-            
-                res.status(200).json(user)
+                res.status(200).json(JSON.parse(user).email)
             }
             else{
                 res.status(400).json({ error: "Wrong credentials, try again!" })
