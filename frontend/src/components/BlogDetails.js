@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
 
 const formatDate = (dateString) => {
@@ -7,13 +6,6 @@ const formatDate = (dateString) => {
 };
 
 const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(e.target.files[0]));
-        }
-    };
 
     return (
         <div className="blog-details">
@@ -22,15 +14,10 @@ const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
-            <p><strong>Content: </strong>{blog.content}</p>
+            <p style={{ marginBottom: "10px"}}><strong>Content: </strong>{blog.content}</p>
             <p><strong>Upvotes: </strong>{blog.upvotes}</p>
             <p><strong>Downvotes: </strong>{blog.downvotes}</p>
             <p>Posted On: {formatDate(blog.createdAt)}</p>
-
-            <div className="image-upload">
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                {selectedImage && <img src={selectedImage} alt="Selected" className="uploaded-image" />}
-            </div>
 
             <div className="reactions-group">
                 <button className="upvoteBtn" onClick={() => handleUpvote(blog._id)}>
