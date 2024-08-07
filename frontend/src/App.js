@@ -30,8 +30,9 @@ function App() {
               <Route path="/login" element={<LogIn />} />
               <Route path="/home" element={<PrivateRoute element={<Home />} />} />
             </Routes>
-            <Footer/>
+            
           </div>
+          <Footer/>
         </BrowserRouter>
       </AuthProvider>
     </div>
