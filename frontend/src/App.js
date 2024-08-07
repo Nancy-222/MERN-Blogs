@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // src/index.js or src/App.js
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // pages & components
 import Home from './pages/Home';
 import ContactUs from './pages/ContactUs';  // Import ContactUs page
-import SignIn from './pages/SignUp';        // Import SignIn page
+import SignIn from './pages/SignUp';        // Import SignUp page
 import LogIn from './pages/LogIn';          // Import LogIn page
 import Navbar from './components/Navbar';
 
