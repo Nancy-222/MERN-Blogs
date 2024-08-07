@@ -14,6 +14,11 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     
     e.preventDefault()
+
+    if(password != null && password!="" && password.length<8){
+      setError('Password must be at least 8 characters long!')
+    }
+    else{
     const user = {firstName,lastName,email, password}
 
     const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/create`, {
@@ -32,6 +37,7 @@ const SignUp = () => {
       window.location = `/login`
     }
   }
+}
 
   return (
     <Container className="signup-container">
