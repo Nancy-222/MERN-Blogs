@@ -8,18 +8,26 @@ const LogIn = () => {
       <h2 className="login-heading">Log In</h2>
       <Form className="login-form">
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address<span style={{color: "red"}}>*</span></Form.Label>
+          <Form.Label>Email address<span style={{ color: "red" }}>*</span></Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password<span style={{color: "red"}}>*</span></Form.Label>
+          <Form.Label>Password<span style={{ color: "red" }}>*</span></Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Log In
-        </Button>
+        <div className='btn-container'>
+          <Button variant="primary" type="submit">
+            Log In
+          </Button>
+
+          <span className='forgotPassword'>
+            <a href="#">Forgot Password</a>
+          </span>
+        </div>
+
+
       </Form>
     </Container>
   );
