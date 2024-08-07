@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import ContactUs from './pages/ContactUs';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import Footer from './pages/Footer';
 import Navbar from './components/Navbar';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/login" element={<LogIn />} />
               <Route path="/home" element={<PrivateRoute element={<Home />} />} />
             </Routes>
+            <Footer/>
           </div>
         </BrowserRouter>
       </AuthProvider>
