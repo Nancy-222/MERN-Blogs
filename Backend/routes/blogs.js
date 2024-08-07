@@ -1,6 +1,6 @@
 const express = require('express')
 const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog} = require('../controllers/blogController')
-const{createUser} = require('../controllers/userController')
+const{createUser, authUser} = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -21,5 +21,8 @@ router.patch('/:id', updateBlog)
 
 //CREATE a user
 router.post('/users/create', createUser)
+
+//AUTHENTICATE a user
+router.post('/users/auth', authUser)
 
 module.exports=router
