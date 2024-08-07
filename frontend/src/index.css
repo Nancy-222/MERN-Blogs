@@ -67,11 +67,11 @@ header a {
 
 /* Blog details styling */
 .blog-details {
-  width: 100%;
+  width: 90%;
   background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
   border-radius: 4px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin: auto;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 .blog-details h4 {
