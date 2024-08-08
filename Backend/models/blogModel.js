@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
     title: {
@@ -9,21 +9,18 @@ const blogSchema = new Schema({
     },
     content: {
         type: String,
-        required: true
+        required: true // Content can be formatted HTML
     },
-    upvotes:{
+    upvotes: {
         type: Number,
-        required: false,
-        default: 0
+        default: 0 // Default value for upvotes
     },
-    downvotes:{
+    downvotes: {
         type: Number,
-        required: false,
-        default: 0
+        default: 0 // Default value for downvotes
     }
 }, {
-    timestamps: true
-})
+    timestamps: true // Automatically add createdAt and updatedAt fields
+});
 
-module.exports = mongoose.model('Blog', blogSchema)
-
+module.exports = mongoose.model('Blog', blogSchema);

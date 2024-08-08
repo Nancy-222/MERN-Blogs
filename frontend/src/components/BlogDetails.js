@@ -66,7 +66,8 @@ const BlogDetails = ({ blog }) => {
                 <button className="DeleteBtn" /* onClick={() => handleDelete(blog._id)} */><FiTrash /></button>
             </div>
 
-            <p><strong>Content: </strong>{blog.content}</p>
+            <p><strong>Content: </strong></p>
+            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
             <p>Posted On: {formatDate(blog.createdAt)}</p>
 
             <div className="reactions-group">
@@ -78,7 +79,7 @@ const BlogDetails = ({ blog }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default BlogDetails;
+export default BlogDetails
