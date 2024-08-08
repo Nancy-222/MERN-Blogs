@@ -19,7 +19,11 @@ const ContactUs = () => {
 
         <Form.Group controlId="formBasicMessage">
           <Form.Label>Message<span style={{color: "red"}}>*</span></Form.Label>
-          <Form.Control as="textarea" rows={3} placeholder="Your Message" />
+          <Form.Control 
+            as="textarea" 
+            placeholder="Your Message" 
+            className="message-textarea" 
+          />
         </Form.Group>
 
         <Button variant="primary" type="submit">
@@ -31,3 +35,4 @@ const ContactUs = () => {
 }
 
 export default ContactUs;
+
