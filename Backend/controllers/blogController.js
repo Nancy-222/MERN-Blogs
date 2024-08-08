@@ -26,8 +26,15 @@ const getBlog= async(req, res) => {
 
 //POST a new blog
 const createBlog = async (req, res) => {
+  console.log('Title:', title);
+  console.log('Content:', content);
     const {title, content, upvotes, downvotes} = req.body
-  
+  if (content === '<p><br></p>') {
+    return res.status(400).json({ error: 'Both title and content are required!' });    
+  }
+    if (!title || !content) {
+      return res.status(400).json({ error: 'Both title and content are required!' });
+  }
     // add to the database
     try {
       const blog = await Blog.create({title, content, upvotes, downvotes })

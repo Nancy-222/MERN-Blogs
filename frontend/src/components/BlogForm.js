@@ -52,6 +52,12 @@ const BlogForm = () => {
             setError('Both name and content are required!');
             return;
         }
+
+        
+    if (content === '<p><br></p>') {
+        setError('Both name and content are required!');
+        return;
+    }
     
         const blog = { title, content };
     
@@ -89,7 +95,7 @@ const BlogForm = () => {
                 value={title}
             />
 
-            <label>Blog Content<span style={{ color: "red" }}>*</span></label>
+            <label className="blog-content-wrapper">Blog Content<span style={{ color: "red" }}>*</span></label>
             <ReactQuill
                 ref={quillRef}
                 value={content}
@@ -106,14 +112,13 @@ const BlogForm = () => {
                         ['clean'] 
                     ],
                 }}
-                style={{ height: 'auto', minHeight: '100px' }}
+                style={{ height: 'auto', minHeight: '100px'}}
             />
-
 
             <div className="image-upload">
                 <label>Blog Images</label>
                 <input type="file" accept="image/*" onChange={handleImageChange} />
-                {selectedImage && <img src={selectedImage} alt="Selected" className="uploaded-image" />}
+
             </div>
 
             <button type="submit">Add Blog</button>

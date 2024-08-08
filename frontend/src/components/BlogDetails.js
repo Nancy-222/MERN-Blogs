@@ -91,7 +91,6 @@ const BlogDetails = ({ blog }) => {
                 </div>
             )}
 
-            <p><strong>Content: </strong></p>
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
             <p>Posted On: {formatDate(blog.createdAt)}</p>
 

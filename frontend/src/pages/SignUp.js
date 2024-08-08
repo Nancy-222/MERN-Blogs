@@ -1,8 +1,11 @@
+import 'react-phone-number-input/style.css';
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { countries } from 'countries-list'; // Import country data
 import Flag from 'react-world-flags';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; // Import the CSS for PhoneInput
 import './SignUp.css'; // Import the CSS file for styling
 
 const SignUp = () => {
@@ -12,6 +15,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const BASE_BACK_URL = "http://localhost:4000";
 
@@ -29,11 +33,19 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(password != null && password!=="" && password.length<8){
-      setError('Password must be at least 8 characters long!')
+    if (password != null && password !== "" && password.length < 8) {
+      setError('Password must be at least 8 characters long!');
+      return;
     }
 
-    const user = { firstName, lastName,  country: selectedCountry ? selectedCountry.value : '', email, password };
+    const user = {
+      firstName,
+      lastName,
+      country: selectedCountry ? selectedCountry.value : '',
+      email,
+      password,
+      phoneNumber,
+    };
 
     try {
       const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/create`, {
@@ -80,6 +92,17 @@ const SignUp = () => {
           />
         </Form.Group>
 
+        <Form.Group controlId="formPhoneNumber" className="form-group-spacing">
+          <Form.Label>Phone Number</Form.Label>
+          <PhoneInput
+            international
+            countryCallingCodeEditable={false}
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            defaultCountry={selectedCountry ? selectedCountry.value : 'US'} // Set default country based on selected country
+          />
+        </Form.Group>
+
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address<span style={{ color: "red" }}>*</span></Form.Label>
           <Form.Control type="email" placeholder="Enter email" required onChange={(e) => setEmail(e.target.value)} />
@@ -100,3 +123,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+

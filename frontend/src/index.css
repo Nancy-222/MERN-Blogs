@@ -112,6 +112,7 @@ input {
   margin-bottom: 20px;
   width: 100%;
   border: 1px solid #ddd;
+  background: #fff;
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -131,5 +132,17 @@ div.error {
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+
+.ql-container {
+  background-color: white;
+}
+
+.ql-editor {
+  background-color: white;
+}
+
+.blog-content-wrapper {
+  margin-bottom: 10px; /* Adjust as needed */
 }
 
