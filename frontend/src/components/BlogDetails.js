@@ -59,11 +59,32 @@ const BlogDetails = ({ blog }) => {
         }
       };
 
+      const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to delete this blog?")) {
+            try {
+                const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
+                    method: 'DELETE',
+                });
+
+                const json = await response.json()
+    
+                if (!response.ok) {
+                    throw new Error('Failed to delete the blog');
+                }
+    
+                dispatch({ type: 'DELETE_BLOG', payload: json });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+    
+
     return (
         <div className="blog-details">
             <div className="blog-header">
                 <h4>{blog.title}</h4>
-                <button className="DeleteBtn" /* onClick={() => handleDelete(blog._id)} */><FiTrash /></button>
+                <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
             <p><strong>Content: </strong></p>
