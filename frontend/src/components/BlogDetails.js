@@ -69,11 +69,6 @@ const BlogDetails = ({ blog }) => {
             <p><strong>Content: </strong>{blog.content}</p>
             <p>Posted On: {formatDate(blog.createdAt)}</p>
 
-            <div className="image-upload">
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                {selectedImage && <img src={selectedImage} alt="Selected" className="uploaded-image" />}
-            </div>
-
             <div className="reactions-group">
                 <button className="upvoteBtn" onClick={() => handleUpvote(blog._id)}>
                     <FiThumbsUp /> {blog.upvotes}

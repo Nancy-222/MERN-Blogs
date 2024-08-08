@@ -65,6 +65,35 @@ header a {
   margin-top: 20px;
 }
 
+/* Blog details styling */
+.blog-details {
+  width: 90%;
+  background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+  border-radius: 4px;
+  padding: 20px;
+  margin: auto;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+.blog-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.blog-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.blog-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
 
 .blog-header {
   display: flex;
