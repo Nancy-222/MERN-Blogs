@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// pages & components
+// Pages & Components
 import Home from './pages/Home';
 import ContactUs from './pages/ContactUs';
 import SignUp from './pages/SignUp';
@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
 // Private Route Component
-const PrivateRoute = ({ element, ...rest }) => {
+const PrivateRoute = ({ element }) => {
   const { isAuthenticated } = React.useContext(AuthContext);
   return isAuthenticated ? element : <Navigate to="/login" />;
 };

@@ -1,59 +1,99 @@
-import { useState } from 'react'
-import { useBlogsContext } from '../hooks/useBlogsContext'
+import React, { useState, useRef, useEffect } from 'react';
+import { useBlogsContext } from '../hooks/useBlogsContext';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import styles
 
 const BlogForm = () => {
-    const {dispatch} = useBlogsContext()
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [error, setError] = useState(null)
+    const { dispatch } = useBlogsContext();
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [error, setError] = useState(null);
+    const quillRef = useRef(null);
+
+    // Adjust height of the Quill editor dynamically
+    useEffect(() => {
+        const handleResize = () => {
+            if (quillRef.current) {
+                // Reset height to auto to calculate new height
+                quillRef.current.getEditor().container.style.height = 'auto';
+                // Set height to scroll height
+                quillRef.current.getEditor().container.style.height = `${quillRef.current.getEditor().container.scrollHeight}px`;
+            }
+        };
+
+        // Attach event listener for input events
+        const quillEditor = quillRef.current?.getEditor();
+        if (quillEditor) {
+            quillEditor.on('text-change', handleResize);
+        }
+
+        // Cleanup event listener on component unmount
+        return () => {
+            if (quillEditor) {
+                quillEditor.off('text-change', handleResize);
+            }
+        };
+    }, [content]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const blog ={title,content} //if anything was added add here
+        const blog = { title, content };
 
         const response = await fetch('/api/blogs', {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {
-                'Content-Type':'application/json'
-            }
-        })
-        const json = await response.json()
-        if (!response.ok){
-            setError(json.error)
+                'Content-Type': 'application/json',
+            },
+        });
+        const json = await response.json();
+        if (!response.ok) {
+            setError(json.error);
         }
-        if (response.ok){
-            setError(null)
-            setTitle('')
-            setContent('')
-            console.log('new blog added',json)
-            dispatch({type: 'CREATE_BLOG', payload: json})
+        if (response.ok) {
+            setError(null);
+            setTitle('');
+            setContent('');
+            console.log('new blog added', json);
+            dispatch({ type: 'CREATE_BLOG', payload: json });
         }
-    }
-    return(
+    };
+
+    return (
         <form className="create" onSubmit={handleSubmit}>
             <h3>Add a New Blog</h3>
             <label>Blog Name:</label>
-            <input 
+            <input
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
             />
 
             <label>Blog Content:</label>
-            <input 
-                type="text"
-                onChange={(e) => setContent(e.target.value)}
+            <ReactQuill
+                ref={quillRef}
                 value={content}
+                onChange={setContent}
+                theme="snow"
+                modules={{
+                    toolbar: [
+                        [{ 'header': '1' }, { 'header': '2' }],
+                        [{ 'font': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        ['clean'] // remove formatting
+                    ],
+                }}
+                style={{ height: 'auto', minHeight: '200px' }} // Adjust minHeight as needed
             />
 
-            
-            <button> Add Blog</button>
+            <button>Add Blog</button>
             {error && <div className="error">{error}</div>}
         </form>
-    )
-}
+    );
+};
 
-export default BlogForm
-//We can add here upvotes and downvotes to manually add them 
+export default BlogForm;

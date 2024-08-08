@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
+import React, { useState } from 'react'
+import { FiThumbsDown, FiThumbsUp, FiTrash } from 'react-icons/fi'
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -22,7 +22,9 @@ const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
-            <p><strong>Content: </strong>{blog.content}</p>
+            <p><strong>Content: </strong></p>
+            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+
             <p><strong>Upvotes: </strong>{blog.upvotes}</p>
             <p><strong>Downvotes: </strong>{blog.downvotes}</p>
             <p>Posted On: {formatDate(blog.createdAt)}</p>
@@ -41,7 +43,7 @@ const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default BlogDetails;
+export default BlogDetails
