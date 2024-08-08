@@ -19,7 +19,7 @@ const BlogForm = () => {
 
         const blog ={title,content} //if anything was added add here
 
-        const response = await fetch('/api/blogs', {
+        const response = await fetch('http://localhost:4000/api/blogs/', {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {

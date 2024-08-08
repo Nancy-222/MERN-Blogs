@@ -29,9 +29,8 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long!');
-      return;
+    if(password != null && password!=="" && password.length<8){
+      setError('Password must be at least 8 characters long!')
     }
 
     const user = { firstName, lastName,  country: selectedCountry ? selectedCountry.value : '', email, password };
