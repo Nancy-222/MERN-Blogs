@@ -2,6 +2,7 @@ const express = require('express')
 const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog, upvoteBlog, downvoteBlog} = require('../controllers/blogController')
 const{createUser, authUser} = require('../controllers/userController')
 
+
 const router = express.Router();
 
 // GET all blogs
@@ -27,4 +28,22 @@ router.post('/users/create', createUser)
 //AUTHENTICATE a user
 router.post('/users/auth', authUser)
 
+router.post('/blogs', async (req, res) => {
+    const { title, content } = req.body;
+
+    // Check if title and content are provided
+    if (!title || !content) {
+        return res.status(400).json({ error: 'Both name and content are required!' });
+    }
+
+    try {
+        const newBlog = new Blog({ title, content });
+        await newBlog.save();
+        res.status(201).json(newBlog);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create blog.' });
+    }
+});
+
 module.exports = router;
+

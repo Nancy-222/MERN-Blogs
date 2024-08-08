@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useBlogsContext } from '../hooks/useBlogsContext'
-import './BlogDetails.css'
+import { useBlogsContext } from '../hooks/useBlogsContext';
+import './BlogDetails.css';
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
 
 const formatDate = (dateString) => {
@@ -8,56 +8,54 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
-
 const BlogDetails = ({ blog }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const {dispatch} = useBlogsContext()
-
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(e.target.files[0]));
-        }
-    };
+    const [upvoted, setUpvoted] = useState(false);
+    const [downvoted, setDownvoted] = useState(false);
+    const { dispatch } = useBlogsContext();
 
     const handleUpvote = async (id) => {
         try {
-          const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to upvote the blog');
-          }
-      
-          const updatedBlog = await response.json();
-          dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upvote the blog');
+            }
+
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            setUpvoted(true);
+            setDownvoted(false);
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
-      
-      const handleDownvote = async (id) => {
+    };
+
+    const handleDownvote = async (id) => {
         try {
-          const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to downvote the blog');
-          }
-      
-          const updatedBlog = await response.json();
-          dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to downvote the blog');
+            }
+
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            setDownvoted(true);
+            setUpvoted(false);
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
 
     return (
         <div className="blog-details">
@@ -66,20 +64,32 @@ const BlogDetails = ({ blog }) => {
                 <button className="DeleteBtn" /* onClick={() => handleDelete(blog._id)} */><FiTrash /></button>
             </div>
 
+            {blog.image && (
+                <div className="blog-image">
+                    <img src={`http://localhost:4000/uploads/${blog.image}`} alt="Blog" className="blog-image-img" />
+                </div>
+            )}
+
             <p><strong>Content: </strong></p>
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
             <p>Posted On: {formatDate(blog.createdAt)}</p>
 
             <div className="reactions-group">
-                <button className="upvoteBtn" onClick={() => handleUpvote(blog._id)}>
+                <button
+                    className={`upvoteBtn ${upvoted ? 'active' : ''}`}
+                    onClick={() => handleUpvote(blog._id)}
+                >
                     <FiThumbsUp /> {blog.upvotes}
                 </button>
-                <button className="downvoteBtn" onClick={() => handleDownvote(blog._id)}> 
+                <button
+                    className={`downvoteBtn ${downvoted ? 'active' : ''}`}
+                    onClick={() => handleDownvote(blog._id)}
+                >
                     <FiThumbsDown /> {blog.downvotes}
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default BlogDetails
+export default BlogDetails;

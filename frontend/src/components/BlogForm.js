@@ -3,8 +3,10 @@ import { useBlogsContext } from '../hooks/useBlogsContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import styles
 
+const BASE_URL = 'http://localhost:4000'; // Define BASE_URL here
+
 const BlogForm = () => {
-    const { dispatch } = useBlogsContext();
+    const { dispatch } = useBlogsContext(); // Ensure dispatch is correctly obtained
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
@@ -44,28 +46,38 @@ const BlogForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const blog = { title, content };
-
-        const response = await fetch('http://localhost:4000/api/blogs/', {
-            method: 'POST',
-            body: JSON.stringify(blog),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const json = await response.json();
-        if (!response.ok) {
-            setError(json.error);
+    
+        // Validate that title and content are not empty
+        if (!title.trim() || !content.trim()) {
+            setError('Both name and content are required!');
+            return;
         }
-        if (response.ok) {
-            setError(null);
-            setTitle('');
-            setContent('');
-            console.log('new blog added', json);
-            dispatch({ type: 'CREATE_BLOG', payload: json });
+    
+        const blog = { title, content };
+    
+        try {
+            const response = await fetch(`${BASE_URL}/api/blogs/`, {
+                method: 'POST',
+                body: JSON.stringify(blog),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const json = await response.json();
+            if (!response.ok) {
+                setError(json.error);
+            } else {
+                setError(null);
+                setTitle('');
+                setContent('');
+                console.log('New blog added', json);
+                dispatch({ type: 'CREATE_BLOG', payload: json });
+            }
+        } catch (error) {
+            setError('An error occurred while adding the blog.');
         }
     };
+    
 
     return (
         <form className="create" onSubmit={handleSubmit}>
@@ -91,22 +103,24 @@ const BlogForm = () => {
                         ['bold', 'italic', 'underline'],
                         ['link'],
                         [{ 'align': [] }],
-                        ['clean'] // remove formatting
+                        ['clean'] 
                     ],
                 }}
-                style={{ height: 'auto', minHeight: '100px' }} // Adjust minHeight as needed
+                style={{ height: 'auto', minHeight: '100px' }}
             />
 
-     <div className="image-upload">
+
+            <div className="image-upload">
                 <label>Blog Images</label>
                 <input type="file" accept="image/*" onChange={handleImageChange} />
                 {selectedImage && <img src={selectedImage} alt="Selected" className="uploaded-image" />}
             </div>
 
-            <button>Add Blog</button>
+            <button type="submit">Add Blog</button>
             {error && <div className="error">{error}</div>}
         </form>
     );
 };
 
 export default BlogForm;
+
