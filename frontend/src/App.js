@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Pages & Components
 import Home from './pages/Home';
 import ContactUs from './pages/ContactUs';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import Footer from './pages/Footer';
 import Navbar from './components/Navbar';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
@@ -30,7 +30,9 @@ function App() {
               <Route path="/login" element={<LogIn />} />
               <Route path="/home" element={<PrivateRoute element={<Home />} />} />
             </Routes>
+            
           </div>
+          <Footer/>
         </BrowserRouter>
       </AuthProvider>
     </div>

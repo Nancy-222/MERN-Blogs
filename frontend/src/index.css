@@ -67,11 +67,11 @@ header a {
 
 /* Blog details styling */
 .blog-details {
-  width: 100%;
+  width: 90%;
   background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
   border-radius: 4px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin: auto;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 .blog-details h4 {
@@ -95,60 +95,12 @@ header a {
   color: #333;
 }
 
-.reactions-group {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px; /* Adjust spacing between buttons as needed */
-}
-
-.upvoteBtn, .downvoteBtn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #1aac83;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.upvoteBtn:hover, .downvoteBtn:hover {
-  background-color: #168f6c;
-}
-
-.downvoteBtn {
-  background-color: #dc3545;
-}
-
-
-.downvoteBtn:hover {
-  background-color: #c82333;
-}
-
 .blog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.DeleteBtn {
-  padding: 6px;
-  border: none;
-  background-color: #383838;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-
-.deleteBtn:hover {
-  background-color: #5a5152;
-
-}
 
 /* new blog form */
 label, input {

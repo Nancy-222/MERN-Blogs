@@ -1,99 +1,90 @@
-/* Ensure the blog container takes the full width of the page */
+/* Blog details styling */
 .blog-details {
-    display: flex;
-    align-items: flex-start;
-    border: 1px solid #ccc;
-    padding: 16px;
-    border-radius: 8px;
-    width: 100%; /* Make sure the blog container takes the full width */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-/* Flex properties for sections */
-.image-section {
-    flex: 0 0 150px;
-    display: flex;
-    flex-direction: column;
-    
-    align-items: center;
-    margin-right: 16px;
-}
-
-.upload-button {
-    width: 150px;
-    height: 150px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  .blog-details h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: var(--primary);
+  }
+  .blog-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+  }
+  .blog-details span {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-}
-
-.upload-button:hover {
-    background-color: #0056b3;
-}
-
-.uploaded-images {
+    background: #f1f1f1;
+    padding: 6px;
+    border-radius: 50%;
+    color: #333;
+  }
+  
+  .reactions-group {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-}
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .upvoteBtn, .downvoteBtn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upvoteBtn:hover {
+    color: #168f6c;
+  }  
+  
+  .downvoteBtn:hover {
+    color: #c82333;
+  }
 
-.uploaded-image {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
+  
+  .upvoteBtn:active {
+    color: #999999;
+  }  
+  
+  .downvoteBtn:active {
+    color: #999999;
+  }
 
-.content-section {
-    flex: 1;
-}
-
-.blog-header {
+  
+  .blog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.reactions-group {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-}
-
-.DeleteBtn, .upvoteBtn, .downvoteBtn {
-    cursor: pointer;
-    background: none;
+  }
+  
+  .DeleteBtn {
+    padding: 6px;
     border: none;
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.DeleteBtn:hover, .upvoteBtn:hover, .downvoteBtn:hover {
-    background-color: #f0f0f0;
-}
-
-/* Ensure the main container takes the full width */
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
-
-main {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
+    background-color: #383838;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .deleteBtn:hover {
+    background-color: #5a5152;
+  
+  }
+  

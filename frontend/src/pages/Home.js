@@ -5,12 +5,15 @@ import { useBlogsContext } from '../hooks/useBlogsContext';
 import BlogDetails from '../components/BlogDetails';
 import BlogForm from '../components/BlogForm';
 
+
+const BASE_URL = 'http://localhost:4000'
+
 const Home = () => {
     const { blogs, dispatch } = useBlogsContext();
 
     useEffect(() => {
         const fetchBlogs = async () => {
-            const response = await fetch('/api/blogs');
+            const response = await fetch(`${BASE_URL}/api/blogs/`);
             const json = await response.json();
 
             if (response.ok) {
