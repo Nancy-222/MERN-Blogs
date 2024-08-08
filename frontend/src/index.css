@@ -65,68 +65,6 @@ header a {
   margin-top: 20px;
 }
 
-/* Blog details styling */
-.blog-details {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
-}
-.blog-details h4 {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--primary);
-}
-.blog-details p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #555;
-}
-.blog-details span {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  background: #f1f1f1;
-  padding: 6px;
-  border-radius: 50%;
-  color: #333;
-}
-
-.reactions-group {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px; /* Adjust spacing between buttons as needed */
-}
-
-.upvoteBtn, .downvoteBtn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #1aac83;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.upvoteBtn:hover, .downvoteBtn:hover {
-  background-color: #168f6c;
-}
-
-.downvoteBtn {
-  background-color: #dc3545;
-}
-
-
-.downvoteBtn:hover {
-  background-color: #c82333;
-}
 
 .blog-header {
   display: flex;
@@ -134,21 +72,6 @@ header a {
   align-items: center;
 }
 
-.DeleteBtn {
-  padding: 6px;
-  border: none;
-  background-color: #383838;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-
-.deleteBtn:hover {
-  background-color: #5a5152;
-
-}
 
 /* new blog form */
 label, input {

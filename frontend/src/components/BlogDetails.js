@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useBlogsContext } from '../hooks/useBlogsContext'
+import './BlogDetails.css'
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
 
 const formatDate = (dateString) => {
@@ -6,8 +8,10 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
-const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
+
+const BlogDetails = ({ blog }) => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const {dispatch} = useBlogsContext()
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -15,16 +19,54 @@ const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
         }
     };
 
+    const handleUpvote = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to upvote the blog');
+          }
+      
+          const updatedBlog = await response.json();
+          dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      
+      const handleDownvote = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to downvote the blog');
+          }
+      
+          const updatedBlog = await response.json();
+          dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     return (
         <div className="blog-details">
             <div className="blog-header">
                 <h4>{blog.title}</h4>
-                <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
+                <button className="DeleteBtn" /* onClick={() => handleDelete(blog._id)} */><FiTrash /></button>
             </div>
 
             <p><strong>Content: </strong>{blog.content}</p>
-            <p><strong>Upvotes: </strong>{blog.upvotes}</p>
-            <p><strong>Downvotes: </strong>{blog.downvotes}</p>
             <p>Posted On: {formatDate(blog.createdAt)}</p>
 
             <div className="image-upload">
@@ -34,10 +76,10 @@ const BlogDetails = ({ blog, handleUpvote, handleDelete }) => {
 
             <div className="reactions-group">
                 <button className="upvoteBtn" onClick={() => handleUpvote(blog._id)}>
-                    Upvote <FiThumbsUp />
+                    <FiThumbsUp /> {blog.upvotes}
                 </button>
-                <button className="downvoteBtn">
-                    Downvote <FiThumbsDown />
+                <button className="downvoteBtn" onClick={() => handleDownvote(blog._id)}> 
+                    <FiThumbsDown /> {blog.downvotes}
                 </button>
             </div>
         </div>

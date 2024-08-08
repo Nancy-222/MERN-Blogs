@@ -73,10 +73,44 @@ const updateBlog = async (req, res) => {
     res.status(200).json(blog)
   }
 
+const upvoteBlog = async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const blog = await Blog.findById(id)
+    if (!blog) {
+      return res.status(404).json({ error: 'No such blog' })
+    }
+    blog.upvotes += 1
+    await blog.save()
+    res.status(200).json(blog)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const downvoteBlog = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).json({ error: 'No such blog' });
+    }
+    blog.downvotes += 1;
+    await blog.save();
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
     getBlogs,
     getBlog,
     createBlog,
     deleteBlog,
-    updateBlog
+    updateBlog,
+    upvoteBlog,
+    downvoteBlog
 }

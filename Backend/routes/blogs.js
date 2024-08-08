@@ -1,5 +1,5 @@
 const express = require('express')
-const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog} = require('../controllers/blogController')
+const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog, upvoteBlog, downvoteBlog} = require('../controllers/blogController')
 
 const router = express.Router()
 
@@ -17,5 +17,8 @@ router.delete('/:id', deleteBlog)
 
 //UPDATE a blog
 router.patch('/:id', updateBlog)
+
+router.patch('/:id/upvote', upvoteBlog)
+router.patch('/:id/downvote', downvoteBlog)
 
 module.exports=router
