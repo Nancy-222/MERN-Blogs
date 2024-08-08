@@ -9,6 +9,13 @@ const BlogForm = () => {
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
     const quillRef = useRef(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedImage(URL.createObjectURL(e.target.files[0]));
+        }
+    };
 
     // Adjust height of the Quill editor dynamically
     useEffect(() => {
@@ -87,8 +94,14 @@ const BlogForm = () => {
                         ['clean'] // remove formatting
                     ],
                 }}
-                style={{ height: 'auto', minHeight: '200px' }} // Adjust minHeight as needed
+                style={{ height: 'auto', minHeight: '100px' }} // Adjust minHeight as needed
             />
+
+     <div className="image-upload">
+                <label>Blog Images</label>
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+                {selectedImage && <img src={selectedImage} alt="Selected" className="uploaded-image" />}
+            </div>
 
             <button>Add Blog</button>
             {error && <div className="error">{error}</div>}
