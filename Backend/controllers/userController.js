@@ -2,6 +2,30 @@ const User = require('../models/userModel')
 const crypt = require('crypto')
 const mongoose = require('mongoose')
 
+const jwt = require("jsonwebtoken")
+
+
+//GET all users
+const getUsers = async (req,res) => {
+    const users = await User.find({}).sort({createdAt: -1})
+    res.status(200).json(users)
+}
+
+//GET a user
+const getUser = async (req,res) => {
+    const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such user'})
+    }
+    const user = await User.findById(id)
+
+    if (!user){
+        return res.status(404).json({error: 'No such user'})
+    }
+    res.status(200).json(user)
+
+}
 
 //POST a new user
 const createUser = async (req, res) => {
@@ -21,7 +45,7 @@ const createUser = async (req, res) => {
             }
         }
         else{
-            res.status(400).json({ error: "All fields are required!" })
+            res.status(400).json({ error: "1All fields are required!" })
         }
         
 
@@ -36,7 +60,7 @@ const authUser = async (req, res) => {
     const { email, password } = req.body
     try {
         //check that all fields are filled
-        if (email != null && email != "" && password != null && password != '') {
+        if (email != null && email != "" && password != null && password != "") {
           
             const user = await User.findOne({email: email})
             if (user != null)
@@ -44,7 +68,9 @@ const authUser = async (req, res) => {
                 const hashedPassword = crypt.createHash('sha1').update(password).digest('hex')
                 if (user.password == hashedPassword)
                 {
-                    res.status(200).json({loggedIn: user.email})
+                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+                    
+                    res.status(200).cookie("access_token", token, {httpOnly: true,}).json({loggedIn: user.email})
                 }
                 else
                 {
@@ -56,7 +82,7 @@ const authUser = async (req, res) => {
             }
         }
         else{
-            res.status(400).json({ error: "All fields are required!" })
+            res.status(400).json({ error: "2All fields are required!" })
         }
 
     } catch (error) {
@@ -65,7 +91,78 @@ const authUser = async (req, res) => {
 }
 
 
+// const authUser = async (req, res) => {
+//     console.log('authUser function has been called');  // Log to check if the function is called
+
+//     const { email, password } = req.body;
+//     console.log('Request body:', { email, password });  // Log the received email and password
+
+//     try {
+//         // Check that all fields are filled
+//         if (email != null && email != "" && password != null && password != "") {
+//             console.log('Email and password are provided');
+
+//             const user = await User.findOne({ email: email });
+//             console.log('User found:', user);  // Log the user object returned from the database
+
+//             if (user != null) {
+//                 const hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
+//                 console.log('Hashed password:', hashedPassword);  // Log the hashed password
+
+//                 if (user.password === hashedPassword) {
+//                     const token = jwt.sign(
+//                         { id: user._id },
+//                         process.env.JWT_SECRET,
+//                         { expiresIn: '1h' }
+//                     );
+//                     console.log('JWT token generated:', token);  // Log the generated JWT token
+
+//                     res.status(200)
+//                         .cookie("access_token", token, {
+//                             httpOnly: true,
+//                         })
+//                         .json({ loggedIn: user.email });
+//                     console.log('User successfully logged in');  // Log success message
+//                 } else {
+//                     console.log('Password mismatch');  // Log when passwords do not match
+//                     res.status(400).json({ error: "Wrong credentials, try again!" });
+//                 }
+//             } else {
+//                 console.log('User not found');  // Log when user is not found in the database
+//                 res.status(400).json({ error: "Wrong credentials, try again!" });
+//             }
+//         } else {
+//             console.log('Missing fields');  // Log when required fields are missing
+//             res.status(400).json({ error: "All fields are required!" });
+//         }
+//     } catch (error) {
+//         console.error('Error during login:', error);  // Log any error that occurs
+//         res.status(400).json({ error: error.message });
+//     }
+// };
+
+
+const deleteUser = async (req,res) => {
+    const { id } = req.params
+
+    
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(400).json({error: 'No such user'})
+    }
+
+    const user = await User.findOneAndDelete({_id: id})
+
+    if (!user){
+        return res.status(400).json({error: 'No such user'})
+    }
+
+    res.status(200).json(user)
+}
+
 module.exports = {
+    getUsers,
+    getUser,
     createUser,
-    authUser
+    authUser,
+    deleteUser
 }
