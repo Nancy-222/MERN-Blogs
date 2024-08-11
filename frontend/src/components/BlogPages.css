@@ -1,0 +1,60 @@
+/* Background styling for the blog listing page */
+.blogs-page {
+  background-image: url('/src/images/background.png'); /* Same background as home page */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* Container for individual blog blocks */
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between blocks */
+}
+
+/* Styling for individual blog blocks */
+.blog-block {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog title in green */
+.blog-block h4 {
+  color: rgb(0, 179, 255); /* Use the primary color for the title */
+  margin: 0 0 10px 0;
+  font-size: 1.5em; /* Adjust size as needed */
+  text-decoration: underline;
+}
+
+.blog-actions {
+  display: flex;
+  gap: 8px; /* Small space between icons */
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: rgb(0, 179, 255); /* Always blue */
+  font-size: 20px; /* Adjust size as needed */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-value {
+  margin-left: 4px; /* Smaller space between icon and value */
+  font-size: 16px; /* Adjust size as needed */
+  color: #333; /* Default color of the value */
+}
+
+/* Style for the "Posted On" text */
+.posted-on {
+  font-weight: bold; /* Make the text bold */
+  margin: 10px 0; /* Adjust margin as needed */
+}

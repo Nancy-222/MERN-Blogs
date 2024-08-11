@@ -1,7 +1,7 @@
 const express = require('express')
 const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog, upvoteBlog, downvoteBlog} = require('../controllers/blogController')
 const{createUser, authUser} = require('../controllers/userController')
-
+const {sendSupportMail} = require('../controllers/mailController')
 
 const router = express.Router();
 
@@ -44,6 +44,9 @@ router.post('/users/auth', authUser)
 //         res.status(500).json({ error: 'Failed to create blog.' });
 //     }
 // });
+
+//Send an email
+router.post('/support', sendSupportMail)
 
 module.exports = router;
 

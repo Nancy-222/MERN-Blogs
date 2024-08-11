@@ -1,19 +1,24 @@
 /* src/components/Navbar.css */
 
 .navbar {
-  background: #fff;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #fff; /* Adjust as needed */
+  border-bottom: 1px solid #ddd; /* Adjust as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a more professional look */
 }
 
 .navbar-container {
-  max-width: 1400px;
-  margin: 0 auto;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* src/components/Navbar.css */
 .navbar-title {
   margin: 0;
   font-size: 2.5em; /* Increase font size if desired */
@@ -23,18 +28,40 @@
   letter-spacing: 2px; /* Optional: add letter spacing for a more distinct look */
 }
 
+
 .navbar-buttons {
-  margin-top: 10px;
   display: flex;
-  gap: 30px; /* Increase spacing between buttons */
+  margin-right: auto;
+  margin-left: 120px;
 }
 
-.navbar-buttons a {
+.nav-link {
+  margin: 0 15px;
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  color: #333; /* Default color */
+  font-size: 18px; /* Larger font size for better visibility */
+  padding: 10px 15px; /* Padding for larger clickable area */
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
 }
 
-.navbar-buttons a:hover {
-  color: var(--primary);
+.nav-link:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #fff; /* White text color on hover */
+}
+
+.navbar-social {
+  display: flex;
+  align-items: center;
+}
+
+.social-icon {
+  font-size: 24px; /* Slightly larger icons for better visibility */
+  margin: 0 17px;
+  color: #333; /* Default color */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.social-icon:hover {
+  color: #007bff; /* Blue color on hover */
 }

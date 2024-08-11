@@ -18,6 +18,10 @@ const blogSchema = new Schema({
     downvotes: {
         type: Number,
         default: 0 // Default value for downvotes
+    },
+    image:{
+        data: Buffer,
+        contentType: String
     }
 }, {
     timestamps: true // Automatically add createdAt and updatedAt fields

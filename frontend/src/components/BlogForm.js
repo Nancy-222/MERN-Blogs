@@ -86,7 +86,7 @@ const BlogForm = () => {
     
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
+        <form enctype="multipart/form-data" className="create" onSubmit={handleSubmit}>
             <h3>Add a New Blog</h3>
             <label>Blog Name<span style={{ color: "red" }}>*</span></label>
             <input

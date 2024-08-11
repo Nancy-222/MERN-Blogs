@@ -1,10 +1,30 @@
+/* Apply background image to the entire page or container */
+.contact-us-page {
+  background-image: url('/src/images/background.png'); /* Update with your actual path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Full height to cover the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Style the contact us container */
 .contact-us-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background: white; /* White background for the form block */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a 3D effect */
+  width: 100%;
+  max-width: 600px; /* Set a max width for the form block */
 }
 
+/* Styling for the heading */
 .contact-us-heading {
   margin-bottom: 20px;
   text-align: center;
@@ -12,26 +32,55 @@
   font-weight: 600; /* Optional: for a bolder heading */
 }
 
+/* Style for the form */
 .contact-us-form {
   width: 100%;
-  max-width: 600px; /* Set a max width for the form */
 }
 
+/* Style for form groups */
 .contact-us-form .form-group {
   margin-bottom: 15px; /* Space between form fields */
 }
 
+/* Style for form controls */
 .contact-us-form .form-control {
   width: 100%; /* Ensure all form controls are full width */
 }
 
+/* Style for the textarea */
 .contact-us-form .message-textarea {
-  max-width: 600px; /* Fix the horizontal size */
+  max-width: 100%; /* Ensure it doesn't exceed container width */
   min-height: 100px; /* Set a minimum height */
   resize: vertical; /* Allow vertical resizing only */
   box-sizing: border-box; /* Ensure padding and border are included in the width and height */
 }
 
+/* Style for buttons */
 .contact-us-form .btn {
   margin-top: 10px; /* Space above the button */
+}
+
+/* Error message styling */
+.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+/* Success message styling */
+.success {
+  padding: 10px;
+  background: #e8f4e8;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+/* Additional spacing for message */
+.message {
+  margin-bottom: 10px;
 }

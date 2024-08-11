@@ -1,37 +1,53 @@
-/* LogIn.css */
+/* Apply background image to the entire page */
+.login-page {
+  background-image: url('/src/images/background.png'); /* Update with your actual path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Full height to cover the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
+/* Style the login container */
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background: white; /* White background for the form block */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a 3D effect */
+  width: 100%;
+  max-width: 500px; /* Set a max width for the form block */
 }
 
+/* Styling for the heading */
 .login-heading {
   margin-bottom: 20px;
   text-align: center;
-  font-size: 2em;
-  /* Adjust the size as needed */
-  font-weight: 600;
-  /* Optional: for a bolder heading */
+  font-size: 2em; /* Adjust the size as needed */
+  font-weight: 600; /* Optional: for a bolder heading */
 }
 
+/* Style for the form */
 .login-form {
   width: 100%;
-  max-width: 500px;
-  /* Set a max width for the form */
 }
 
+/* Style for form groups */
 .login-form .form-group {
-  margin-bottom: 15px;
-  /* Space between form fields */
+  margin-bottom: 15px; /* Space between form fields */
 }
 
+/* Style for buttons */
 .login-form .btn {
-  margin-top: 10px;
-  /* Space above the button */
+  margin-top: 10px; /* Space above the button */
 }
 
+/* Style for button container */
 .login-form .btn-container {
   width: 100%;
   display: flex;
@@ -40,11 +56,11 @@
   align-items: center;
 }
 
+/* Style for forgot password link */
 .login-form .forgotPassword {
   margin: 10px;
   font-weight: 100;
   font-size: 12.5px;
-
 }
 
 .login-form .forgotPassword a {
