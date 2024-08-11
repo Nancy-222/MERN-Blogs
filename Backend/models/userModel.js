@@ -13,7 +13,8 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -26,7 +27,15 @@ const userSchema = new Schema({
     phoneNumber: {
         type: String,
         required: false // Optional
-    }
+    },
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Blog'
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
     timestamps: true
 });

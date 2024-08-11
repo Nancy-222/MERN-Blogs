@@ -22,11 +22,11 @@ router.patch('/:id', updateBlog)
 router.patch('/:id/upvote', upvoteBlog)
 router.patch('/:id/downvote', downvoteBlog)
 
-//CREATE a user
-router.post('/users/create', createUser)
+// //CREATE a user
+// router.post('/users/create', createUser)
 
-//AUTHENTICATE a user
-router.post('/users/auth', authUser)
+// //AUTHENTICATE a user
+// router.post('/users/auth', authUser)
 
 // router.post('/blogs', async (req, res) => {
 //     const { title, content } = req.body;
