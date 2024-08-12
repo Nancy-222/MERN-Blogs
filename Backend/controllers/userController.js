@@ -1,40 +1,48 @@
-const User = require('../models/userModel')
-const crypto = require('crypto')
-const mongoose = require('mongoose')
+const User = require('../models/userModel');
+const crypto = require('crypto');
+const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
 
-const jwt = require("jsonwebtoken")
-
-
-//GET all users
-const getUsers = async (req,res) => {
-    const users = await User.find({}).sort({createdAt: -1})
-    res.status(200).json(users)
-}
-
-//GET a user
-const getUser = async (req,res) => {
-    const { id } = req.params
-
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'No such user'})
+// GET all users
+const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({}).sort({ createdAt: -1 });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-    const user = await User.findById(id)
+};
 
-    if (!user){
-        return res.status(404).json({error: 'No such user'})
+// GET a user
+const getUser = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such user' });
     }
-    res.status(200).json(user)
 
-}
+    try {
+        const user = await User.findById(id);
 
-//POST a new user
+        if (!user) {
+            return res.status(404).json({ error: 'No such user' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// POST a new user
 const createUser = async (req, res) => {
-    const { firstName, lastName, email, password, country, phoneNumber } = req.body;
-    
+    const { firstName, lastName, email, password, country, phoneNumber, bio } = req.body;
+
     try {
         // Check that all required fields are filled
         if (firstName && lastName && email && password) {
             const existingUser = await User.findOne({ email });
+
             if (!existingUser) {
                 const hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
                 const newUser = new User({
@@ -42,16 +50,18 @@ const createUser = async (req, res) => {
                     lastName,
                     email,
                     password: hashedPassword,
+                    bio: bio || '', // Include bio field
                     country,
-                    phoneNumber
+                    phoneNumber,
                 });
+
                 await newUser.save();
-                res.status(200).json(newUser);
+                res.status(201).json(newUser);
             } else {
                 res.status(400).json({ error: "Email already in use!" });
             }
         } else {
-            res.status(400).json({ error: "All fields are required!" });
+            res.status(400).json({ error: "All required fields are not provided!" });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -59,31 +69,6 @@ const createUser = async (req, res) => {
 };
 
 // Auth User
-// const authUser = async (req, res) => {
-//     const { email, password } = req.body;
-    
-//     try {
-//         if (email && password) {
-//             const user = await User.findOne({ email });
-//             if (user) {
-//                 const hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
-//                 if (user.password === hashedPassword) {
-//                     res.status(200).json({ loggedIn: user.email });
-//                 } else {
-//                     res.status(400).json({ error: "Wrong credentials, try again!" });
-//                 }
-//             } else {
-//                 res.status(400).json({ error: "Wrong credentials, try again!" });
-//             }
-//         } else {
-//             res.status(400).json({ error: "All fields are required!" });
-//         }
-//     } catch (error) {
-//         res.status(400).json({ error: error.message });
-//     }
-// }
-
-
 const authUser = async (req, res) => {
     console.log('authUser function has been called');  // Log to check if the function is called
 
@@ -92,13 +77,13 @@ const authUser = async (req, res) => {
 
     try {
         // Check that all fields are filled
-        if (email != null && email != "" && password != null && password != "") {
+        if (email && password) {
             console.log('Email and password are provided');
 
             const user = await User.findOne({ email: email });
             console.log('User found:', user);  // Log the user object returned from the database
 
-            if (user != null) {
+            if (user) {
                 const hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
                 console.log('Hashed password:', hashedPassword);  // Log the hashed password
 
@@ -134,23 +119,26 @@ const authUser = async (req, res) => {
     }
 };
 
+// DELETE a user
+const deleteUser = async (req, res) => {
+    const { id } = req.params;
 
-const deleteUser = async (req,res) => {
-    const { id } = req.params
-
-    
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).json({error: 'No such user'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'No such user' });
     }
 
-    const user = await User.findOneAndDelete({_id: id})
+    try {
+        const user = await User.findOneAndDelete({ _id: id });
 
-    if (!user){
-        return res.status(400).json({error: 'No such user'})
+        if (!user) {
+            return res.status(400).json({ error: 'No such user' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-
-    res.status(200).json(user)
-}
+};
 
 module.exports = {
     getUsers,
@@ -158,4 +146,4 @@ module.exports = {
     createUser,
     authUser,
     deleteUser
-}
+};

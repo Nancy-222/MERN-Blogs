@@ -14,6 +14,7 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [bio, setBio] = useState('');
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -41,6 +42,7 @@ const SignUp = () => {
     const user = {
       firstName,
       lastName,
+      bio, // Add bio to the user object
       country: selectedCountry ? selectedCountry.value : '',
       email,
       password,
@@ -90,6 +92,17 @@ const SignUp = () => {
               placeholder="Enter a Last Name" 
               required 
               onChange={(e) => setLastName(e.target.value)} 
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formBio" className="form-group-spacing">
+            <Form.Label>Bio</Form.Label>
+            <Form.Control 
+              as="textarea" 
+              rows={3} 
+              placeholder="Tell us about yourself" 
+              value={bio}
+              onChange={(e) => setBio(e.target.value)} 
             />
           </Form.Group>
 
@@ -145,5 +158,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-

@@ -11,6 +11,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    bio: {
+         type: String, 
+         required: false // Optional
+    },
     email: {
         type: String,
         required: true,
@@ -36,10 +40,6 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    bio: { 
-        type: String,
-        required: false // Optional
-    },
 }, {
     timestamps: true
 });
