@@ -8,18 +8,22 @@ const createToken = (_id) => {
     return jwt.sign({_id}, process.env.JWT_SECRET, { expiresIn: '3d'})
 }
 
-//GET all users
-const getUsers = async (req,res) => {
-    const users = await User.find({}).sort({createdAt: -1})
-    res.status(200).json(users)
-}
+// GET all users
+const getUsers = async (req, res) => {
+    try {
+        const users = await User.find({}).sort({ createdAt: -1 });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 
-//GET a user
-const getUser = async (req,res) => {
-    const { id } = req.params
+// GET a user
+const getUser = async (req, res) => {
+    const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'No such user'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such user' });
     }
     const user = await User.findById(id)
 
@@ -32,7 +36,7 @@ const getUser = async (req,res) => {
 
 //POST a new user
 const signupUser = async (req, res) => {
-    const {firstName, lastName, email, password} = req.body
+    const { firstName, lastName, email, password, country, phoneNumber, bio } = req.body;
 
     try {
     const user = await User.signup(firstName, lastName, email, password)
@@ -44,7 +48,7 @@ const signupUser = async (req, res) => {
     } catch (error) {
     res.status(400).json({error: error.message})
     }
-}
+};
 
 
 //Auth User
@@ -72,14 +76,18 @@ const deleteUser = async (req,res) => {
         return res.status(400).json({error: 'No such user'})
     }
 
-    const user = await User.findOneAndDelete({_id: id})
+    try {
+        const user = await User.findOneAndDelete({ _id: id });
 
-    if (!user){
-        return res.status(400).json({error: 'No such user'})
+        if (!user) {
+            return res.status(400).json({ error: 'No such user' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-
-    res.status(200).json(user)
-}
+};
 
 module.exports = {
     getUsers,
@@ -87,4 +95,4 @@ module.exports = {
     signupUser,
     loginUser,
     deleteUser
-}
+};

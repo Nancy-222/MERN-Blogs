@@ -52,3 +52,7 @@
     cursor: pointer;
     color: red;
 }
+
+.blog-details .blog-title {
+    color: #3498db; /* Ensure this matches your desired color */
+}

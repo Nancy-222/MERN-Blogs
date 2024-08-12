@@ -1,33 +1,60 @@
-/* SignUp.css */
+.signup-page {
+  background-image: url('/src/images/background.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 
 .signup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .signup-heading {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 2em; /* Adjust the size as needed */
-    font-weight: 600; /* Optional: for a bolder heading */
-  }
-  
-  .signup-form {
-    width: 100%;
-    max-width: 500px; /* Set a max width for the form */
-  }
-  
-  .signup-form .form-group {
-    margin-bottom: 15px; /* Space between form fields */
-  }
-  
-  .signup-form .btn {
-    margin-top: 10px; /* Space above the button */
-  }
-  
-  .form-group-spacing {
-    margin-bottom: 20px; /* Adjust the value as needed */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: white; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 100%;
+  max-width: 500px; 
+}
+
+
+.signup-heading {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2em; 
+  font-weight: 600; 
+}
+
+
+.signup-form {
+  width: 100%;
+}
+
+.signup-form .form-group {
+  margin-bottom: 0;
+}
+
+/* Remove margin between country and phone number fields */
+.signup-form #formCountry {
+  margin-bottom: 10px; 
+}
+
+.signup-form #formPhoneNumber {
+  margin-bottom: 10px; 
+}
+
+/* Style for buttons */
+.signup-form .btn {
+  margin-top: 10px; /* Space above the button */
+}
+
+/* Style for country dropdown */
+.country {
+  margin-bottom: 10px;
+}

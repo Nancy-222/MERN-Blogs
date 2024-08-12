@@ -1,26 +1,36 @@
+// models/blogModel.js
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
     },
     content: {
         type: String,
-        required: true // Content can be formatted HTML
+        required: true, // Content can be formatted HTML
     },
     upvotes: {
         type: Number,
-        default: 0 // Default value for upvotes
+        default: 0, // Default value for upvotes
     },
     downvotes: {
         type: Number,
-        default: 0 // Default value for downvotes
-    }
+        default: 0, // Default value for downvotes
+    },
+    image: {
+        data: Buffer,
+        contentType: String,
+    },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment',
+        }
+    ]
 }, {
-    timestamps: true // Automatically add createdAt and updatedAt fields
+    timestamps: true, // Automatically add createdAt and updatedAt fields
 });
 
 module.exports = mongoose.model('Blog', blogSchema);

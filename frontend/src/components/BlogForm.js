@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import styles
+import './BlogForm.css';
 
 const BASE_URL = 'http://localhost:4000'; // Define BASE_URL here
 
@@ -86,7 +87,7 @@ const BlogForm = () => {
     
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
+        <form enctype="multipart/form-data" className="create" onSubmit={handleSubmit}>
             <h3>Add a New Blog</h3>
             <label>Blog Name<span style={{ color: "red" }}>*</span></label>
             <input
@@ -121,7 +122,8 @@ const BlogForm = () => {
 
             </div>
 
-            <button type="submit">Add Blog</button>
+            <button type="submit" className="add-blog-button">Add Blog</button>
+
             {error && <div className="error">{error}</div>}
         </form>
     );

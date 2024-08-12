@@ -5,13 +5,17 @@ const validator = require('validator')
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    firstName:{
+    firstName: {
         type: String,
         required: true
     },
-    lastName:{
+    lastName: {
         type: String,
         required: true
+    },
+    bio: {
+         type: String, 
+         required: false // Optional
     },
     email: {
         type: String,
@@ -22,6 +26,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    country: {
+        type: String,
+        required: false // Optional
+    },
+    phoneNumber: {
+        type: String,
+        required: false // Optional
+    },
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Blog'
@@ -29,10 +41,11 @@ const userSchema = new Schema({
     friends: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
 }, {
     timestamps: true
-})
+});
+
 
 
 userSchema.statics.signup = async function(firstName, lastName, email, password) {

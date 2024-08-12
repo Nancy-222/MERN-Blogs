@@ -1,0 +1,45 @@
+/* src/pages/FeaturedAuthor.css */
+
+.featured-author-background {
+  background-image: url('/src/images/background.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 2rem; 
+}
+
+.mt-4 {
+  margin-top: 2rem; 
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem; 
+}
+
+.card {
+  width: 100%; 
+  margin: 0 auto; 
+}
+
+.card-body {
+  text-align: center; 
+}
+
+.card-title {
+  font-size: 1.25rem; 
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem; 
+}
+
+.error-message {
+  color: red; 
+  margin-bottom: 1rem;
+}

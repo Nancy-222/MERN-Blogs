@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
-import './BlogDetails.css';
+import './BlogDetails.css' ;
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
 
 const formatDate = (dateString) => {
@@ -82,7 +82,8 @@ const BlogDetails = ({ blog }) => {
     return (
         <div className="blog-details">
             <div className="blog-header">
-                <Link to={`/blogs/${blog._id}`}>{ blog.title}</Link>
+            <h4 className="blog-title">{blog.title}</h4>
+
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
@@ -98,6 +99,7 @@ const BlogDetails = ({ blog }) => {
             <div className="reactions-group">
                 <button
                     className={`upvoteBtn ${upvoted ? 'active' : ''}`}
+                    
                     onClick={() => handleUpvote(blog._id)}
                 >
                     <FiThumbsUp /> {blog.upvotes}
