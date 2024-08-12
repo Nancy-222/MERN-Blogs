@@ -1,32 +1,36 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import './LogIn.css'; // Import the CSS file for styling
 
 const LogIn = () => {
-  const [loggedIn, setLoggedIn] = useState('X');
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const BASE_BACK_URL = "http://localhost:4000";
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { email, password };
 
-    const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/auth`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch(`${BASE_BACK_URL}/api/users/login`, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await response.json();
+      if (!response.ok) {
+        setError(json.error);
+      } else {
+        setError(null);
+        navigate('/blog-form-details'); // Redirect to the BlogFormDetails page
       }
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
-      setError(null);
-      setLoggedIn(json.loggedIn);
+    } catch (err) {
+      setError('An error occurred while logging in.');
     }
   };
 
@@ -66,7 +70,6 @@ const LogIn = () => {
           </div>
         </Form>
         {error && <div className="error">{error}</div>}
-        <div>Logged in as: {loggedIn}</div>
       </div>
     </Container>
   );

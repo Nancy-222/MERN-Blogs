@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import Footer from './pages/Footer';
 import BlogPages from './pages/BlogPages'; // Ensure correct path
+import BlogFormDetails from './components/BlogFormDetails'; // Ensure correct path
 import Navbar from './components/Navbar';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import FeaturedAuthor from './pages/FeaturedAuthor';
@@ -36,6 +37,7 @@ function App() {
               <Route path="/login" element={<LogIn />} />
               <Route path="/home" element={<PrivateRoute element={<Home />} />} />
               <Route path="/featured-author" element={<FeaturedAuthor />} />
+              <Route path="/blog-form-details" element={<BlogFormDetails />} />
             </Routes>
           </div>
           <Footer />

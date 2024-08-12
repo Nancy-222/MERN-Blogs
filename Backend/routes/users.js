@@ -11,7 +11,7 @@ router.get('/:id', getUser);
 
 // router.get (/:id/friends', getUserFriends);
 
-router.post('/', createUser);
+router.post('/create', createUser);
 
 router.post('/login', authUser);
 
