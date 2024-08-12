@@ -48,7 +48,7 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/create`, {
+      const response = await fetch(`${BASE_BACK_URL}/api/users/create`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {

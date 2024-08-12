@@ -33,7 +33,7 @@ const BlogDetails = () => {
         fetchBlog();
     }, [id]);
 
-    const handleUpvote = async () => {
+     const handleUpvote = async () => {
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
                 method: 'PATCH',
