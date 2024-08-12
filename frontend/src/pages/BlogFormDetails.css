@@ -214,3 +214,9 @@
 .blog-item p {
     color: #666; 
 }
+
+.blogs {
+    display: flex;
+    flex-direction: column;
+    gap: 35px; /* Adjust the gap size as needed */
+}
