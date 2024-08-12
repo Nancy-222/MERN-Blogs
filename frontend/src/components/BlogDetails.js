@@ -121,7 +121,7 @@ const BlogDetails = () => {
                     className={`reactionBtn ${upvoted ? 'active' : ''}`}
                     onClick={handleUpvote}
                 >
-                    <FiThumbsUp /> {blog.upvotes}
+                    <FiThumbsUp />{blog.upvotes}
                 </button>
                 <button
                     className={`reactionBtn ${downvoted ? 'active' : ''}`}

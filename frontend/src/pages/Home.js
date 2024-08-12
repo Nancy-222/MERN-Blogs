@@ -1,10 +1,11 @@
+// src/pages/Home.js
 import React from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 
-const HomePage = () => {
+const Home = () => {
   return (
     <Container fluid className="home">
       <Row className="justify-content-center mb-4">
@@ -64,7 +65,9 @@ const HomePage = () => {
                   Get to know the voices behind our blog. Learn more about our
                   featured authors and their expertise.
                 </Card.Text>
-                <Button variant="outline-primary">Learn More</Button>
+                <Link to="/featured-author"> {/* Update the path */}
+                  <Button variant="outline-primary">Learn More</Button>
+                </Link>
               </Card.Body>
             </Card>
           </motion.div>
@@ -74,4 +77,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

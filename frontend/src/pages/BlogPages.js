@@ -42,19 +42,19 @@ const BlogsPage = () => {
             <div className="blog-actions">
               <button className="icon-button">
                 <i className="fas fa-arrow-up"></i>
-                <span className="icon-value">0</span>
+                <span className="icon-value">{blog.upvotes}</span>
               </button>
               <button className="icon-button">
                 <i className="fas fa-arrow-down"></i>
-                <span className="icon-value">0</span>
+                <span className="icon-value">{blog.downvotes}</span>
               </button>
               <button className="icon-button">
                 <i className="far fa-comment"></i>
-                <span className="icon-value">0</span>
+                <span className="icon-value">{blog.comments.length}</span>
               </button>
               <button className="icon-button">
                 <i className="far fa-bookmark"></i> {/* Outlined Saved icon */}
-                <span className="icon-value">0</span>
+                <span className="icon-value">{blog.savedCount || 0}</span>
               </button>
             </div>
           </div>

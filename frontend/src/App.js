@@ -8,9 +8,10 @@ import ContactUs from './pages/ContactUs';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import Footer from './pages/Footer';
-import BlogPages from './components/BlogPages'; // Ensure correct path
+import BlogPages from './pages/BlogPages'; // Ensure correct path
 import Navbar from './components/Navbar';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import FeaturedAuthor from './pages/FeaturedAuthor';
 
 // Private Route Component
 const PrivateRoute = ({ element }) => {
@@ -34,6 +35,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<LogIn />} />
               <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+              <Route path="/featured-author" element={<FeaturedAuthor />} />
             </Routes>
           </div>
           <Footer />

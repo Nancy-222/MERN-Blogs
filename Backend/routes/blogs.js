@@ -1,7 +1,20 @@
-const express = require('express')
-const{getBlogs, getBlog, createBlog, deleteBlog, updateBlog, upvoteBlog, downvoteBlog} = require('../controllers/blogController')
-const{createUser, authUser} = require('../controllers/userController')
-const {sendSupportMail} = require('../controllers/mailController')
+const express = require('express');
+const {
+  getBlogs,
+  getBlog,
+  createBlog,
+  deleteBlog,
+  updateBlog,
+  upvoteBlog,
+  downvoteBlog,
+  comment,
+  uncomment
+} = require('../controllers/blogController');
+const {
+  createUser,
+  authUser
+} = require('../controllers/userController');
+const { sendSupportMail } = require('../controllers/mailController');
 
 const router = express.Router();
 
@@ -17,36 +30,28 @@ router.post('/', createBlog);
 // DELETE a blog
 router.delete('/:id', deleteBlog);
 
-//UPDATE a blog
-router.patch('/:id', updateBlog)
-router.patch('/:id/upvote', upvoteBlog)
-router.patch('/:id/downvote', downvoteBlog)
+// UPDATE a blog
+router.patch('/:id', updateBlog);
 
-// //CREATE a user
-// router.post('/users/create', createUser)
+// UPVOTE a blog
+router.patch('/:id/upvote', upvoteBlog);
 
-// //AUTHENTICATE a user
-// router.post('/users/auth', authUser)
+// DOWNVOTE a blog
+router.patch('/:id/downvote', downvoteBlog);
 
-// router.post('/blogs', async (req, res) => {
-//     const { title, content } = req.body;
+// ADD a comment to a blog
+router.patch('/:id/comment', comment);
 
-//     // Check if title and content are provided
-//     if (!title || !content) {
-//         return res.status(400).json({ error: 'Both name and content are required!' });
-//     }
+// REMOVE a comment from a blog
+router.patch('/:id/uncomment', uncomment);
 
-//     try {
-//         const newBlog = new Blog({ title, content });
-//         await newBlog.save();
-//         res.status(201).json(newBlog);
-//     } catch (err) {
-//         res.status(500).json({ error: 'Failed to create blog.' });
-//     }
-// });
+// CREATE a user
+router.post('/users/create', createUser);
 
-//Send an email
-router.post('/support', sendSupportMail)
+// AUTHENTICATE a user
+router.post('/users/auth', authUser);
+
+// Send an email to support
+router.post('/support', sendSupportMail);
 
 module.exports = router;
-

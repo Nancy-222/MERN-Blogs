@@ -1,0 +1,32 @@
+/* src/pages/FeaturedAuthor.css */
+
+.mt-4 {
+    margin-top: 2rem; /* Adjust as needed */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem; /* Adjust as needed */
+  }
+  
+  .card {
+    width: 100%; /* Make the card take the full width of the column */
+    margin: 0 auto; /* Center the card horizontally */
+  }
+  
+  .card-body {
+    text-align: center; /* Center text inside the card */
+  }
+  
+  .card-title {
+    font-size: 1.25rem; /* Adjust font size if needed */
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 1rem; /* Adjust font size if needed */
+  }
+  
