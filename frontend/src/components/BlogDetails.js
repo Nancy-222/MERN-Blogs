@@ -1,39 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
 import { useBlogsContext } from '../hooks/useBlogsContext';
+import './BlogDetails.css' ;
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
-import './BlogDetails.css';
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
-const BlogDetails = () => {
-    const { id } = useParams();
-    const [blog, setBlog] = useState(null);
+const BlogDetails = ({ blog }) => {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
     const { dispatch } = useBlogsContext();
 
-    useEffect(() => {
-        const fetchBlog = async () => {
-            try {
-                const response = await fetch(`http://localhost:4000/api/blogs/${id}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch blog');
-                }
-                const data = await response.json();
-                setBlog(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchBlog();
-    }, [id]);
-
-     const handleUpvote = async () => {
+    const handleUpvote = async (id) => {
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
                 method: 'PATCH',
@@ -55,7 +35,7 @@ const BlogDetails = () => {
         }
     };
 
-    const handleDownvote = async () => {
+    const handleDownvote = async (id) => {
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
                 method: 'PATCH',
@@ -77,34 +57,33 @@ const BlogDetails = () => {
         }
     };
 
-    const handleDelete = async () => {
+      const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
                     method: 'DELETE',
                 });
 
+                const json = await response.json()
+    
                 if (!response.ok) {
                     throw new Error('Failed to delete the blog');
                 }
-
-                dispatch({ type: 'DELETE_BLOG', payload: id });
-                // Redirect or show a success message here
+    
+                dispatch({ type: 'DELETE_BLOG', payload: json });
             } catch (error) {
                 console.error(error);
             }
         }
     };
-
-    if (!blog) {
-        return <div>Loading...</div>;
-    }
+    
 
     return (
         <div className="blog-details">
             <div className="blog-header">
-                <h4>{blog.title}</h4>
-                <button className="DeleteBtn" onClick={handleDelete}><FiTrash /></button>
+            <h4 className="blog-title">{blog.title}</h4>
+
+                <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
             {blog.image && (
@@ -118,14 +97,15 @@ const BlogDetails = () => {
 
             <div className="reactions-group">
                 <button
-                    className={`reactionBtn ${upvoted ? 'active' : ''}`}
-                    onClick={handleUpvote}
+                    className={`upvoteBtn ${upvoted ? 'active' : ''}`}
+                    
+                    onClick={() => handleUpvote(blog._id)}
                 >
-                    <FiThumbsUp />{blog.upvotes}
+                    <FiThumbsUp /> {blog.upvotes}
                 </button>
                 <button
-                    className={`reactionBtn ${downvoted ? 'active' : ''}`}
-                    onClick={handleDownvote}
+                    className={`downvoteBtn ${downvoted ? 'active' : ''}`}
+                    onClick={() => handleDownvote(blog._id)}
                 >
                     <FiThumbsDown /> {blog.downvotes}
                 </button>
