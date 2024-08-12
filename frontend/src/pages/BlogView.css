@@ -1,0 +1,54 @@
+.blog-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-image {
+    margin: 20px 0;
+}
+
+.blog-image-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.reactions-group {
+    margin-top: 20px;
+}
+
+/* Existing styles */
+.upvoteBtn,
+.downvoteBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Adjust size as needed */
+    margin-right: 10px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Fill the icon when active */
+.upvoteBtn.active svg,
+.downvoteBtn.active svg {
+    color: #4caf50; /* Green for upvote */
+}
+
+.downvoteBtn.active svg {
+    color: #f44336; /* Red for downvote */
+}
+
+.DeleteBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+}

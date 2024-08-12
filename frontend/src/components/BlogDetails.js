@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css';
 import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
@@ -81,7 +82,7 @@ const BlogDetails = ({ blog }) => {
     return (
         <div className="blog-details">
             <div className="blog-header">
-                <h4>{blog.title}</h4>
+                <Link to={`/blogs/${blog._id}`}>{ blog.title}</Link>
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 

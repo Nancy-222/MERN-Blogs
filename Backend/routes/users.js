@@ -1,5 +1,5 @@
 const express = require('express')
-const{ getUsers, getUser, createUser, authUser, deleteUser} = require('../controllers/userController')
+const{ getUsers, getUser, signupUser, loginUser, deleteUser } = require('../controllers/userController')
 
 const router = express.Router();
 
@@ -11,9 +11,9 @@ router.get('/:id', getUser);
 
 // router.get (/:id/friends', getUserFriends);
 
-router.post('/', createUser);
+router.post('/signup', signupUser);
 
-router.post('/login', authUser);
+router.post('/login', loginUser);
 
 router.delete('/:id', deleteUser);
 

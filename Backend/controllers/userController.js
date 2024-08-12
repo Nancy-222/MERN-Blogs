@@ -1,9 +1,12 @@
 const User = require('../models/userModel')
-const crypt = require('crypto')
 const mongoose = require('mongoose')
 
 const jwt = require("jsonwebtoken")
 
+
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.JWT_SECRET, { expiresIn: '3d'})
+}
 
 //GET all users
 const getUsers = async (req,res) => {
@@ -28,118 +31,37 @@ const getUser = async (req,res) => {
 }
 
 //POST a new user
-const createUser = async (req, res) => {
-    const {firstName, lastName, email, password } = req.body
-    try {
-        //check that all fields are filled
-        if (firstName != null && firstName != "" && lastName != null && lastName != "" && email != null && email != "" && password != null && password != '') {
-            const user = await User.findOne({email: email})
-            if (user == null)
-            {
-                const hashedPassword = crypt.createHash('sha1').update(password).digest('hex')
-                const user = await User.create({firstName, lastName, email, password: hashedPassword})
-                res.status(200).json(user)
-            }
-            else{
-                res.status(400).json({ error: "Email already in use!" })
-            }
-        }
-        else{
-            res.status(400).json({ error: "1All fields are required!" })
-        }
-        
+const signupUser = async (req, res) => {
+    const {firstName, lastName, email, password} = req.body
 
+    try {
+    const user = await User.signup(firstName, lastName, email, password)
+
+    // create a token
+    const token = createToken(user._id)
+
+    res.status(200).json({email, token})
     } catch (error) {
-        res.status(400).json({ error: error.message })
+    res.status(400).json({error: error.message})
     }
 }
 
 
 //Auth User
-const authUser = async (req, res) => {
-    const { email, password } = req.body
-    try {
-        //check that all fields are filled
-        if (email != null && email != "" && password != null && password != "") {
-          
-            const user = await User.findOne({email: email})
-            if (user != null)
-            {
-                const hashedPassword = crypt.createHash('sha1').update(password).digest('hex')
-                if (user.password == hashedPassword)
-                {
-                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-                    
-                    res.status(200).cookie("access_token", token, {httpOnly: true,}).json({loggedIn: user.email})
-                }
-                else
-                {
-                    res.status(400).json({ error: "Wrong credentials, try again!" })
-                }
-            }
-            else{
-                res.status(400).json({ error: "Wrong credentials, try again!" })
-            }
-        }
-        else{
-            res.status(400).json({ error: "2All fields are required!" })
-        }
+const loginUser = async (req, res) => {
+    const {email, password} = req.body
 
+    try {
+    const user = await User.login(email, password)
+
+    // create a token
+    const token = createToken(user._id)
+
+    res.status(200).json({email, token})
     } catch (error) {
-        res.status(400).json({ error: error.message })
+    res.status(400).json({error: error.message})
     }
 }
-
-
-// const authUser = async (req, res) => {
-//     console.log('authUser function has been called');  // Log to check if the function is called
-
-//     const { email, password } = req.body;
-//     console.log('Request body:', { email, password });  // Log the received email and password
-
-//     try {
-//         // Check that all fields are filled
-//         if (email != null && email != "" && password != null && password != "") {
-//             console.log('Email and password are provided');
-
-//             const user = await User.findOne({ email: email });
-//             console.log('User found:', user);  // Log the user object returned from the database
-
-//             if (user != null) {
-//                 const hashedPassword = crypto.createHash('sha1').update(password).digest('hex');
-//                 console.log('Hashed password:', hashedPassword);  // Log the hashed password
-
-//                 if (user.password === hashedPassword) {
-//                     const token = jwt.sign(
-//                         { id: user._id },
-//                         process.env.JWT_SECRET,
-//                         { expiresIn: '1h' }
-//                     );
-//                     console.log('JWT token generated:', token);  // Log the generated JWT token
-
-//                     res.status(200)
-//                         .cookie("access_token", token, {
-//                             httpOnly: true,
-//                         })
-//                         .json({ loggedIn: user.email });
-//                     console.log('User successfully logged in');  // Log success message
-//                 } else {
-//                     console.log('Password mismatch');  // Log when passwords do not match
-//                     res.status(400).json({ error: "Wrong credentials, try again!" });
-//                 }
-//             } else {
-//                 console.log('User not found');  // Log when user is not found in the database
-//                 res.status(400).json({ error: "Wrong credentials, try again!" });
-//             }
-//         } else {
-//             console.log('Missing fields');  // Log when required fields are missing
-//             res.status(400).json({ error: "All fields are required!" });
-//         }
-//     } catch (error) {
-//         console.error('Error during login:', error);  // Log any error that occurs
-//         res.status(400).json({ error: error.message });
-//     }
-// };
 
 
 const deleteUser = async (req,res) => {
@@ -162,7 +84,7 @@ const deleteUser = async (req,res) => {
 module.exports = {
     getUsers,
     getUser,
-    createUser,
-    authUser,
+    signupUser,
+    loginUser,
     deleteUser
 }

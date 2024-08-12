@@ -1,33 +1,35 @@
 import {React, useState} from 'react';
+import { useLogin } from '../hooks/useLogin';
 import { Container, Form, Button } from 'react-bootstrap';
 import './LogIn.css'; // Import the CSS file for styling
 
 const LogIn = () => {
-  const [loggedIn, setLoggedIn] = useState('X')
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-  const [error, setError] = useState(null)
-  const BASE_BACK_URL = "http://localhost:4000"
+  const {login, error, isLoading} = useLogin()
   const handleSubmit = async (e) => {
     
     e.preventDefault()
-    const user = {email, password}
+  
+    await login(email, password)
+  
+    // const user = {email, password}
 
-    const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/auth`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const json = await response.json()
-    if (!response.ok) {
-      setError(json.error)
-    }
-    if (response.ok) {
-      setError(null)
-      setLoggedIn(json.loggedIn)
-    }
+    // const response = await fetch(`${BASE_BACK_URL}/api/users/login`, {
+    //   method: 'POST',
+    //   body: JSON.stringify(user),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // const json = await response.json()
+    // if (!response.ok) {
+    //   setError(json.error)
+    // }
+    // if (response.ok) {
+    //   setError(null)
+    //   setLoggedIn(json.email)
+    // }
   }
 
 
@@ -59,7 +61,6 @@ const LogIn = () => {
 
       </Form>
       {error && <div className="error">{error}</div>}
-      <div>Logged in as: {loggedIn}</div>
     </Container>
   );
 }

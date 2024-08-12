@@ -7,17 +7,16 @@ import Flag from 'react-world-flags';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'; // Import the CSS for PhoneInput
 import './SignUp.css'; // Import the CSS file for styling
+import { useSignup } from '../hooks/useSignup';
 
-const SignUp = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  const BASE_BACK_URL = "http://localhost:4000";
+  const {signup, isLoading, error} = useSignup()
 
   // Convert country data to options for react-select
   const countryOptions = Object.entries(countries).map(([code, { name }]) => ({
@@ -31,42 +30,10 @@ const SignUp = () => {
   }));
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (password != null && password !== "" && password.length < 8) {
-      setError('Password must be at least 8 characters long!');
-      return;
-    }
-
-    const user = {
-      firstName,
-      lastName,
-      country: selectedCountry ? selectedCountry.value : '',
-      email,
-      password,
-      phoneNumber,
-    };
-
-    try {
-      const response = await fetch(`${BASE_BACK_URL}/api/blogs/users/create`, {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const json = await response.json();
-      if (!response.ok) {
-        setError(json.error);
-      } else {
-        setError('');
-        window.location = `/login`;
-      }
-    } catch (err) {
-      setError('An unexpected error occurred.');
-    }
-  };
+    e.preventDefault()
+    console.log('Submitted: ', {firstName, lastName, email})
+    await signup(firstName, lastName, email, password)
+  }
 
   return (
     <Container className="signup-container">
@@ -113,7 +80,7 @@ const SignUp = () => {
           <Form.Control type="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isLoading}>
           Sign Up
         </Button>
       </Form>
@@ -122,5 +89,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
-
+export default Signup;
