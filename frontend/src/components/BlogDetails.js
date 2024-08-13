@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css' ;
-import { FiArrowDown, FiArrowUp, FiTrash } from "react-icons/fi";
+import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare } from "react-icons/fi";
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -148,13 +148,13 @@ const BlogDetails = ({ blog }) => {
                     className={`upvoteBtn ${upvoted ? 'active' : ''}`}
                     onClick={() => handleUpvote(blog._id)}
                 >
-                    <FiThumbsUp /> {blog.upvotes}
+                    <FiArrowUp /> {blog.upvotes}
                 </button>
                 <button
                     className={`downvoteBtn ${downvoted ? 'active' : ''}`}
                     onClick={() => handleDownvote(blog._id)}
                 >
-                    <FiThumbsDown /> {blog.downvotes}
+                    <FiArrowDown /> {blog.downvotes}
                 </button>
                 <button
                     className="commentBtn"
