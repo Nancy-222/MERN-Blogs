@@ -23,12 +23,12 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Blog title in green */
+/* Blog title in blue */
 .blog-block h4 {
-  color: #007bff; /* Use the primary color for the title */
+  color:  #3498db;; /* Use the primary color for the title */
   margin: 0 0 10px 0;
   font-size: 1.5em; /* Adjust size as needed */
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .blog-actions {

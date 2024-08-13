@@ -139,7 +139,7 @@ const BlogDetails = ({ blog }) => {
             )}
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-            <p>Posted On: {formatDate(blog.createdAt)}</p>
+            <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
 
             <div className="reactions-group">
                 <button
