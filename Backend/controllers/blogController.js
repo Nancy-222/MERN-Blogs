@@ -28,39 +28,43 @@ const getBlog = async (req, res) => {
 };
 
 // POST a new blog
-const createBlog = async (req, res) => {
-  var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now());
-    },
-  });
+  // const createBlog = async (req, res) => {
+  //   // var storage = multer.diskStorage({
+  //   //   destination: (req, file, cb) => {
+  //   //     cb(null, 'uploads');
+  //   //   },
+  //   //   filename: (req, file, cb) => {
+  //   //     cb(null, file.fieldname + '-' + Date.now());
+  //   //   },
+  //   // });
 
-  var upload = multer({ storage: storage });
+  //   // var upload = multer({ storage: storage });
 
-  var image = {
-    data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-    contentType: 'image/png',
-  };
+  //   // var image = {
+  //   //   // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+  //   //   contentType: 'image/png',
+  //   // };
 
-  const { title, content, upvotes, downvotes } = req.body;
-  if (content === '<p><br></p>') {
-    return res.status(400).json({ error: 'Both title and content are required!' });
-  }
-  if (!title || !content) {
-    return res.status(400).json({ error: 'Both title and content are required!' });
-  }
-  
-  // Add to the database
-  try {
-    const blog = await Blog.create({ title, content, upvotes, downvotes, image });
-    res.status(200).json(blog);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  const createBlog = async (req, res) => {
+    const { title, content, upvotes, downvotes } = req.body;
+
+    if (!title || content === '<p><br></p>' || !content) {
+        return res.status(400).json({ error: 'Both title and content are required!' });
+    }
+
+    try {
+        const { firstName, lastName } = req.user;
+        const author = `${firstName} ${lastName}`;
+
+        const blog = await Blog.create({ title, content, author, upvotes, downvotes });
+        res.status(200).json(blog);
+        console.log('Blog created:', blog);
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
+
 
 // DELETE a blog
 const deleteBlog = async (req, res) => {

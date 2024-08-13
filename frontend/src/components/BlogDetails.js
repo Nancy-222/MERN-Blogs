@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css' ;
-import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
+import { FiArrowDown, FiArrowUp, FiTrash } from "react-icons/fi";
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -82,11 +82,11 @@ const BlogDetails = ({ blog }) => {
     return (
         <div className="blog-details">
             <div className="blog-header">
-            <h4 className="blog-title">{blog.title}</h4>
-
+                <h4 className="blog-title">{blog.title}</h4>
+                <h6 className="blog-author"> By: {blog.author}</h6>
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
-
+            
             {blog.image && (
                 <div className="blog-image">
                     <img src={`http://localhost:4000/uploads/${blog.image}`} alt="Blog" className="blog-image-img" />
@@ -94,24 +94,23 @@ const BlogDetails = ({ blog }) => {
             )}
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-            <p>Posted On: {formatDate(blog.createdAt)}</p>
+                <p>Posted On: {formatDate(blog.createdAt)}</p>
 
-            <div className="reactions-group">
-                <button
-                    className={`upvoteBtn ${upvoted ? 'active' : ''}`}
-                    
-                    onClick={() => handleUpvote(blog._id)}
-                >
-                    <FiThumbsUp /> {blog.upvotes}
-                </button>
-                <button
-                    className={`downvoteBtn ${downvoted ? 'active' : ''}`}
-                    onClick={() => handleDownvote(blog._id)}
-                >
-                    <FiThumbsDown /> {blog.downvotes}
-                </button>
+                <div className="reactions-group">
+                    <button
+                        className={`upvoteBtn ${upvoted ? 'active' : ''}`}
+                        onClick={() => handleUpvote(blog._id)}
+                    >
+                        <FiArrowUp /> {blog.upvotes}
+                    </button>
+                    <button
+                        className={`downvoteBtn ${downvoted ? 'active' : ''}`}
+                        onClick={() => handleDownvote(blog._id)}
+                    >
+                        <FiArrowDown /> {blog.downvotes}
+                    </button>
+                </div>
             </div>
-        </div>
     );
 };
 

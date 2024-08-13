@@ -5,12 +5,16 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faInstagram, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css'; // Ensure this CSS file is correctly linked
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const {logout} = useLogout()
   const { user } = useAuthContext()
   const handleClick = () => {
     logout()
+    navigate('/')
   }
 
   return (

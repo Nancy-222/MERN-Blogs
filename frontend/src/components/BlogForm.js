@@ -3,6 +3,7 @@ import { useBlogsContext } from '../hooks/useBlogsContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import styles
 import './BlogForm.css';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const BASE_URL = 'http://localhost:4000'; // Define BASE_URL here
 
@@ -13,6 +14,7 @@ const BlogForm = () => {
     const [error, setError] = useState(null);
     const quillRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const { user } = useAuthContext()
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -46,6 +48,11 @@ const BlogForm = () => {
     }, [content]);
 
     const handleSubmit = async (e) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
+
         e.preventDefault();
     
         // Validate that title and content are not empty
@@ -68,6 +75,7 @@ const BlogForm = () => {
                 body: JSON.stringify(blog),
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
             });
             const json = await response.json();

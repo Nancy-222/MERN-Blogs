@@ -10,13 +10,12 @@ const {
   comment,
   uncomment
 } = require('../controllers/blogController');
-const {
-  createUser,
-  authUser
-} = require('../controllers/userController');
+const requireAuth = require('../middleware/requireAuth')
 const { sendSupportMail } = require('../controllers/mailController');
 
 const router = express.Router();
+
+// router.use(requireAuth);
 
 // GET all blogs
 router.get('/', getBlogs);
@@ -25,19 +24,19 @@ router.get('/', getBlogs);
 router.get('/:id', getBlog);
 
 // POST a new blog
-router.post('/', createBlog);
+router.post('/',requireAuth, createBlog);
 
 // DELETE a blog
-router.delete('/:id', deleteBlog);
+router.delete('/:id', requireAuth, deleteBlog);
 
 // UPDATE a blog
-router.patch('/:id', updateBlog);
+router.patch('/:id', requireAuth, updateBlog);
 
 // UPVOTE a blog
-router.patch('/:id/upvote', upvoteBlog);
+router.patch('/:id/upvote', requireAuth, upvoteBlog);
 
 // DOWNVOTE a blog
-router.patch('/:id/downvote', downvoteBlog);
+router.patch('/:id/downvote', requireAuth, downvoteBlog);
 
 // ADD a comment to a blog
 router.patch('/:id/comment', comment);

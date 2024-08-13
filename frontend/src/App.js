@@ -11,7 +11,6 @@ import Footer from './pages/Footer';
 import BlogPages from './pages/BlogPages'; // Ensure correct path
 import BlogFormDetails from './pages/BlogFormDetails'; // Ensure correct path
 import Navbar from './components/Navbar';
-import BlogView from './pages/BlogView';
 import { AuthContextProvider, AuthContext } from './context/AuthContext';
 import FeaturedAuthor from './pages/FeaturedAuthor';
 
