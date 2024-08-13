@@ -1,5 +1,4 @@
-/* src/components/Navbar.css */
-
+/* Style for the entire navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,14 +9,17 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Container to center the navbar items */
 .navbar-container {
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative; /* For positioning the burger menu */
 }
 
+/* Navbar title styling */
 .navbar-title {
   margin: 0;
   font-size: 2.5em;
@@ -27,12 +29,15 @@
   letter-spacing: 2px;
 }
 
+/* Navbar links styling */
 .navbar-links {
   display: flex;
-  margin-right: auto;
-  margin-left: 120px;
+  margin: 0 20px;
+  flex-grow: 1;
+  justify-content: center;
 }
 
+/* Styling for nav items */
 .nav-item {
   margin: 0 10px;
   text-decoration: none;
@@ -50,6 +55,7 @@
   border-color: #007bff;
 }
 
+/* Navbar user section styling */
 .navbar-user {
   display: flex;
   align-items: center;
@@ -73,14 +79,16 @@
   border-color: #007bff;
 }
 
+/* Navbar social icons styling */
 .navbar-social {
   display: flex;
   align-items: center;
+  margin-left: auto; /* Pushes social icons to the right */
 }
 
 .social-icon {
   font-size: 24px;
-  margin: 0 17px;
+  margin: 0 10px;
   color: #333;
   transition: color 0.3s ease;
 }
@@ -89,25 +97,55 @@
   color: #007bff;
 }
 
-.loggedInUser{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 17px;
+/* Burger menu button styling */
+.burger-menu {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.loggedInUser h5{
-  margin: 0;
-  padding: 0;
-  font-size: 15px;
-  color: #007bff;
-}
+/* Responsive styling for the navbar */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+  }
 
-.loggedInUser p{
-  font-weight: 300;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  font-weight: bold;
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .burger-menu {
+    display: block;
+  }
+
+  .loggedInUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 17px;
+  }
+  
+  .loggedInUser h5{
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    color: #007bff;
+  }
+  
+  .loggedInUser p{
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
 }
