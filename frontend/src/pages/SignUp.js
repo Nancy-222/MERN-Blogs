@@ -8,6 +8,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'; // Import the CSS for PhoneInput
 import './SignUp.css'; // Import the CSS file for styling
 import { useSignup } from '../hooks/useSignup';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ const Signup = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const {signup, isLoading, error} = useSignup()
+  const navigate = useNavigate();
 
   // Convert country data to options for react-select
   const countryOptions = Object.entries(countries).map(([code, { name }]) => ({
@@ -32,8 +34,8 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitted: ', {firstName, lastName, email})
     await signup(firstName, lastName, email, password)
+    navigate('/blog-form-details')
   }
 
   return (

@@ -5,13 +5,18 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faInstagram, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css'; // Ensure this CSS file is correctly linked
+// import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+
 
 const Navbar = () => {
   const {logout} = useLogout()
   const { user } = useAuthContext()
+  // const navigate = useNavigate();
   const handleClick = () => {
     logout()
+    // navigate('/contact')
   }
+
 
   return (
     <nav className="navbar">
@@ -21,16 +26,13 @@ const Navbar = () => {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/contact" className="nav-link">Contact Us</Link>
           {!user && (
-            <div className="navbar-buttons">          
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/login">Log In</Link>
-            </div>
+          <Link to="/signup" className="nav-link">Sign Up</Link>
+          )}
+          {!user && (
+          <Link to="/login" className="nav-link">Log In</Link>
           )}
           {user && (
-            <div className="navbar-buttons">
-              <span>{user.email}</span>
-              <button onClick={handleClick}> Log out</button>
-            </div>
+          <Link onClick={handleClick} className="nav-link">Log out</Link>
           )}
         </div>
         <div className="navbar-social">
@@ -46,6 +48,10 @@ const Navbar = () => {
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faYoutube} className="social-icon" />
           </a>
+          { user && (<div  className="loggedInUser">
+            <p>Logged in as</p>
+            <h5>{user.name}</h5>
+          </div>)}
         </div>
       </div>
     </nav>

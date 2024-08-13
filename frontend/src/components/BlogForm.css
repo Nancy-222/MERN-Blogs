@@ -1,13 +1,10 @@
 .add-blog-button {
-    background-color: #3498db; /* Ensure this matches your desired color */
-
+    background-color: #007bff; /* Ensure this matches your desired color */
     color: white;
     border: none;
     padding: 10px 20px;
+    margin-top: 10px;
     cursor: pointer;
 }
 
-.add-blog-button:hover {
-    background-color: #3498db; /* Ensure this matches your desired color */
 
-}

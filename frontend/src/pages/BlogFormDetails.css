@@ -44,7 +44,8 @@
 
 /* Style for form controls */
 .blog-form-details-form input[type="text"],
-.blog-form-details-form input[type="file"] {
+.blog-form-details-form input[type="file"],
+.blog-form-details-form textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;

@@ -65,3 +65,26 @@
 .social-icon:hover {
   color: #007bff; /* Blue color on hover */
 }
+
+.loggedInUser{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 17px;
+}
+
+.loggedInUser h5{
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  color: #007bff;
+}
+
+.loggedInUser p{
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
