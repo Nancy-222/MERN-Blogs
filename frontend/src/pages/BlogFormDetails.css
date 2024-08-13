@@ -46,8 +46,7 @@
 /* Style for the sidebar (Add Friend section) */
 .sidebar {
     flex: 1; /* Takes 1/4 of the horizontal space */
-    background-color: white; /* Dark blue background */
-    color: white;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     height: fit-content; /* Adjusts height based on content */
@@ -68,10 +67,6 @@
     font-size: 1.5em;
 }
 
-.friends{
-    align-items: center;
-}
-
 .add-friend ul {
     list-style-type: none;
     padding: 0;
@@ -82,9 +77,16 @@
     align-items: center;
     color: white;
     margin-bottom: 10px;
-    padding: 10px;
-    background: #3498db; /* Slightly lighter blue for the rectangle */
-    border-radius: 8px; /* Rounded corners for the rectangles */
+    padding: 10px 20px; /* Added padding for the block */
+    background: #007bff; /* Match the background color with the button */
+    border-radius: 8px; /* Rounded corners for the blocks */
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+.add-friend li:hover {
+    background-color: #3498db; /* Darker blue for hover effect */
 }
 
 .add-friend-btn {
@@ -97,10 +99,22 @@
     transition: color 0.3s ease;
 }
 
+/* Style for the image upload section */
+.image-upload {
+    margin-bottom: 30px;
+}
 
-/* Style for the footer */
+/* Footer */
 .footer {
-    background-color: black; /* Dark blue background for footer */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
     color: white;
-    padding: 0.1px;
+    text-align: center;
+    padding: 20px 0; /* Added padding for better spacing */
+}
+
+.footer-content {
+    margin: 0;
 }
