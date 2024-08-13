@@ -24,13 +24,13 @@ const Navbar = () => {
           <Link to="/" className="nav-item">Home</Link>
           <Link to="/contact" className="nav-item">Contact Us</Link>
           {!user && (
-          <Link to="/signup" className="nav-link">Sign Up</Link>
+          <Link to="/signup" className="nav-item">Sign Up</Link>
           )}
           {!user && (
-          <Link to="/login" className="nav-link">Log In</Link>
+          <Link to="/login" className="nav-item">Log In</Link>
           )}
           {user && (
-          <Link onClick={handleClick} className="nav-link">Log out</Link>
+          <Link onClick={handleClick} className="nav-item">Log out</Link>
           )}
         </div>
         <div className="navbar-social">
