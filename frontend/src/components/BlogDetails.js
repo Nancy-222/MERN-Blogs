@@ -130,7 +130,6 @@ const BlogDetails = ({ blog }) => {
             <div className="blog-header">
                 <h4 className="blog-title">{blog.title}</h4>
                 <h6 className="blog-author"> By: {blog.author}</h6>
-                <h4 className="blog-title">{blog.title}</h4>
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
             
