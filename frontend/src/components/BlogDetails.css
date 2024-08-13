@@ -31,19 +31,23 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 1.5rem;
+    /* Adjust size as needed */
     margin-right: 10px;
-    transition: color 0.3s ease; /* Smooth transition for color change */
+    transition: color 0.3s ease;
+    /* Smooth transition for color change */
 }
 
 /* Fill the icon when active */
 .upvoteBtn.active svg,
 .downvoteBtn.active svg {
-    color: #4caf50; /* Green for upvote */
+    color: #4caf50;
+    /* Green for upvote */
 }
 
 .downvoteBtn.active svg {
-    color: #f44336; /* Red for downvote */
+    color: #f44336;
+    /* Red for downvote */
 }
 
 .DeleteBtn {
@@ -54,7 +58,8 @@
 }
 
 .blog-details .blog-title {
-    color: #3498db; /* Ensure this matches your desired color */
+    color: #3498db;
+    /* Ensure this matches your desired color */
 }
 
 .commentBtn {
@@ -69,8 +74,10 @@
 
 .reactions-group {
     display: flex;
-    gap: 10px; /* Adjusts spacing between buttons */
-    align-items: center; /* Aligns the icons vertically */
+    gap: 10px;
+    /* Adjusts spacing between buttons */
+    align-items: center;
+    /* Aligns the icons vertically */
 }
 
 .reactions-group button {
@@ -80,11 +87,13 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    font-size: 1.5rem; /* Adjust as needed */
+    font-size: 1.5rem;
+    /* Adjust as needed */
 }
 
 .reactions-group svg {
-    color: #000; /* Set the color of the icons */
+    color: #000;
+    /* Set the color of the icons */
 }
 
 /* BlogDetails.css */
@@ -98,12 +107,133 @@
 }
 
 .comment-form textarea {
-    width: 100%; /* Make the textarea fill the width of its container */
-    height: 100px; /* Adjust the height as needed */
+    width: 100%;
+    /* Make the textarea fill the width of its container */
+    height: 100px;
+    /* Adjust the height as needed */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: none; /* Optional: Prevent the textarea from being resized */
+    resize: none;
+    /* Optional: Prevent the textarea from being resized */
+}
+
+.comment-form button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.DeleteBtn,
+.EditBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.DeleteBtn {
+    color: red;
+}
+
+.EditBtn {
+    color: #000;
+    /* Default color for edit button */
+}
+
+.DeleteBtn:hover,
+.EditBtn:hover {
+    color: #007bff;
+    /* Change color on hover */
+}
+
+.blog-title {
+    color: #3498db;
+    /* Blue color for the blog title */
+    font-size: 2rem;
+    /* Adjust size as needed */
+    margin: 0;
+    /* Remove default margin if needed */
+}
+
+.blog-image {
+    margin: 20px 0;
+}
+
+.blog-image-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.reactions-group {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    /* Adjust spacing between buttons */
+    align-items: center;
+    /* Aligns the icons vertically */
+}
+
+.reactions-group button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    /* Adjust to make the icons smaller */
+}
+
+.reactions-group svg {
+    color: #000;
+    /* Set the color of the icons */
+}
+
+/* Fill the icon when active */
+.upvoteBtn.active svg,
+.downvoteBtn.active svg {
+    color: #3498db;
+    /* Blue for upvote */
+}
+
+.downvoteBtn.active svg {
+    color: #f44336;
+    /* Red for downvote */
+}
+
+.commentBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    /* Adjust size to make the comment icon smaller */
+}
+
+.comment-form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
 }
 
 .comment-form button {

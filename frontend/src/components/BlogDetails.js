@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css' ;
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -17,13 +16,15 @@ const BlogDetails = ({ blog }) => {
     const [error, setError] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [showCommentForm, setShowCommentForm] = useState(false); // New state for comment form visibility
+    const [newContent, setNewContent] = useState(blog.content);
+    const [isEditing, setIsEditing] = useState(false);
+    const [showCommentForm, setShowCommentForm] = useState(false);
     const { dispatch } = useBlogsContext();
     const { user } = useAuthContext()
 
     useEffect(() => {
         if (showCommentForm) {
-            fetchComments(); // Fetch comments if the form is shown
+            fetchComments();
         }
     }, [showCommentForm]);
 
@@ -108,6 +109,38 @@ const BlogDetails = ({ blog }) => {
         }
     };
 
+    const handleEdit = () => {
+        setIsEditing(!isEditing);
+    };
+
+    const handleSaveEdit = async () => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/content`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ content: newContent }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update the blog');
+            }
+
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            setIsEditing(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const fetchComments = async () => {
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/comments`);
@@ -132,7 +165,7 @@ const BlogDetails = ({ blog }) => {
             });
 
             if (response.ok) {
-                fetchComments(); // Reload comments
+                fetchComments(); 
                 setNewComment("");
             } else {
                 console.error('Failed to submit comment');
@@ -150,9 +183,11 @@ const BlogDetails = ({ blog }) => {
         <div className="blog-details">
             <div className="blog-header">
                 <h4 className="blog-title">{blog.title}</h4>
-                <h6 className="blog-author"> By: {blog.author}</h6>
-                <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
-                {/* <button title="Edit Blog"><GoPencil /></button> */}
+                
+                <div className="actions">
+                    <button className="DeleteBtn"  title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
+                    <button className="EditBtn" title="Edit Blog" onClick={() => handleEdit(blog._id)}><GoPencil /></button>
+                </div>
             </div>
             
             {blog.image && (
@@ -161,8 +196,24 @@ const BlogDetails = ({ blog }) => {
                 </div>
             )}
 
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            {!isEditing ? (
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ) : (
+                <div>
+                    <textarea
+                        value={newContent}
+                        onChange={(e) => setNewContent(e.target.value)}
+                        className="edit-content-textarea"
+                    />
+                    <button onClick={handleSaveEdit}>Save</button>
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                </div>
+            )}
+
+
+            {/* <div dangerouslySetInnerHTML={{ __html: blog.content }} /> */}
             <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
+            <p className="blog-author"><strong>By: {blog.author}</strong></p> 
 
             <div className="reactions-group">
                 <button title="Upvote"
@@ -181,7 +232,7 @@ const BlogDetails = ({ blog }) => {
                     className="commentBtn"
                     onClick={handleCommentFormToggle}
                 >
-                    <FiMessageSquare />
+                    <FiMessageSquare /> {comments.length || 0}
                 </button>
             </div>
 
@@ -200,3 +251,5 @@ const BlogDetails = ({ blog }) => {
 };
 
 export default BlogDetails;
+
+

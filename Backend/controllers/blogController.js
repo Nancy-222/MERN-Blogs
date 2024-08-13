@@ -95,6 +95,22 @@ const deleteBlog = async (req, res) => {
 };
 
 // UPDATE a blog
+// const updateBlog = async (req, res) => {
+//   const { id } = req.params;
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(400).json({ error: 'No such blog' });
+//   }
+
+//   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+
+//   if (!blog) {
+//     return res.status(400).json({ error: 'No such blog' });
+//   }
+
+//   res.status(200).json(blog);
+// };
+
 const updateBlog = async (req, res) => {
   const { id } = req.params;
 
