@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
-import './BlogDetails.css' ;
-import { FiThumbsDown, FiThumbsUp, FiTrash } from "react-icons/fi";
+import './BlogDetails.css';
+import { FiThumbsDown, FiThumbsUp, FiTrash, FiMessageSquare } from "react-icons/fi";
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -12,7 +12,16 @@ const formatDate = (dateString) => {
 const BlogDetails = ({ blog }) => {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState("");
+    const [showCommentForm, setShowCommentForm] = useState(false); // New state for comment form visibility
     const { dispatch } = useBlogsContext();
+
+    useEffect(() => {
+        if (showCommentForm) {
+            fetchComments(); // Fetch comments if the form is shown
+        }
+    }, [showCommentForm]);
 
     const handleUpvote = async (id) => {
         try {
@@ -58,32 +67,68 @@ const BlogDetails = ({ blog }) => {
         }
     };
 
-      const handleDelete = async (id) => {
+    const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
                     method: 'DELETE',
                 });
 
-                const json = await response.json()
-    
+                const json = await response.json();
+
                 if (!response.ok) {
                     throw new Error('Failed to delete the blog');
                 }
-    
+
                 dispatch({ type: 'DELETE_BLOG', payload: json });
             } catch (error) {
                 console.error(error);
             }
         }
     };
-    
+
+    const fetchComments = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/comments`);
+            const data = await response.json();
+            setComments(data);
+        } catch (error) {
+            console.error("Failed to fetch comments", error);
+        }
+    };
+
+    const handleCommentSubmit = async () => {
+        if (!newComment) return;
+
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/comments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({ text: newComment }),
+            });
+
+            if (response.ok) {
+                fetchComments(); // Reload comments
+                setNewComment("");
+            } else {
+                console.error('Failed to submit comment');
+            }
+        } catch (error) {
+            console.error("Failed to submit comment", error);
+        }
+    };
+
+    const handleCommentFormToggle = () => {
+        setShowCommentForm(!showCommentForm);
+    };
 
     return (
         <div className="blog-details">
             <div className="blog-header">
-            <h4 className="blog-title">{blog.title}</h4>
-
+                <h4 className="blog-title">{blog.title}</h4>
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
             </div>
 
@@ -99,7 +144,6 @@ const BlogDetails = ({ blog }) => {
             <div className="reactions-group">
                 <button
                     className={`upvoteBtn ${upvoted ? 'active' : ''}`}
-                    
                     onClick={() => handleUpvote(blog._id)}
                 >
                     <FiThumbsUp /> {blog.upvotes}
@@ -110,7 +154,24 @@ const BlogDetails = ({ blog }) => {
                 >
                     <FiThumbsDown /> {blog.downvotes}
                 </button>
+                <button
+                    className="commentBtn"
+                    onClick={handleCommentFormToggle}
+                >
+                    <FiMessageSquare />
+                </button>
             </div>
+
+            {showCommentForm && (
+                <div className="comment-form">
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment..."
+                    ></textarea>
+                    <button onClick={handleCommentSubmit}>Post Comment</button>
+                </div>
+            )}
         </div>
     );
 };

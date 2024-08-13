@@ -130,64 +130,6 @@ const downvoteBlog = async (req, res) => {
   }
 };
 
-// ADD a comment to a blog
-const comment = async (req, res) => {
-  const { id } = req.params;
-  const { text, user } = req.body;
-
-  try {
-    const blog = await Blog.findById(id);
-    if (!blog) {
-      return res.status(404).json({ error: 'No such blog' });
-    }
-
-    // Create a new comment document
-    const newComment = new Comment({
-      text,
-      postedBy: user, // Assuming user is the ID of the user posting the comment
-    });
-
-    // Save the comment to the database
-    await newComment.save();
-
-    // Add the comment's ObjectId to the blog's comments array
-    blog.comments.push(newComment._id);
-
-    // Save the updated blog
-    await blog.save();
-    res.status(200).json(blog);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-// REMOVE a comment from a blog
-const uncomment = async (req, res) => {
-  const { id, commentId } = req.params; // commentId is the ID of the comment to delete
-
-  try {
-    const blog = await Blog.findById(id);
-    if (!blog) {
-      return res.status(404).json({ error: 'No such blog' });
-    }
-
-    // Find and remove the comment document
-    const comment = await Comment.findByIdAndRemove(commentId);
-    if (!comment) {
-      return res.status(404).json({ error: 'Comment not found' });
-    }
-
-    // Remove the comment's ObjectId from the blog's comments array
-    blog.comments = blog.comments.filter((comment) => comment.toString() !== commentId);
-
-    // Save the updated blog
-    await blog.save();
-    res.status(200).json(blog);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 // Export the functions as a module
 module.exports = {
   getBlogs,
