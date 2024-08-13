@@ -86,16 +86,7 @@
   margin-left: auto; /* Pushes social icons to the right */
 }
 
-.social-icon {
-  font-size: 24px;
-  margin: 0 10px;
-  color: #333;
-  transition: color 0.3s ease;
-}
 
-.social-icon:hover {
-  color: #007bff;
-}
 
 /* Burger menu button styling */
 .burger-menu {

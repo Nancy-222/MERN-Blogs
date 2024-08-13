@@ -3,20 +3,16 @@ import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css'; // Ensure this CSS file is correctly linked
-import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const { logout } = useLogout();
   const { user } = useAuthContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = () => {
     logout();
-    navigate('/');
   };
 
   const toggleMenu = () => {
@@ -40,19 +36,19 @@ const Navbar = () => {
             </>
           )}
           {user && (
-            <Link onClick={handleClick} className="nav-item">Log out</Link>
+            <span onClick={handleClick} className="nav-item">Log out</span>
           )}
         </div>
-          {user && (
-            <div className="loggedInUser">
-              <p>Logged in as</p>
-              <h5>{user.name}</h5>
-            </div>
-          )}
-        
+        {user && (
+          <div className="loggedInUser">
+            <p>Logged in as</p>
+            <h5>{user.name}</h5>
+          </div>
+        )}
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+

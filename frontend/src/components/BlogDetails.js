@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useBlogsContext } from '../hooks/useBlogsContext';
-import './BlogDetails.css' ;
+import './BlogDetails.css';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare} from "react-icons/fi";
+import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare, FiBookmark } from "react-icons/fi";
 import { GoPencil } from "react-icons/go";
 
 const formatDate = (dateString) => {
@@ -20,13 +20,20 @@ const BlogDetails = ({ blog }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
     const { dispatch } = useBlogsContext();
-    const { user } = useAuthContext()
+    const { user } = useAuthContext();
 
     useEffect(() => {
         if (showCommentForm) {
             fetchComments();
         }
     }, [showCommentForm]);
+
+    useEffect(() => {
+        // Initialize saved count to 0 if not provided
+        if (blog.savedCount === undefined) {
+            blog.savedCount = 0;
+        }
+    }, [blog]);
 
     // const fetchUserDetails = async (email) => {
     //     try {
@@ -52,9 +59,9 @@ const BlogDetails = ({ blog }) => {
     // };
 
     const handleUpvote = async (id) => {
-        if (!user){
-            setError('You must be logged in')
-            return
+        if (!user) {
+            setError('You must be logged in');
+            return;
         }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
@@ -79,9 +86,9 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDownvote = async (id) => {
-        if (!user){
-            setError('You must be logged in')
-            return
+        if (!user) {
+            setError('You must be logged in');
+            return;
         }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
@@ -106,25 +113,24 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDelete = async (id) => {
-        if (!user){
-            setError('You must be logged in')
-            return
+        if (!user) {
+            setError('You must be logged in');
+            return;
         }
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
-                    headers: {    
-                       'Authorization': `Bearer ${user.token}`
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
                     },
                     method: 'DELETE',
                 });
-
-                const json = await response.json();
 
                 if (!response.ok) {
                     throw new Error('Failed to delete the blog');
                 }
 
+                const json = await response.json();
                 dispatch({ type: 'DELETE_BLOG', payload: json });
             } catch (error) {
                 console.error(error);
@@ -167,7 +173,6 @@ const BlogDetails = ({ blog }) => {
         }
     };
 
-
     const fetchComments = async () => {
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/comments`);
@@ -205,7 +210,7 @@ const BlogDetails = ({ blog }) => {
             });
     
             if (response.ok) {
-                fetchComments(); 
+                fetchComments();
                 setNewComment("");
             } else {
                 console.error('Failed to submit comment');
@@ -324,8 +329,8 @@ return (
             </div>
         )}
 
-        <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
-        <p className="blog-author"><strong>By: {blog.author}</strong></p>
+            <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
+            <p className="blog-author"><strong>By: {blog.author}</strong></p> 
 
         <div className="reactions-group">
             <button title="Upvote"
@@ -346,6 +351,9 @@ return (
             >
                 <FiMessageSquare /> {blog.comments.length || 0}
             </button>
+                <button title="Save Blog">
+                    <FiBookmark />{blog.savedCount || 0}
+                </button>
         </div>
 
         {showCommentForm && (

@@ -36,7 +36,7 @@ function App() {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<LogIn />} />
-              <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+              {/* <Route path="/home" element={<PrivateRoute element={<Home />} />} /> */}
               <Route path="/featured-author" element={<FeaturedAuthor />} />
               <Route path="/blog-form-details" element={<BlogFormDetails />} />
             </Routes>

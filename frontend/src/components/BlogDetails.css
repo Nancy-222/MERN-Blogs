@@ -1,14 +1,24 @@
+/* BlogDetails.css */
+
 .blog-details {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
 
 .blog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+}
+
+.blog-title {
+    color: #3498db;
+    font-size: 2rem;
+    margin: 0;
 }
 
 .blog-image {
@@ -22,85 +32,44 @@
 }
 
 .reactions-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     margin-top: 20px;
 }
 
-/* Existing styles */
-.upvoteBtn,
-.downvoteBtn {
+.reactions-group button {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    /* Adjust size as needed */
-    margin-right: 10px;
-    transition: color 0.3s ease;
-    /* Smooth transition for color change */
+    font-size: 1.2rem;
 }
 
-/* Fill the icon when active */
+.reactions-group svg {
+    color: #000;
+}
+
 .upvoteBtn.active svg,
 .downvoteBtn.active svg {
-    color: #4caf50;
-    /* Green for upvote */
+    color: #3498db;
 }
 
 .downvoteBtn.active svg {
     color: #f44336;
-    /* Red for downvote */
-}
-
-.DeleteBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: red;
-}
-
-.blog-details .blog-title {
-    color: #3498db;
-    /* Ensure this matches your desired color */
 }
 
 .commentBtn {
     background: none;
     border: none;
-    padding: 0;
-    margin: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
+    font-size: 1rem;
 }
-
-.reactions-group {
-    display: flex;
-    gap: 10px;
-    /* Adjusts spacing between buttons */
-    align-items: center;
-    /* Aligns the icons vertically */
-}
-
-.reactions-group button {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 1.5rem;
-    /* Adjust as needed */
-}
-
-.reactions-group svg {
-    color: #000;
-    /* Set the color of the icons */
-}
-
-/* BlogDetails.css */
 
 .comment-form {
     margin-top: 20px;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
@@ -108,14 +77,11 @@
 
 .comment-form textarea {
     width: 100%;
-    /* Make the textarea fill the width of its container */
     height: 100px;
-    /* Adjust the height as needed */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-    /* Optional: Prevent the textarea from being resized */
 }
 
 .comment-form button {
@@ -127,10 +93,64 @@
     color: #fff;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .comment-form button:hover {
     background-color: #0056b3;
+}
+
+/* New Styles for Edit Mode */
+.edit-content-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.edit-content-textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.edit-content-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.save-edit-btn,
+.cancel-edit-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.save-edit-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.save-edit-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-edit-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.cancel-edit-btn:hover {
+    background-color: #c82333;
 }
 
 .DeleteBtn,
@@ -147,107 +167,47 @@
 
 .EditBtn {
     color: #000;
-    /* Default color for edit button */
 }
 
 .DeleteBtn:hover,
 .EditBtn:hover {
     color: #007bff;
-    /* Change color on hover */
 }
 
-.blog-title {
-    color: #3498db;
-    /* Blue color for the blog title */
-    font-size: 2rem;
-    /* Adjust size as needed */
-    margin: 0;
-    /* Remove default margin if needed */
-}
 
-.blog-image {
-    margin: 20px 0;
-}
+/* BlogDetails.css */
 
-.blog-image-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.reactions-group {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    /* Adjust spacing between buttons */
-    align-items: center;
-    /* Aligns the icons vertically */
-}
-
-.reactions-group button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    /* Adjust to make the icons smaller */
-}
-
-.reactions-group svg {
-    color: #000;
-    /* Set the color of the icons */
-}
-
-/* Fill the icon when active */
-.upvoteBtn.active svg,
-.downvoteBtn.active svg {
-    color: #3498db;
-    /* Blue for upvote */
-}
-
-.downvoteBtn.active svg {
-    color: #f44336;
-    /* Red for downvote */
-}
-
-.commentBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    /* Adjust size to make the comment icon smaller */
-}
-
-.comment-form {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.comment-form textarea {
+.edit-content-textarea {
     width: 100%;
-    height: 100px;
+    height: 150px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: none;
+    margin-bottom: 10px;
+    /* Optional: Add additional styling if needed */
 }
 
-.comment-form button {
+.edit-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: 10px;
+}
+
+.edit-buttons button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
     cursor: pointer;
     font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s;
 }
 
-.comment-form button:hover {
-    background-color: #0056b3;
+.edit-buttons .save-button {
+    background-color: #007bff;
+}
+
+.edit-buttons .save-button:hover {
+    background-color: #3498db;
 }
 
