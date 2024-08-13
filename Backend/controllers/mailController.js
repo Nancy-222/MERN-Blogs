@@ -6,7 +6,7 @@ const mailGun = require('nodemailer-mailgun-transport');
 const sendSupportMail = async (req, res) => {
     const auth = {
         auth: {
-            api_key: '7f985480c532f839d2594ea72395fec4-a26b1841-f0a39550',
+            api_key: '4720129bc06769d246cc9b70028aff69-911539ec-5bb8f893',
             domain: 'sandboxa11b427ffdd648bfbd0b4d898865d82a.mailgun.org'
         }
     };
@@ -24,7 +24,8 @@ const sendSupportMail = async (req, res) => {
 
         transporter.sendMail(mailOptions, function (err, data) {
             if (err) {
-                res.status(400).json({ error: "Unable to send message, try again!" })
+                // res.status(400).json({ error: "Unable to send message, try again!" })
+                res.status(400).json({ error: err.message })
             } else {
                 res.status(200).json(data)
             }

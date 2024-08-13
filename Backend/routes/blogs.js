@@ -30,7 +30,7 @@ router.post('/',requireAuth, createBlog);
 router.delete('/:id', requireAuth, deleteBlog);
 
 // UPDATE a blog
-router.patch('/:id', requireAuth, updateBlog);
+router.patch('/:id/content', requireAuth, updateBlog);
 
 // UPVOTE a blog
 router.patch('/:id/upvote', requireAuth, upvoteBlog);

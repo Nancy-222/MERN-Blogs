@@ -11,6 +11,11 @@ const blogSchema = new Schema({
         type:String,
         required: true
     },
+    authorid: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     content: {
         type: String,
         required: true, // Content can be formatted HTML
@@ -27,6 +32,16 @@ const blogSchema = new Schema({
         data: Buffer,
         contentType: String,
     },
+    upvotedBy: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' 
+    }],
+  
+    downvotedBy: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    }],
+
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

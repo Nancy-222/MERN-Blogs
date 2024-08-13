@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useBlogsContext } from '../hooks/useBlogsContext';
-import './BlogDetails.css';
-import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare } from "react-icons/fi";
+import './BlogDetails.css' ;
+import { useAuthContext } from '../hooks/useAuthContext';
+import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare} from "react-icons/fi";
 import { GoPencil } from "react-icons/go";
 
 const formatDate = (dateString) => {
@@ -12,10 +13,14 @@ const formatDate = (dateString) => {
 const BlogDetails = ({ blog }) => {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
+    const [error, setError] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const [newContent, setNewContent] = useState(blog.content);
+    const [isEditing, setIsEditing] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
     const { dispatch } = useBlogsContext();
+    const { user } = useAuthContext()
 
     useEffect(() => {
         if (showCommentForm) {
@@ -24,11 +29,16 @@ const BlogDetails = ({ blog }) => {
     }, [showCommentForm]);
 
     const handleUpvote = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
             });
 
@@ -46,11 +56,16 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDownvote = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
             });
 
@@ -68,9 +83,16 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDelete = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
+                    headers: {    
+                       'Authorization': `Bearer ${user.token}`
+                    },
                     method: 'DELETE',
                 });
 
@@ -86,6 +108,38 @@ const BlogDetails = ({ blog }) => {
             }
         }
     };
+
+    const handleEdit = () => {
+        setIsEditing(!isEditing);
+    };
+
+    const handleSaveEdit = async () => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/content`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ content: newContent }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update the blog');
+            }
+
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            setIsEditing(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
 
     const fetchComments = async () => {
         try {
@@ -132,7 +186,7 @@ const BlogDetails = ({ blog }) => {
                 
                 <div className="actions">
                     <button className="DeleteBtn"  title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
-                    <button className="EditBtn" title="Edit Blog"><GoPencil /></button>
+                    <button className="EditBtn" title="Edit Blog" onClick={() => handleEdit(blog._id)}><GoPencil /></button>
                 </div>
             </div>
             
@@ -142,7 +196,22 @@ const BlogDetails = ({ blog }) => {
                 </div>
             )}
 
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            {!isEditing ? (
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ) : (
+                <div>
+                    <textarea
+                        value={newContent}
+                        onChange={(e) => setNewContent(e.target.value)}
+                        className="edit-content-textarea"
+                    />
+                    <button onClick={handleSaveEdit}>Save</button>
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                </div>
+            )}
+
+
+            {/* <div dangerouslySetInnerHTML={{ __html: blog.content }} /> */}
             <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
             <p className="blog-author"><strong>By: {blog.author}</strong></p> 
 
