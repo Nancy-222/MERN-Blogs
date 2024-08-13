@@ -28,6 +28,13 @@ const BlogDetails = ({ blog }) => {
         }
     }, [showCommentForm]);
 
+    useEffect(() => {
+        // Initialize saved count to 0 if not provided
+        if (blog.savedCount === undefined) {
+            blog.savedCount = 0;
+        }
+    }, [blog]);
+
     const handleUpvote = async (id) => {
         if (!user) {
             setError('You must be logged in');
@@ -90,7 +97,7 @@ const BlogDetails = ({ blog }) => {
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
-                    headers: {    
+                    headers: {
                         'Authorization': `Bearer ${user.token}`
                     },
                     method: 'DELETE',
@@ -163,7 +170,7 @@ const BlogDetails = ({ blog }) => {
             });
 
             if (response.ok) {
-                fetchComments(); 
+                fetchComments();
                 setNewComment("");
             } else {
                 console.error('Failed to submit comment');
@@ -181,12 +188,13 @@ const BlogDetails = ({ blog }) => {
         <div className="blog-details">
             <div className="blog-header">
                 <h4 className="blog-title">{blog.title}</h4>
+                
                 <div className="actions">
                     <button className="DeleteBtn" title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
-                    <button className="EditBtn" title="Edit Blog" onClick={handleEdit}><GoPencil /></button>
+                    <button className="EditBtn" title="Edit Blog" onClick={() => handleEdit(blog._id)}><GoPencil /></button>
                 </div>
             </div>
-
+            
             {blog.image && (
                 <div className="blog-image">
                     <img src={`http://localhost:4000/uploads/${blog.image}`} alt="Blog" className="blog-image-img" />
@@ -202,10 +210,8 @@ const BlogDetails = ({ blog }) => {
                         onChange={(e) => setNewContent(e.target.value)}
                         className="edit-content-textarea"
                     />
-                    <div className="edit-buttons">
-                        <button className="save-button" onClick={handleSaveEdit}>Save</button>
-                        <button className="save-button" onClick={() => setIsEditing(false)}>Cancel</button>
-                    </div>
+                    <button onClick={handleSaveEdit}>Save</button>
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
                 </div>
             )}
 
@@ -231,11 +237,8 @@ const BlogDetails = ({ blog }) => {
                 >
                     <FiMessageSquare /> {comments.length || 0}
                 </button>
-                <button title="Save Blog"
-                    className="savedblog"
-                    onClick={handleCommentFormToggle}
-                >
-                    <FiBookmark /> {comments.length || 0}
+                <button title="Save Blog">
+                    <FiBookmark />{blog.savedCount || 0}
                 </button>
             </div>
 
