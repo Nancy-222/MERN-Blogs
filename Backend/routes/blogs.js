@@ -7,8 +7,7 @@ const {
   updateBlog,
   upvoteBlog,
   downvoteBlog,
-  comment,
-  uncomment
+  getBlogComments
 } = require('../controllers/blogController');
 const requireAuth = require('../middleware/requireAuth')
 const { sendSupportMail } = require('../controllers/mailController');
@@ -38,11 +37,8 @@ router.patch('/:id/upvote', requireAuth, upvoteBlog);
 // DOWNVOTE a blog
 router.patch('/:id/downvote', requireAuth, downvoteBlog);
 
-// // ADD a comment to a blog
-// router.patch('/:id/comment', comment);
-
-// // REMOVE a comment from a blog
-// router.patch('/:id/uncomment', uncomment);
+//GET blog comments
+router.get('/:id/comments', getBlogComments)
 
 // Send an email to support
 router.post('/support', sendSupportMail);
