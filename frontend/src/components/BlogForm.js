@@ -104,7 +104,7 @@ const BlogForm = () => {
                 value={title}
             />
 
-            <label className="blog-content-wrapper" style={{ marginTop: "10px"}}>Blog Content<span style={{ color: "red" }}>*</span></label>
+            <label className="blog-content-wrapper">Blog Content<span style={{ color: "red" }}>*</span></label>
             <ReactQuill
                 ref={quillRef}
                 value={content}
@@ -130,7 +130,7 @@ const BlogForm = () => {
 
             </div>
 
-            <button type="submit" className="add-blog-button btn btn-primary">Add Blog</button>
+            <button type="submit" className="add-blog-button">Add Blog</button>
 
             {error && <div className="error">{error}</div>}
         </form>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css' ;
+import { useAuthContext } from '../hooks/useAuthContext';
 import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare } from "react-icons/fi";
 
 const formatDate = (dateString) => {
@@ -12,10 +13,12 @@ const formatDate = (dateString) => {
 const BlogDetails = ({ blog }) => {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
+    const [error, setError] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [showCommentForm, setShowCommentForm] = useState(false); // New state for comment form visibility
     const { dispatch } = useBlogsContext();
+    const { user } = useAuthContext()
 
     useEffect(() => {
         if (showCommentForm) {
@@ -24,11 +27,16 @@ const BlogDetails = ({ blog }) => {
     }, [showCommentForm]);
 
     const handleUpvote = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/upvote`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
             });
 
@@ -46,11 +54,16 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDownvote = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${id}/downvote`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
             });
 
@@ -68,9 +81,16 @@ const BlogDetails = ({ blog }) => {
     };
 
     const handleDelete = async (id) => {
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
         if (window.confirm("Are you sure you want to delete this blog?")) {
             try {
                 const response = await fetch(`http://localhost:4000/api/blogs/${id}`, {
+                    headers: {    
+                       'Authorization': `Bearer ${user.token}`
+                    },
                     method: 'DELETE',
                 });
 
