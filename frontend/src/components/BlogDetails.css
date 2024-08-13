@@ -205,7 +205,7 @@
 }
 
 .downvoteBtn.active svg {
-    color: #f44336;
+    color: #3498db;
     /* Red for downvote */
 }
 
