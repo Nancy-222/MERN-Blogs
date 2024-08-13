@@ -62,13 +62,14 @@
 /* Style for the sidebar (Add Friend section) */
 .sidebar {
     flex: 1; /* Takes 1/4 of the horizontal space */
-    background-color: #c3c7cc; /* Dark blue background */
+    background-color: #D6EAF8; /* Dark blue background */
     color: white;
     padding: 20px;
     border-radius: 8px;
     height: 100%; /* Full height of the page */
     position: sticky;
     top: 0;
+    
 }
 
 /* Style for the add friend section */
@@ -78,7 +79,7 @@
 
 /* Style for the heading */
 .add-friend h3 {
-    color: white;
+    color: #2E4053;
     margin-bottom: 10px;
 }
 
@@ -94,7 +95,7 @@
     color: white;
     margin-bottom: 10px;
     padding: 10px;
-    background: #4a78a5; /* Slightly lighter blue for the rectangle */
+    background: #5DADE2; /* Slightly lighter blue for the rectangle */
     border-radius: 8px; /* Rounded corners for the rectangles */
 }
 
@@ -141,10 +142,3 @@
 
 
 
-/* Style for the footer */
-.footer {
-    background-color: #3498db; /* Dark blue background for footer */
-    color: white;
-    padding: 10px;
-    text-align: center;
-}

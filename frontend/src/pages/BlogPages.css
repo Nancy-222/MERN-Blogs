@@ -25,7 +25,7 @@
 
 /* Blog title in blue */
 .blog-block h4 {
-  color:  #3498db;; /* Use the primary color for the title */
+  color:  #5DADE2;; /* Use the primary color for the title */
   margin: 0 0 10px 0;
   font-size: 1.5em; /* Adjust size as needed */
   /* text-decoration: underline; */
@@ -39,7 +39,7 @@
 .icon-button {
   background: none;
   border: none;
-  color: #007bff; /* Always blue */
+  color: #5DADE2; /* Always blue */
   font-size: 20px; /* Adjust size as needed */
   display: flex;
   align-items: center;

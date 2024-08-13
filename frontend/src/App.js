@@ -11,6 +11,7 @@ import Footer from './pages/Footer';
 import BlogPages from './pages/BlogPages'; // Ensure correct path
 import BlogFormDetails from './pages/BlogFormDetails'; // Ensure correct path
 import Navbar from './components/Navbar';
+import UserPage from './pages/UserPage';
 import { AuthContextProvider, AuthContext } from './context/AuthContext';
 import FeaturedAuthor from './pages/FeaturedAuthor';
 
@@ -31,7 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/blogs" element={<BlogPages />} /> {/* Use BlogPages for listing all blogs */}
-              <Route path="/blogs/:id" element={<BlogDetails />} />
+              <Route path="/users/:id" element={<UserPage />} />
               <Route path="/blog-form" element={<BlogForm />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/signup" element={<SignUp />} />

@@ -1,5 +1,5 @@
 .footer {
-    background-color: #001f3f; /* Dark blue color */
+    background-color: #2E4053 !important; /* Dark blue color */
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -30,6 +30,6 @@
   }
   
   .social-icon:hover {
-    color: #007bff !important; /* Lighter blue on hover */
+    color: #206BA4 !important; /* Lighter blue on hover */
   }
   

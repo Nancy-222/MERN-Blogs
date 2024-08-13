@@ -18,21 +18,27 @@ const getUsers = async (req, res) => {
     }
 };
 
-// GET a user
+// GET a user by ID
 const getUser = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'No such user' });
     }
-    const user = await User.findById(id)
 
-    if (!user){
-        return res.status(404).json({error: 'No such user'})
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'No such user' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
     }
-    res.status(200).json(user)
+};
 
-}
 
 //POST a new user
 const signupUser = async (req, res) => {
@@ -91,10 +97,38 @@ const deleteUser = async (req,res) => {
     }
 };
 
+// UPDATE a user by ID
+const updateUser = async (req, res) => {
+    const { firstName, lastName, bio } = req.body;
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such user' });
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(
+            id,
+            { firstName, lastName, bio },
+            { new: true, runValidators: true } // Return the updated document and run validators
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+
 module.exports = {
     getUsers,
     getUser,
     signupUser,
     loginUser,
-    deleteUser
+    deleteUser,
+    updateUser
 };

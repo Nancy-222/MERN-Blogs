@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import './Home.css'; // Import the CSS file for custom styles
 
 const Home = () => {
   return (
@@ -24,7 +25,7 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Link to="/signup"> {/* Link to the sign-up page */}
-              <Button variant="primary" size="lg">
+            <Button className="custom-button" size="lg">
                 Get Started
               </Button>
             </Link>

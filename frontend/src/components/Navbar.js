@@ -32,6 +32,7 @@ const Navbar = () => {
         <h1 className="navbar-title">omyblog</h1>
         <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-item">Home</Link>
+          <Link to="/users/:id" className="nav-item">My Account</Link>
           <Link to="/contact" className="nav-item">Contact Us</Link>
           {!user && (
             <>
