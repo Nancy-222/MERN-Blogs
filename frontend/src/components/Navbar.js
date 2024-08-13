@@ -43,26 +43,13 @@ const Navbar = () => {
             <Link onClick={handleClick} className="nav-item">Log out</Link>
           )}
         </div>
-        <div className="navbar-social">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faFacebookF} className="social-icon" />
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faTwitter} className="social-icon" />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faInstagram} className="social-icon" />
-          </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faYoutube} className="social-icon" />
-          </a>
           {user && (
             <div className="loggedInUser">
               <p>Logged in as</p>
               <h5>{user.name}</h5>
             </div>
           )}
-        </div>
+        
       </div>
     </nav>
   );

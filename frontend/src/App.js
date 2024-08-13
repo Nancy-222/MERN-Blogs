@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 import { AuthContextProvider, AuthContext } from './context/AuthContext';
 import FeaturedAuthor from './pages/FeaturedAuthor';
 
+
 // Private Route Component
 const PrivateRoute = ({ element }) => {
   const { isAuthenticated } = React.useContext(AuthContext);
