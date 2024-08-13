@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import './BlogDetails.css' ;
-import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare } from "react-icons/fi";
+import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare} from "react-icons/fi";
+import { GoPencil } from "react-icons/go";
 
 const formatDate = (dateString) => {
     const options = { hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
@@ -131,6 +132,7 @@ const BlogDetails = ({ blog }) => {
                 <h4 className="blog-title">{blog.title}</h4>
                 <h6 className="blog-author"> By: {blog.author}</h6>
                 <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
+                {/* <button title="Edit Blog"><GoPencil /></button> */}
             </div>
             
             {blog.image && (
@@ -143,19 +145,19 @@ const BlogDetails = ({ blog }) => {
             <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
 
             <div className="reactions-group">
-                <button
+                <button title="Upvote"
                     className={`upvoteBtn ${upvoted ? 'active' : ''}`}
                     onClick={() => handleUpvote(blog._id)}
                 >
                     <FiArrowUp /> {blog.upvotes}
                 </button>
-                <button
+                <button title="Downvote"
                     className={`downvoteBtn ${downvoted ? 'active' : ''}`}
                     onClick={() => handleDownvote(blog._id)}
                 >
                     <FiArrowDown /> {blog.downvotes}
                 </button>
-                <button
+                <button title="Add Comment"
                     className="commentBtn"
                     onClick={handleCommentFormToggle}
                 >
