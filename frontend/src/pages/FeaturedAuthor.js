@@ -6,8 +6,7 @@ const FeaturedAuthor = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
-  const BASE_BACK_URL = "http://localhost:4000"; // API base URL
-
+  const BASE_BACK_URL = "http://localhost:4000"; 
   useEffect(() => {
     const fetchUsers = async () => {
       try {

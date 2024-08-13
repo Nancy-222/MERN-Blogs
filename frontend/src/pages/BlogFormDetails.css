@@ -1,35 +1,33 @@
-/* Style for the entire blog form page */
+/* Style for the entire page */
 .blog-form-details-page {
-    background-image: url('/src/images/background.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh; 
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stack child elements vertically */
+    min-height: 100vh; /* Full viewport height */
 }
 
-/* Style the form container */
-.blog-form-details-container {
+/* Style for the main content area */
+.main-content {
+    display: flex;
+    flex: 1; /* Grow to take up available space */
+}
+
+/* Style for the main content area inside the page */
+.main-content > .blog-content {
+    flex: 3; /* Takes 3/4 of the horizontal space */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background: white;
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 100%;
-    max-width: 600px; 
-    margin-bottom: 20px; 
 }
 
-/* Styling for the heading */
-.blog-form-details-heading {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 2em; 
-    font-weight: 600; 
+/* Style for the blog form section */
+.blog-form-section {
+    padding: 20px;
+    background-color: #f0f0f0; /* Light background for the blog form section */
+}
+
+/* Style for the blog details section */
+.blog-details-section {
+    padding: 20px;
+    flex: 1; /* Takes remaining space in the column */
 }
 
 /* Style for the form */
@@ -61,79 +59,59 @@
     box-sizing: border-box; 
 }
 
-/* Style for buttons */
-.blog-form-details-form button {
-    background-color: #007bff; 
-    color: white; 
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em; 
-    transition: background-color 0.3s ease; 
+/* Style for the sidebar (Add Friend section) */
+.sidebar {
+    flex: 1; /* Takes 1/4 of the horizontal space */
+    background-color: #c3c7cc; /* Dark blue background */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%; /* Full height of the page */
+    position: sticky;
+    top: 0;
 }
 
-.blog-form-details-form button:hover {
-    background-color: #0056b3; 
+/* Style for the add friend section */
+.add-friend {
+    margin-top: 20px;
 }
 
-/* Error message styling */
-.error {
-    padding: 10px;
-    background: #ffefef;
-    border: 1px solid #f00; 
-    color: #f00; 
-    border-radius: 4px;
-    margin: 20px 0;
+/* Style for the heading */
+.add-friend h3 {
+    color: white;
+    margin-bottom: 10px;
 }
 
-/* Success message styling */
-.success {
-    padding: 10px;
-    background: #e8f4e8;
-    border: 1px solid #007bff;
-    color: #007bff;
-    border-radius: 4px;
-    margin: 20px 0;
-}
-
-/* Style for the blog list container */
-.blogs-list {
-    width: 100%;
-}
-
-/* Style for each blog item */
-.blog-items-list {
-    list-style-type: none; 
+/* Style for the list of friends */
+.add-friend ul {
+    list-style-type: none;
     padding: 0;
 }
 
-.blog-item {
-    background: white; 
-    padding: 20px; 
-    margin-bottom: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+.add-friend li {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #4a78a5; /* Slightly lighter blue for the rectangle */
+    border-radius: 8px; /* Rounded corners for the rectangles */
 }
 
-/* Style for blog images */
-.blog-item img {
-    max-width: 100%; 
-    height: auto;
-    border-radius: 4px; 
+.add-friend-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
 }
 
-/* Style for blog titles */
-.blog-item h4 {
-    margin-top: 0; 
-    color: #333; 
+.add-friend-btn:hover {
+    color: #e0e0e0;
 }
 
-/* Style for blog content */
-.blog-item p {
-    color: #666; 
-}
-/* Style for each blog item */
+/* Style for the blog items */
 .blog-item {
     background: white; 
     padding: 20px; 
@@ -153,7 +131,7 @@
 .blog-item h4 {
     margin-top: 0; 
     color: #007bff; 
-    /* text-decoration: underline;  */
+    /* text-decoration: underline; */
 }
 
 /* Style for blog content */
@@ -161,63 +139,12 @@
     color: #666; /* Lighter color for content */
 }
 
-/* Style the form container */
-.blog-form-details-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background: white; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 100%;
-    max-width: 600px; 
-    margin-bottom: 40px; 
-}
 
-/* Style for the blog list container */
-.blogs-list {
-    width: 100%;
-    padding: 20px; 
-    padding-top: 0px;
-}
 
-/* Style for each blog item */
-.blog-items-list {
-    list-style-type: none; 
-    padding: 0;
-}
-
-/* Additional styles for blog items */
-.blog-item {
-    background: white; 
-    padding: 20px; 
-    margin-bottom: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-/* Style for blog images */
-.blog-item img {
-    max-width: 100%;
-    height: auto; 
-    border-radius: 4px; 
-}
-
-/* Style for blog titles */
-.blog-item h4 {
-    margin-top: 0; 
-    color: #007bff; 
-    text-decoration: underline; 
-}
-
-/* Style for blog content */
-.blog-item p {
-    color: #666; 
-}
-
-.blogs {
-    display: flex;
-    flex-direction: column;
-    gap: 35px; /* Adjust the gap size as needed */
+/* Style for the footer */
+.footer {
+    background-color: #3498db; /* Dark blue background for footer */
+    color: white;
+    padding: 10px;
+    text-align: center;
 }
