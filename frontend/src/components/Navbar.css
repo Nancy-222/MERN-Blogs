@@ -5,9 +5,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background-color: #fff; /* Adjust as needed */
-  border-bottom: 1px solid #ddd; /* Adjust as needed */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a more professional look */
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
@@ -18,36 +18,59 @@
   margin: 0 auto;
 }
 
-/* src/components/Navbar.css */
 .navbar-title {
   margin: 0;
-  font-size: 2.5em; /* Increase font size if desired */
-  color: #1a1a1a; /* Change this to your preferred color */
-  font-family: 'Merriweather', serif; /* Apply a classic font (Ensure it's imported in your main CSS file) */
-  text-transform: uppercase; /* Optional: transform text to uppercase */
-  letter-spacing: 2px; /* Optional: add letter spacing for a more distinct look */
+  font-size: 2.5em;
+  color: #1a1a1a;
+  font-family: 'Merriweather', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-
-.navbar-buttons {
+.navbar-links {
   display: flex;
   margin-right: auto;
   margin-left: 120px;
 }
 
-.nav-link {
-  margin: 0 15px;
+.nav-item {
+  margin: 0 10px;
   text-decoration: none;
-  color: #333; /* Default color */
-  font-size: 18px; /* Larger font size for better visibility */
-  padding: 10px 15px; /* Padding for larger clickable area */
-  border-radius: 5px; /* Rounded corners for buttons */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
+  color: #333;
+  font-size: 18px;
+  padding: 10px 15px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.nav-link:hover {
-  background-color: #007bff; /* Blue background on hover */
-  color: #fff; /* White text color on hover */
+.nav-item:hover {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.logout-button {
+  margin-left: 15px;
+  padding: 10px 15px;
+  font-size: 18px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 
 .navbar-social {
@@ -56,12 +79,12 @@
 }
 
 .social-icon {
-  font-size: 24px; /* Slightly larger icons for better visibility */
+  font-size: 24px;
   margin: 0 17px;
-  color: #333; /* Default color */
-  transition: color 0.3s ease; /* Smooth color transition */
+  color: #333;
+  transition: color 0.3s ease;
 }
 
 .social-icon:hover {
-  color: #007bff; /* Blue color on hover */
+  color: #007bff;
 }

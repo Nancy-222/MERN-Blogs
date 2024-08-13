@@ -39,11 +39,11 @@ router.patch('/:id/upvote', upvoteBlog);
 // DOWNVOTE a blog
 router.patch('/:id/downvote', downvoteBlog);
 
-// ADD a comment to a blog
-router.patch('/:id/comment', comment);
+// // ADD a comment to a blog
+// router.patch('/:id/comment', comment);
 
-// REMOVE a comment from a blog
-router.patch('/:id/uncomment', uncomment);
+// // REMOVE a comment from a blog
+// router.patch('/:id/uncomment', uncomment);
 
 // Send an email to support
 router.post('/support', sendSupportMail);
