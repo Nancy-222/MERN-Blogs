@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import { useBlogsContext } from '../hooks/useBlogsContext';
-import './BlogDetails.css' ;
-import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare} from "react-icons/fi";
+import './BlogDetails.css';
+import { FiArrowDown, FiArrowUp, FiTrash, FiMessageSquare } from "react-icons/fi";
 import { GoPencil } from "react-icons/go";
 
 const formatDate = (dateString) => {
@@ -15,12 +14,12 @@ const BlogDetails = ({ blog }) => {
     const [downvoted, setDownvoted] = useState(false);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [showCommentForm, setShowCommentForm] = useState(false); // New state for comment form visibility
+    const [showCommentForm, setShowCommentForm] = useState(false);
     const { dispatch } = useBlogsContext();
 
     useEffect(() => {
         if (showCommentForm) {
-            fetchComments(); // Fetch comments if the form is shown
+            fetchComments();
         }
     }, [showCommentForm]);
 
@@ -112,7 +111,7 @@ const BlogDetails = ({ blog }) => {
             });
 
             if (response.ok) {
-                fetchComments(); // Reload comments
+                fetchComments(); 
                 setNewComment("");
             } else {
                 console.error('Failed to submit comment');
@@ -130,9 +129,11 @@ const BlogDetails = ({ blog }) => {
         <div className="blog-details">
             <div className="blog-header">
                 <h4 className="blog-title">{blog.title}</h4>
-                <h6 className="blog-author"> By: {blog.author}</h6>
-                <button className="DeleteBtn" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
-                {/* <button title="Edit Blog"><GoPencil /></button> */}
+                
+                <div className="actions">
+                    <button className="DeleteBtn"  title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
+                    <button className="EditBtn" title="Edit Blog"><GoPencil /></button>
+                </div>
             </div>
             
             {blog.image && (
@@ -143,6 +144,7 @@ const BlogDetails = ({ blog }) => {
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
             <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
+            <p className="blog-author"><strong>By: {blog.author}</strong></p> 
 
             <div className="reactions-group">
                 <button title="Upvote"
@@ -161,7 +163,7 @@ const BlogDetails = ({ blog }) => {
                     className="commentBtn"
                     onClick={handleCommentFormToggle}
                 >
-                    <FiMessageSquare />
+                    <FiMessageSquare /> {comments.length || 0}
                 </button>
             </div>
 
@@ -180,3 +182,5 @@ const BlogDetails = ({ blog }) => {
 };
 
 export default BlogDetails;
+
+
