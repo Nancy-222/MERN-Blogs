@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import { Container, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import './LogIn.css'; // Import the CSS file for styling
 
 const LogIn = () => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
   const {login, error, isLoading} = useLogin()
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     
     e.preventDefault()
   
     await login(email, password)
-    navigate('/blog-form-details')
   }
 
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter, faInstagram, faYoutube} from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import './Navbar.css'; // Ensure this CSS file is correctly linked
 import { useNavigate } from 'react-router-dom';
 
@@ -21,20 +21,17 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <h1 className="navbar-title">omyblog</h1>
-        <div className="navbar-buttons">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/contact" className="nav-link">Contact Us</Link>
+        <div className="navbar-links">
+          <Link to="/" className="nav-item">Home</Link>
+          <Link to="/contact" className="nav-item">Contact Us</Link>
           {!user && (
-            <div className="navbar-buttons">          
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/login">Log In</Link>
-            </div>
+          <Link to="/signup" className="nav-item">Sign Up</Link>
+          )}
+          {!user && (
+          <Link to="/login" className="nav-item">Log In</Link>
           )}
           {user && (
-            <div className="navbar-buttons">
-              <span>{user.email}</span>
-              <button onClick={handleClick}> Log out</button>
-            </div>
+          <Link onClick={handleClick} className="nav-item">Log out</Link>
           )}
         </div>
         <div className="navbar-social">
@@ -50,6 +47,10 @@ const Navbar = () => {
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faYoutube} className="social-icon" />
           </a>
+          { user && (<div  className="loggedInUser">
+            <p>Logged in as</p>
+            <h5>{user.name}</h5>
+          </div>)}
         </div>
       </div>
     </nav>
@@ -57,4 +58,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

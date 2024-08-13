@@ -56,3 +56,68 @@
 .blog-details .blog-title {
     color: #3498db; /* Ensure this matches your desired color */
 }
+
+.commentBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.reactions-group {
+    display: flex;
+    gap: 10px; /* Adjusts spacing between buttons */
+    align-items: center; /* Aligns the icons vertically */
+}
+
+.reactions-group button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1.5rem; /* Adjust as needed */
+}
+
+.reactions-group svg {
+    color: #000; /* Set the color of the icons */
+}
+
+/* BlogDetails.css */
+
+.comment-form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.comment-form textarea {
+    width: 100%; /* Make the textarea fill the width of its container */
+    height: 100px; /* Adjust the height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* Optional: Prevent the textarea from being resized */
+}
+
+.comment-form button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+

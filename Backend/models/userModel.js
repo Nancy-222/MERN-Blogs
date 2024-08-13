@@ -88,12 +88,12 @@ userSchema.statics.signup = async function(firstName, lastName, email, password)
   
     const user = await this.findOne({ email })
     if (!user) {
-      throw Error('Credentials are incorrect1')
+      throw Error('Credentials are incorrect')
     }
   
     const match = await bcrypt.compare(password, user.password)
     if (!match) {
-      throw Error('Credentials are incorrect2')
+      throw Error('Credentials are incorrect')
     }
   
     return user

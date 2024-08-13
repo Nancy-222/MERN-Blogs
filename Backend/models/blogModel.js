@@ -33,6 +33,7 @@ const blogSchema = new Schema({
             ref: 'Comment',
         }
     ]
+    
 }, {
     timestamps: true, // Automatically add createdAt and updatedAt fields
 });
