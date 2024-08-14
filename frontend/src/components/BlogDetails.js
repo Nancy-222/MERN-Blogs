@@ -228,8 +228,8 @@ return (
                     onChange={(e) => setNewContent(e.target.value)}
                     className="edit-content-textarea"
                 />
-                <button onClick={handleSaveEdit} classname="save-btn">Save</button>
-                <button onClick={() => setIsEditing(false)} classname="cancel-btn">Cancel</button>
+                <button onClick={handleSaveEdit} className="save-btn">Save</button>
+                <button onClick={() => setIsEditing(false)} className="cancel-btn">Cancel</button>
             </div>
         )}
 

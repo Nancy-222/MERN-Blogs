@@ -100,9 +100,7 @@
     transition: background-color 0.3s ease;
 }
 
-.edit-buttons .save-button {
-    background-color: #007bff !important;
-}
+
 
 /* New Styles for Edit Mode */
 .edit-content-container {
@@ -123,57 +121,66 @@
     resize: vertical;
 }
 
+/* Updated CSS for Save and Cancel buttons */
 .edit-content-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-.save-btn,
-.cancel-btn {
-    padding: 10px 15px;
+.save-btn {
+    background-color: #28a745; /* Green color */
+    color: #fff;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
-.save-btn {
-    background-color: #28a745 !important;
-    color: #fff;
-}
-
 .save-btn:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker green on hover */
 }
 
 .cancel-btn {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Red color */
     color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .cancel-btn:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Darker red on hover */
 }
 
-.DeleteBtn,
+
 .EditBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    
+}
+
+.DeleteBtn {
+    
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
 }
 
-.DeleteBtn {
+
+
+.DeleteBtn:hover{
     color: red;
 }
 
-.EditBtn {
-    color: #000;
-}
-
-.DeleteBtn:hover,
 .EditBtn:hover {
     color: #007bff;
 }
@@ -207,17 +214,6 @@
     transition: background-color 0.3s;
 }
 
-.edit-buttons .save-button {
-    background-color: #007bff;
-}
-
-.edit-buttons .save-button:hover {
-    background-color: #3498db;
-}
-
-.edit-buttons .save-button:hover {
-    background-color: #3498db;
-}
 
 .success-message {
     color: green;
