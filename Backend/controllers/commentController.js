@@ -2,22 +2,32 @@
 const Comment = require('../models/commentModel');
 const Blog = require('../models/blogModel');
 
-// Create a new comment
 const createComment = async (req, res) => {
-    const { text } = req.body;
-    const blogId = req.params.blogId;
-    const userId = req.user._id; 
+    const { content } = req.body;
+
+    if (content === '<p><br></p>' || !content) {
+        return res.status(400).json({ error: 'Comment cannot be blank' });
+    }
 
     try {
-        const comment = await Comment.create({ text, postedBy: userId });
-        const blog = await Blog.findById(blogId);
+        const { _id, firstName, lastName } = req.user;
+        const author = `${firstName} ${lastName}`;
+        const authorid = _id; 
+        const blogid = req.body.blogid
+        const comment = await Comment.create({ author, authorid, blogid, content });
 
+
+        const blog = await Blog.findById(blogid);
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
         blog.comments.push(comment._id);
         await blog.save();
 
         res.status(201).json(comment);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
     }
 };
 

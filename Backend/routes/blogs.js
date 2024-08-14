@@ -7,8 +7,7 @@ const {
   updateBlog,
   upvoteBlog,
   downvoteBlog,
-  comment,
-  uncomment,
+  getBlogComments,
   saveBlog,
   getSavedBlogs
 } = require('../controllers/blogController');
@@ -46,11 +45,14 @@ router.patch('/:id/save', requireAuth, saveBlog);
 // GET saved blogs
 router.get('/getSaved', requireAuth, getSavedBlogs);
 
-// // ADD a comment to a blog
-// router.patch('/:id/comment', comment);
+// SAVE a blog
+router.patch('/:id/save', requireAuth, saveBlog);
 
-// // REMOVE a comment from a blog
-// router.patch('/:id/uncomment', uncomment);
+// GET saved blogs
+router.get('/getSaved', requireAuth, getSavedBlogs);
+
+//GET blog comments
+router.get('/:id/comments', getBlogComments)
 
 // Send an email to support
 router.post('/support', sendSupportMail);
