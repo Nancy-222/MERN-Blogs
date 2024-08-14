@@ -126,7 +126,7 @@ const BlogForm = () => {
                 style={{ height: 'auto', minHeight: '100px' }}
             />
 
-            <div className="image-upload">
+            <div className="image-submit">
                 <label>Blog Images</label>
                 <input type="file" accept="image/*" onChange={handleImageChange} />
             </div>

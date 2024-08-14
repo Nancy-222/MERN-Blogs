@@ -63,8 +63,7 @@ const Home = () => {
               <Card.Body>
                 <Card.Title>Featured Authors</Card.Title>
                 <Card.Text>
-                  Get to know the voices behind our blog. Learn more about our
-                  featured authors and their expertise.
+                Get to know the diverse voices behind our blog. Learn more about our talented featured authors and their expertise.
                 </Card.Text>
                 <Link to="/featured-author"> {/* Update the path */}
                   <Button variant="outline-primary">Learn More</Button>

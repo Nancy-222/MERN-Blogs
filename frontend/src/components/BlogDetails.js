@@ -293,15 +293,15 @@ const BlogDetails = ({ blog }) => {
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Add a comment..."
                     ></textarea>
-                    <button onClick={handleCommentSubmit}>Post Comment</button>
+                    <button className= 'comment-btn'onClick={handleCommentSubmit}>Post Comment</button>
                 </div>
 
                 <div className="comments-list">
                     {comments.length > 0 ? (
                         comments.map(comment => (
                             <div key={comment._id} className="comment-item">
-                                <p><strong>{comment.author}</strong> commented:</p>
-                                <p>{comment.content}</p>
+                                <p className="comment-author"><strong>{comment.author}</strong> commented: </p>
+                                <p className="comment-text">{comment.content}</p>
                                 <p className="comment-date">{formatDate(comment.createdAt)}</p>
                             </div>
                         ))

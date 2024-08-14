@@ -155,6 +155,25 @@
     transition: background-color 0.3s ease;
 }
 
+.comment-btn:hover {
+    background-color: #3498db;
+}
+
+.save-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.comment-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
 .cancel-btn {
     background-color: #007bff; /* Red color */
     color: #fff;
@@ -287,4 +306,34 @@
 .comment-item p {
     margin: 0;
     display: block; /* Each p tag will be on its own line */
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sidebar:first-child {
+        order: 1;
+    }
+
+    .blog-form-section {
+        order: 2;
+    }
+
+    .blog-details-section {
+        order: 3;
+    }
+
+    .sidebar,
+    .blog-form-section,
+    .blog-details-section {
+        width: 100%;
+    }
 }

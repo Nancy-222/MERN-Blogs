@@ -1,95 +1,94 @@
 .user-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Full viewport height */
-    background-color: #f4f4f4; /* Light background color for contrast */
-    padding: 20px;
-  }
-  
-  .rectangle-container {
-    background-color: #BBD9EE;
-    width: 80%; /* Adjust the width as needed */
-    max-width: 600px; /* Optional: maximum width */
-    padding: 20px;
-    border-radius: 8px; /* Optional: rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-    color: white; /* Text color inside the rectangle */
-  }
-  
-  .profile-image-container {
-    text-align: center;
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .image-upload-label {
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    right:200;
-    display: inline-block;
-    margin-top: 10px;
-  }
-  
-  .image-upload {
-    display: none;
-  }
-  
-  .upload-icon {
-    font-size: 36px; /* Larger icon size */
-    color: blue; /* Color of the + icon */
-    background-color: white; /* White background for the circle */
-    border-radius: 50%; /* Make it circular */
-    width: 60px; /* Circle diameter */
-    height: 60px; /* Circle diameter */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for the button */
-  }
-  
-  .profile-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: rgb(0, 0, 0); /* Label color */
-  }
-  
-  .form-group input, .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    margin-bottom: 5px;
-  }
-  
-  .submit-button {
-    background-color: #007bff; /* Blue background */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #3498db; /* Darker blue on hover */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  background-color: #f4f4f4; /* Light background color for contrast */
+  padding: 20px;
+}
+
+.rectangle-container {
+  background-color: #BBD9EE;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 600px; /* Optional: maximum width */
+  padding: 20px;
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+  color: white; /* Text color inside the rectangle */
+}
+
+.profile-image-container {
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.image-upload-label {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right:200;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.image-upload {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 36px; /* Larger icon size */
+  color: blue; /* Color of the + icon */
+  background-color: white; /* White background for the circle */
+  border-radius: 50%; /* Make it circular */
+  width: 60px; /* Circle diameter */
+  height: 60px; /* Circle diameter */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for the button */
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0); /* Label color */
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 5px;
+}
+
+.submit-button {
+  background-color: #007bff; /* Blue background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #3498db; /* Darker blue on hover */
+}
