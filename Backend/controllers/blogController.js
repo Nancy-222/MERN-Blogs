@@ -101,9 +101,9 @@ const updateBlog = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
   }
-  if (blog.authorid.toString() !== req.user._id.toString()) {
-    return res.status(403).json({ error: 'You are not authorized to edit this blog' });
-}
+//   if (blog.authorid.toString() !== req.user._id.toString()) {
+//     return res.status(403).json({ error: 'You are not authorized to edit this blog' });
+// }
 
   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
 
@@ -177,6 +177,57 @@ const downvoteBlog = async (req, res) => {
   }
 };
 
+
+const saveBlog = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const blog = await Blog.findById(id);
+    if (!blog) {
+      return res.status(404).json({ error: 'No such blog' });
+    }
+
+    const userId = req.user._id;
+    const user = User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'No such user' });
+    }
+
+    if (!(user.saved.includes(id))) {
+      user.saved.push(id)
+      blog.saves += 1
+    } else {
+      user.saved.pull(id)
+      blog.saves -= 1
+    }
+
+    await user.save();
+    await blog.save();
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+const getSavedBlogs = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = User.findById(userId).populate('saves');
+
+    if (!user) {
+      return res.status(404).json({ error: 'No such user' });
+    }
+
+    res.status(200).json({userSaves: user.saves});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+
 const getBlogComments = async (req, res) => {
   try {
     const { id } = req.params;
@@ -204,5 +255,7 @@ module.exports = {
   updateBlog,
   upvoteBlog,
   downvoteBlog,
+  saveBlog,
+  getSavedBlogs,
   getBlogComments
 };

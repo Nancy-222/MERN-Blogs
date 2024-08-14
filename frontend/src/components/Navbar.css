@@ -119,6 +119,16 @@
   font-weight: bold;
 }
 
+.logout-btn{
+  color: red;
+}
+
+.logout-btn:hover{
+  color: white;
+  background-color: red;
+  border-color: red;
+}
+
 /* Responsive styling for the navbar */
 @media (max-width: 768px) {
   .navbar-links {

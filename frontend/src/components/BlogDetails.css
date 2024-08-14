@@ -129,8 +129,8 @@
     gap: 10px;
 }
 
-.save-edit-btn,
-.cancel-edit-btn {
+.save-btn,
+.cancel-btn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -139,21 +139,21 @@
     transition: background-color 0.3s ease;
 }
 
-.save-edit-btn {
-    background-color: #28a745;
+.save-btn {
+    background-color: #28a745 !important;
     color: #fff;
 }
 
-.save-edit-btn:hover {
+.save-btn:hover {
     background-color: #218838;
 }
 
-.cancel-edit-btn {
+.cancel-btn {
     background-color: #dc3545;
     color: #fff;
 }
 
-.cancel-edit-btn:hover {
+.cancel-btn:hover {
     background-color: #c82333;
 }
 

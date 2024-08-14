@@ -37,7 +37,12 @@ const Navbar = () => {
             </>
           )}
           {user && (
-            <span onClick={handleClick} className="nav-item">Log out</span>
+            <>
+              <Link to="/blog-form-details" className="nav-item">Dashboard</Link>
+            </>
+          )}
+          {user && (
+            <span onClick={handleClick} className="nav-item logout-btn">Log out</span>
           )}
         </div>
         {user && (
