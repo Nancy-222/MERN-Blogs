@@ -40,6 +40,7 @@ const BlogsPage = () => {
             )}
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
             <p className="posted-on">Posted On: {formatDate(blog.createdAt)}</p>
+            <p className="blog-author"><strong>By: {blog.author}</strong></p> 
             <div className="blog-actions">
               <button className="icon-button" title="Upvote">
                 <FiArrowUp />

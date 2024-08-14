@@ -140,5 +140,13 @@
     color: #666; /* Lighter color for content */
 }
 
-
+.edit-content-textarea {
+    width: 100%;
+    min-height: 200px; /* Adjust as needed */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none; /* Disable manual resizing to keep the auto-resize functionality */
+}
 
