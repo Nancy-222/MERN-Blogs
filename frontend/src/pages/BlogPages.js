@@ -132,7 +132,7 @@ return (
             </button>
             <button className="icon-button" title="View Saved Blogs">
               <FiBookmark />
-              <span className="icon-value">{blog.savedCount || 0}</span>
+              <span className="icon-value">{blog.saves || 0}</span>
             </button>
           </div>
 

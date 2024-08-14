@@ -179,6 +179,7 @@ const downvoteBlog = async (req, res) => {
 
 
 const saveBlog = async (req, res) => {
+  console.log('saving blog')
   const { id } = req.params;
 
   try {
@@ -188,7 +189,7 @@ const saveBlog = async (req, res) => {
     }
 
     const userId = req.user._id;
-    const user = User.findById(userId);
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'No such user' });
@@ -209,23 +210,6 @@ const saveBlog = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-
-const getSavedBlogs = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    const user = User.findById(userId).populate('saves');
-
-    if (!user) {
-      return res.status(404).json({ error: 'No such user' });
-    }
-
-    res.status(200).json({userSaves: user.saves});
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 
 
 const getBlogComments = async (req, res) => {
@@ -256,6 +240,5 @@ module.exports = {
   upvoteBlog,
   downvoteBlog,
   saveBlog,
-  getSavedBlogs,
   getBlogComments
 };

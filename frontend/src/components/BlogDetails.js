@@ -13,6 +13,7 @@ const formatDate = (dateString) => {
 const BlogDetails = ({ blog }) => {
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
+    const [saved, setSaved] = useState(false);
     const [error, setError] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
@@ -114,6 +115,59 @@ const BlogDetails = ({ blog }) => {
             }
         }
     };
+
+    const handleSave = async (id) => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
+    //     try {
+    //         const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
+    //             method: 'PATCH',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${user.token}`
+    //             },
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error('Failed to save the blog');
+    //         }
+
+    //         const updatedBlog = await response.json();
+    //         dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+    //         setSaved(true);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+    try {
+        // Optimistically update UI
+        const alreadySaved = saved; // Assuming `saved` is the state tracking if the blog is saved
+        setSaved(!alreadySaved);
+
+        const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
+        });
+
+        if (!response.ok) {
+            // Revert UI update if API call fails
+            setSaved(alreadySaved);
+            throw new Error('Failed to save the blog');
+        }
+
+        const updatedBlog = await response.json();
+        dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+    } catch (error) {
+        setError(error.message);
+        console.error(error);
+    }
+};
+
 
     const handleEdit = () => {
         if (!user) {
@@ -255,7 +309,10 @@ return (
             >
                 <FiMessageSquare /> {blog.comments.length || 0}
             </button>
-                <button title="Save Blog">
+                <button title="Save Blog"
+                className="savebtn"
+                onClick={() => handleSave(blog._id)}
+                >
                     <FiBookmark />{blog.savedCount || 0}
                 </button>
         </div>

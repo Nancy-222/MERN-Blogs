@@ -43,6 +43,22 @@ const getUser = async (req, res) => {
     }
 };
 
+const getUserSaved = async (req, res) => {
+    try {
+        const { id } = req.params; // Assuming the user ID is available in req.user (e.g., from authentication middleware)
+        console.log('id')
+        const user = await User.findById(id).populate('saved').exec();
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json(user.saved); // Return the populated saved blogs
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 
 //POST a new user
 const signupUser = async (req, res) => {
@@ -132,6 +148,7 @@ const updateUser = async (req, res) => {
 module.exports = {
     getUsers,
     getUser,
+    getUserSaved,
     signupUser,
     loginUser,
     deleteUser,

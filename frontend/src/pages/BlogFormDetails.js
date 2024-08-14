@@ -36,10 +36,14 @@ const BlogFormDetails = () => {
             }
         };
         fetchUsers();
+    }, []);
 
+    useEffect(() => {
         const fetchSaved = async () => {
-            const response = await fetch(`${BASE_URL}/api/blogs/getSaved`, {
-                method: 'PATCH',
+            if (!user) return; // Ensure the user is logged in
+
+            const response = await fetch(`${BASE_URL}/api/users/${user.id}/saved`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
@@ -48,11 +52,14 @@ const BlogFormDetails = () => {
             const json = await response.json();
 
             if (response.ok) {
-                setSavedBlogs(json.userSaves);
+                setSavedBlogs(json);
+            } else {
+                console.error('Failed to fetch saved blogs:', json.error);
             }
         };
+
         fetchSaved();
-    }, []);
+    }, [user]); // Run this effect when the user changes
 
     return (
         <div className="blog-form-details-page">
