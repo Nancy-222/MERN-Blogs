@@ -133,7 +133,7 @@
     color: #fff;
     border: none;
     padding: 10px 15px;
-    margin-right: 10px;
+    margin-right:10px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -141,7 +141,18 @@
 }
 
 .save-btn:hover {
-    background-color: #3498db; /* Darker green on hover */
+    background-color: #3498db; 
+}
+
+.comment-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .cancel-btn {
@@ -216,8 +227,64 @@
 }
 
 
-.success-message {
-    color: green;
-    margin-top: 10px;
-    font-size: 16px;
+.comment-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.comment-form {
+    margin-bottom: 20px;
+}
+
+.comment-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+
+/* Styling for the comment list */
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Ensure proper spacing and alignment for comment text */
+.comment-item .comment-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-content {
+    font-size: 1.2rem; /* Increased font size for comment text */
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-date {
+    font-size: 0.9rem;
+    color: #777;
+    text-align: right; /* Right align the date for better readability */
+}
+
+/* Ensure elements are stacked vertically */
+.comment-item p {
+    margin: 0;
+    display: block; /* Each p tag will be on its own line */
 }
