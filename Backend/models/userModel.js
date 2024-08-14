@@ -38,6 +38,10 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Blog'
     }],
+    saved: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Blog'
+    }],
     friends: [{
         type: Schema.Types.ObjectId,
         ref: 'User'

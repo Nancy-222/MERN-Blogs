@@ -89,6 +89,34 @@ const BlogDetails = ({ blog }) => {
         }
     };
 
+
+    const handleSave = async (id) => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save the blog');
+            }
+
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const handleDelete = async (id) => {
         if (!user) {
             setError('You must be logged in');
@@ -237,7 +265,7 @@ const BlogDetails = ({ blog }) => {
                 >
                     <FiMessageSquare /> {comments.length || 0}
                 </button>
-                <button title="Save Blog">
+                <button title="Save Blog" onClick={() => handleSave(blog._id)}>
                     <FiBookmark />{blog.savedCount || 0}
                 </button>
             </div>

@@ -8,7 +8,9 @@ const {
   upvoteBlog,
   downvoteBlog,
   comment,
-  uncomment
+  uncomment,
+  saveBlog,
+  getSavedBlogs
 } = require('../controllers/blogController');
 const requireAuth = require('../middleware/requireAuth')
 const { sendSupportMail } = require('../controllers/mailController');
@@ -37,6 +39,12 @@ router.patch('/:id/upvote', requireAuth, upvoteBlog);
 
 // DOWNVOTE a blog
 router.patch('/:id/downvote', requireAuth, downvoteBlog);
+
+// SAVE a blog
+router.patch('/:id/save', requireAuth, saveBlog);
+
+// GET saved blogs
+router.get('/getSaved', requireAuth, getSavedBlogs);
 
 // // ADD a comment to a blog
 // router.patch('/:id/comment', comment);

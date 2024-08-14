@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useBlogsContext } from '../hooks/useBlogsContext';
 import BlogDetails from '../components/BlogDetails';
 import BlogForm from '../components/BlogForm';
-import { FaUserPlus } from 'react-icons/fa'; 
-import './BlogFormDetails.css'; 
+import { FaUserPlus } from 'react-icons/fa';
+import { useAuthContext } from '../hooks/useAuthContext';
+import './BlogFormDetails.css';
 
 const BASE_URL = 'http://localhost:4000'; // Define BASE_URL here
 
 const BlogFormDetails = () => {
     const { blogs, dispatch } = useBlogsContext();
+    const { user } = useAuthContext();
     const [users, setUsers] = useState([]);
+    const [savedBlogs, setSavedBlogs] = useState([]);
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -33,6 +36,22 @@ const BlogFormDetails = () => {
             }
         };
         fetchUsers();
+
+        const fetchSaved = async () => {
+            const response = await fetch(`${BASE_URL}/api/blogs/getSaved`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+            });
+            const json = await response.json();
+
+            if (response.ok) {
+                setSavedBlogs(json.userSaves);
+            }
+        };
+        fetchSaved();
     }, []);
 
     return (
@@ -48,19 +67,33 @@ const BlogFormDetails = () => {
                         ))}
                     </div>
                 </div>
-                <div className="sidebar">
-                    <div className="add-friend">
-                        <h3>Add Friends</h3>
-                        <ul>
-                            {users.map(user => (
-                                <li key={user._id}>
-                                    <button className="add-friend-btn">
-                                        <FaUserPlus />
-                                    </button>
-                                    {user.firstName} {user.lastName}
-                                </li>
-                            ))}
-                        </ul>
+                <div className="sidebar-container">
+                    <div className="sidebar">
+                        <div className="add-friend">
+                            <h3>Saved Blogs</h3>
+                            <ul>
+                                {savedBlogs.map(blog => (
+                                    <li key={blog._id}>
+                                        <a href="#">{blog.title}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="sidebar">
+                        <div className="add-friend">
+                            <h3>Add Friends</h3>
+                            <ul>
+                                {users.map(user => (
+                                    <li key={user._id}>
+                                        <button className="add-friend-btn">
+                                            <FaUserPlus />
+                                        </button>
+                                        {user.firstName} {user.lastName}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

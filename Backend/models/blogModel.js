@@ -28,6 +28,10 @@ const blogSchema = new Schema({
         type: Number,
         default: 0, // Default value for downvotes
     },
+    saves: {
+        type: Number,
+        default: 0, // Default value for downvotes
+    },
     image: {
         data: Buffer,
         contentType: String,
