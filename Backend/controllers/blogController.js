@@ -2,7 +2,7 @@ const Blog = require('../models/blogModel');
 const User = require('../models/userModel')
 const Comment = require('../models/commentModel'); // Import the Comment model
 const mongoose = require('mongoose');
-const multer = require('multer');
+
 const fs = require('fs');
 const path = require('path');
 
@@ -29,43 +29,55 @@ const getBlog = async (req, res) => {
 };
 
 // POST a new blog
-  // const createBlog = async (req, res) => {
-  //   // var storage = multer.diskStorage({
-  //   //   destination: (req, file, cb) => {
-  //   //     cb(null, 'uploads');
-  //   //   },
-  //   //   filename: (req, file, cb) => {
-  //   //     cb(null, file.fieldname + '-' + Date.now());
-  //   //   },
-  //   // });
 
-  //   // var upload = multer({ storage: storage });
+//   const createBlog = async (req, res) => {
+//     const { title, content, upvotes, downvotes } = req.body;
 
-  //   // var image = {
-  //   //   // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-  //   //   contentType: 'image/png',
-  //   // };
+//     if (!title || content === '<p><br></p>' || !content) {
+//         return res.status(400).json({ error: 'Both title and content are required!' });
+//     }
 
-  const createBlog = async (req, res) => {
-    const { title, content, upvotes, downvotes } = req.body;
+//     try {
+//         const { _id, firstName, lastName } = req.user;
+//         const author = `${firstName} ${lastName}`;
+//         const authorid = _id;  
 
-    if (!title || content === '<p><br></p>' || !content) {
-        return res.status(400).json({ error: 'Both title and content are required!' });
+//         const blog = await Blog.create({ title, content, author, authorid, upvotes, downvotes });
+
+//         res.status(200).json(blog);
+//         console.log('Blog created:', blog);
+
+//     } catch (error) {
+//         res.status(400).json({ error: error.message });
+//     }
+// };
+
+const createBlog = async (req, res) => {
+  const { title, content, upvotes, downvotes } = req.body;
+
+
+
+  if (!title || content === '<p><br></p>' || !content) {
+    return res.status(400).json({ error: 'Both title and content are required!' });
+  }
+  try {
+    const { _id, firstName, lastName } = req.user;
+    const author = `${firstName} ${lastName}`;
+    const authorid = _id;
+    const img = {
+      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+      contentType: 'image/png'
     }
 
-    try {
-        const { _id, firstName, lastName } = req.user;
-        const author = `${firstName} ${lastName}`;
-        const authorid = _id;  
+    const base64Image = img.data.toString('base64');
+    const image = `data:${img.contentType};base64,${base64Image}`;
 
-        const blog = await Blog.create({ title, content, author, authorid, upvotes, downvotes });
+    const blog = await Blog.create({ title, content, author, authorid, upvotes, downvotes, image });
+    res.status(200).json(blog);
 
-        res.status(200).json(blog);
-        console.log('Blog created:', blog);
-
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 
@@ -75,16 +87,16 @@ const deleteBlog = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
-}
+  }
 
   const blog = await Blog.findById(id);
 
   if (!blog) {
-      return res.status(400).json({ error: 'No such blog' });
+    return res.status(400).json({ error: 'No such blog' });
   }
 
   if (blog.authorid.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'You are not authorized to delete this blog' });
+    return res.status(403).json({ error: 'You are not authorized to delete this blog' });
   }
 
   await Blog.findByIdAndDelete(id);
@@ -94,6 +106,22 @@ const deleteBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
+// UPDATE a blog
+// const updateBlog = async (req, res) => {
+//   const { id } = req.params;
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(400).json({ error: 'No such blog' });
+//   }
+
+//   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+
+//   if (!blog) {
+//     return res.status(400).json({ error: 'No such blog' });
+//   }
+
+//   res.status(200).json(blog);
+// };
 
 const updateBlog = async (req, res) => {
   const { id } = req.params;
@@ -101,9 +129,6 @@ const updateBlog = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
   }
-//   if (blog.authorid.toString() !== req.user._id.toString()) {
-//     return res.status(403).json({ error: 'You are not authorized to edit this blog' });
-// }
 
   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
 
@@ -132,7 +157,7 @@ const upvoteBlog = async (req, res) => {
     } else {
       blog.upvotes += 1;
       blog.upvotedBy.push(userId);
-      
+
       if (blog.downvotedBy.includes(userId)) {
         blog.downvotes -= 1;
         blog.downvotedBy.pull(userId);
@@ -157,13 +182,17 @@ const downvoteBlog = async (req, res) => {
 
     const userId = req.user._id;
 
+    // Check if user has already downvoted
     if (blog.downvotedBy.includes(userId)) {
+      // If already downvoted, remove the downvote
       blog.downvotes -= 1;
       blog.downvotedBy.pull(userId);
     } else {
+      // If not downvoted, add the downvote and remove upvote if exists
       blog.downvotes += 1;
       blog.downvotedBy.push(userId);
-      
+
+      // If the user has upvoted, remove the upvote
       if (blog.upvotedBy.includes(userId)) {
         blog.upvotes -= 1;
         blog.upvotedBy.pull(userId);
@@ -178,74 +207,6 @@ const downvoteBlog = async (req, res) => {
 };
 
 
-const saveBlog = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const blog = await Blog.findById(id);
-    if (!blog) {
-      return res.status(404).json({ error: 'No such blog' });
-    }
-
-    const userId = req.user._id;
-    const user = User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ error: 'No such user' });
-    }
-
-    if (!(user.saved.includes(id))) {
-      user.saved.push(id)
-      blog.saves += 1
-    } else {
-      user.saved.pull(id)
-      blog.saves -= 1
-    }
-
-    await user.save();
-    await blog.save();
-    res.status(200).json(blog);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-
-const getSavedBlogs = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    const user = User.findById(userId).populate('saves');
-
-    if (!user) {
-      return res.status(404).json({ error: 'No such user' });
-    }
-
-    res.status(200).json({userSaves: user.saves});
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-
-
-const getBlogComments = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const blog = await Blog.findById(id).populate('comments').exec();
-
-    if (!blog) {
-        return res.status(404).json({ message: 'Blog not found' });
-    }
-
-    res.json(blog.comments);
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-}
-};
-
-
-
 // Export the functions as a module
 module.exports = {
   getBlogs,
@@ -254,8 +215,5 @@ module.exports = {
   deleteBlog,
   updateBlog,
   upvoteBlog,
-  downvoteBlog,
-  saveBlog,
-  getSavedBlogs,
-  getBlogComments
+  downvoteBlog
 };

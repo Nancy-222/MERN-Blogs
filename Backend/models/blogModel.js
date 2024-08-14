@@ -1,4 +1,3 @@
-// models/blogModel.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -28,13 +27,9 @@ const blogSchema = new Schema({
         type: Number,
         default: 0, // Default value for downvotes
     },
-    saves: {
-        type: Number,
-        default: 0, // Default value for downvotes
-    },
     image: {
-        data: Buffer,
-        contentType: String,
+        type:String,
+        required: false
     },
     upvotedBy: [{ 
         type: mongoose.Schema.Types.ObjectId,
