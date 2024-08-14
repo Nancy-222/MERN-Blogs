@@ -53,49 +53,6 @@ const BlogsPage = () => {
   };
 
 
-//   return (
-//     <div className="blogs-page">
-//       <div className="blog-container">
-//         {blogs.map(blog => (
-//           <div key={blog.id} className="blog-block">
-//             <h4>{blog.title}</h4>
-//             {blog.image && (
-//               <img
-//                 src={`http://localhost:4000/uploads/${blog.image}`}
-//                 alt="Blog"
-//                 style={{ maxWidth: '100%', borderRadius: '8px' }}
-//               />
-//             )}
-//             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-//             <p className="posted-on">Posted On: {formatDate(blog.createdAt)}</p>
-//             <p className="blog-author"><strong>By: {blog.author}</strong></p> 
-//             <div className="blog-actions">
-//               <button className="icon-button" title="Upvote">
-//                 <FiArrowUp />
-//                 <span className="icon-value">{blog.upvotes}</span>
-//               </button>
-//               <button className="icon-button" title="Downvote">
-//                 <FiArrowDown />
-//                 <span className="icon-value">{blog.downvotes}</span>
-//               </button>
-//               <button className="icon-button" title="View Comments">
-//                 <FiMessageSquare />
-//                 <span className="icon-value">{blog.comments.length}</span>
-//               </button>
-//               <button className="icon-button" title="View Saved Blogs">
-//                 <FiBookmark />
-//                 <span className="icon-value">{blog.savedCount || 0}</span>
-//               </button>
-
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default BlogsPage;
 
 return (
   <div className="blogs-page">
@@ -104,12 +61,10 @@ return (
         <div key={blog._id} className="blog-block">
           <h4>{blog.title}</h4>
           {blog.image && (
-            <img
-              src={`http://localhost:4000/uploads/${blog.image}`}
-              alt="Blog"
-              style={{ maxWidth: '100%', borderRadius: '8px' }}
-            />
-          )}
+            <div className="blog-image">
+                <img src={`http://localhost:4000/uploads/${blog.image}`} alt="Blog" className="blog-image-img" />
+            </div>
+        )}
           <div dangerouslySetInnerHTML={{ __html: blog.content }} />
           <p className="posted-on">Posted On: {formatDate(blog.createdAt)}</p>
           <p className="blog-author"><strong>By: {blog.author}</strong></p>

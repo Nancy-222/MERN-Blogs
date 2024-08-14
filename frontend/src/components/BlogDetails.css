@@ -100,9 +100,7 @@
     transition: background-color 0.3s ease;
 }
 
-.edit-buttons .save-button {
-    background-color: #007bff !important;
-}
+
 
 /* New Styles for Edit Mode */
 .edit-content-container {
@@ -123,57 +121,78 @@
     resize: vertical;
 }
 
+/* Updated CSS for Save and Cancel buttons */
 .edit-content-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-.save-btn,
-.cancel-btn {
-    padding: 10px 15px;
+.save-btn {
+    background-color: #007bff; /* Green color */
+    color: #fff;
     border: none;
+    padding: 10px 15px;
+    margin-right:10px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
-.save-btn {
-    background-color: #28a745 !important;
-    color: #fff;
+.save-btn:hover {
+    background-color: #3498db; 
 }
 
-.save-btn:hover {
-    background-color: #218838;
+.comment-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .cancel-btn {
-    background-color: #dc3545;
+    background-color: #007bff; /* Red color */
     color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .cancel-btn:hover {
-    background-color: #c82333;
+    background-color: #3498db; /* Darker red on hover */
 }
 
-.DeleteBtn,
+
 .EditBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    
+}
+
+.DeleteBtn {
+    
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
 }
 
-.DeleteBtn {
+
+
+.DeleteBtn:hover{
     color: red;
 }
 
-.EditBtn {
-    color: #000;
-}
-
-.DeleteBtn:hover,
 .EditBtn:hover {
     color: #007bff;
 }
@@ -207,20 +226,65 @@
     transition: background-color 0.3s;
 }
 
-.edit-buttons .save-button {
-    background-color: #007bff;
+
+.comment-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-.edit-buttons .save-button:hover {
-    background-color: #3498db;
+.comment-form {
+    margin-bottom: 20px;
 }
 
-.edit-buttons .save-button:hover {
-    background-color: #3498db;
+.comment-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
 }
 
-.success-message {
-    color: green;
-    margin-top: 10px;
-    font-size: 16px;
+
+/* Styling for the comment list */
+.comments-list {
+    margin-top: 20px;
+}
+
+.comment-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Ensure proper spacing and alignment for comment text */
+.comment-item .comment-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-content {
+    font-size: 1.2rem; /* Increased font size for comment text */
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-date {
+    font-size: 0.9rem;
+    color: #777;
+    text-align: right; /* Right align the date for better readability */
+}
+
+/* Ensure elements are stacked vertically */
+.comment-item p {
+    margin: 0;
+    display: block; /* Each p tag will be on its own line */
 }

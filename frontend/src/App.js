@@ -9,9 +9,9 @@ import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import Footer from './pages/Footer';
 import BlogPages from './pages/BlogPages'; // Ensure correct path
+import UserPage from './pages/UserPage'
 import BlogFormDetails from './pages/BlogFormDetails'; // Ensure correct path
 import Navbar from './components/Navbar';
-import UserPage from './pages/UserPage';
 import { AuthContextProvider, AuthContext } from './context/AuthContext';
 import FeaturedAuthor from './pages/FeaturedAuthor';
 

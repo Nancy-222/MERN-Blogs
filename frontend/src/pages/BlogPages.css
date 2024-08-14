@@ -58,3 +58,14 @@
   font-weight: bold; /* Make the text bold */
   margin: 10px 0; /* Adjust margin as needed */
 }
+
+
+.blog-image {
+  margin: 20px 0;
+}
+
+.blog-image-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

@@ -2,7 +2,7 @@ const Blog = require('../models/blogModel');
 const User = require('../models/userModel')
 const Comment = require('../models/commentModel'); // Import the Comment model
 const mongoose = require('mongoose');
-const multer = require('multer');
+
 const fs = require('fs');
 const path = require('path');
 
@@ -28,44 +28,33 @@ const getBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
-// POST a new blog
-  // const createBlog = async (req, res) => {
-  //   // var storage = multer.diskStorage({
-  //   //   destination: (req, file, cb) => {
-  //   //     cb(null, 'uploads');
-  //   //   },
-  //   //   filename: (req, file, cb) => {
-  //   //     cb(null, file.fieldname + '-' + Date.now());
-  //   //   },
-  //   // });
 
-  //   // var upload = multer({ storage: storage });
+const createBlog = async (req, res) => {
+  const { title, content, upvotes, downvotes } = req.body;
 
-  //   // var image = {
-  //   //   // data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-  //   //   contentType: 'image/png',
-  //   // };
 
-  const createBlog = async (req, res) => {
-    const { title, content, upvotes, downvotes } = req.body;
 
-    if (!title || content === '<p><br></p>' || !content) {
-        return res.status(400).json({ error: 'Both title and content are required!' });
+  if (!title || content === '<p><br></p>' || !content) {
+    return res.status(400).json({ error: 'Both title and content are required!' });
+  }
+  try {
+    const { _id, firstName, lastName } = req.user;
+    const author = `${firstName} ${lastName}`;
+    const authorid = _id;
+    const img = {
+      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+      contentType: 'image/png'
     }
 
-    try {
-        const { _id, firstName, lastName } = req.user;
-        const author = `${firstName} ${lastName}`;
-        const authorid = _id;  
+    const base64Image = img.data.toString('base64');
+    const image = `data:${img.contentType};base64,${base64Image}`;
 
-        const blog = await Blog.create({ title, content, author, authorid, upvotes, downvotes });
+    const blog = await Blog.create({ title, content, author, authorid, upvotes, downvotes, image });
+    res.status(200).json(blog);
 
-        res.status(200).json(blog);
-        console.log('Blog created:', blog);
-
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 
@@ -75,16 +64,16 @@ const deleteBlog = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
-}
+  }
 
   const blog = await Blog.findById(id);
 
   if (!blog) {
-      return res.status(400).json({ error: 'No such blog' });
+    return res.status(400).json({ error: 'No such blog' });
   }
 
   if (blog.authorid.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'You are not authorized to delete this blog' });
+    return res.status(403).json({ error: 'You are not authorized to delete this blog' });
   }
 
   await Blog.findByIdAndDelete(id);
@@ -101,9 +90,6 @@ const updateBlog = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
   }
-//   if (blog.authorid.toString() !== req.user._id.toString()) {
-//     return res.status(403).json({ error: 'You are not authorized to edit this blog' });
-// }
 
   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
 
@@ -132,7 +118,7 @@ const upvoteBlog = async (req, res) => {
     } else {
       blog.upvotes += 1;
       blog.upvotedBy.push(userId);
-      
+
       if (blog.downvotedBy.includes(userId)) {
         blog.downvotes -= 1;
         blog.downvotedBy.pull(userId);
@@ -163,7 +149,7 @@ const downvoteBlog = async (req, res) => {
     } else {
       blog.downvotes += 1;
       blog.downvotedBy.push(userId);
-      
+
       if (blog.upvotedBy.includes(userId)) {
         blog.upvotes -= 1;
         blog.upvotedBy.pull(userId);
@@ -230,7 +216,6 @@ const getBlogComments = async (req, res) => {
 
 
 
-// Export the functions as a module
 module.exports = {
   getBlogs,
   getBlog,

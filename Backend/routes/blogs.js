@@ -15,6 +15,22 @@ const { sendSupportMail } = require('../controllers/mailController');
 
 const router = express.Router();
 
+
+//middleware for file upload handling
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './controllers/uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+var upload = multer({ storage: storage });
+
+
+
+
 // router.use(requireAuth);
 
 // GET all blogs
@@ -24,7 +40,7 @@ router.get('/', getBlogs);
 router.get('/:id', getBlog);
 
 // POST a new blog
-router.post('/',requireAuth, createBlog);
+router.post('/', [requireAuth, upload.single('image')] , createBlog);
 
 // DELETE a blog
 router.delete('/:id', requireAuth, deleteBlog);

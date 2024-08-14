@@ -81,7 +81,7 @@ const BlogFormDetails = () => {
                             <ul>
                                 {savedBlogs.map(blog => (
                                     <li key={blog._id}>
-                                        <a href="#">{blog.title}</a>
+                                        {blog.title}
                                     </li>
                                 ))}
                             </ul>

@@ -29,13 +29,6 @@ const BlogDetails = ({ blog }) => {
         }
     }, [showCommentForm]);
 
-    useEffect(() => {
-        if (blog.savedCount === undefined) {
-            blog.savedCount = 0;
-        }
-    }, [blog]);
-
-
     const handleUpvote = async (id) => {
         if (!user) {
             setError('You must be logged in');
@@ -60,6 +53,7 @@ const BlogDetails = ({ blog }) => {
             setDownvoted(false);
         } catch (error) {
             console.error(error);
+            setError(error.message);
         }
     };
 
@@ -87,6 +81,7 @@ const BlogDetails = ({ blog }) => {
             setUpvoted(false);
         } catch (error) {
             console.error(error);
+            setError(error.message);
         }
     };
 
@@ -112,76 +107,48 @@ const BlogDetails = ({ blog }) => {
                 dispatch({ type: 'DELETE_BLOG', payload: json });
             } catch (error) {
                 console.error(error);
+                setError(error.message);
             }
         }
     };
+
 
     const handleSave = async (id) => {
         if (!user) {
             setError('You must be logged in');
             return;
         }
-    //     try {
-    //         const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${user.token}`
-    //             },
-    //         });
+        try {
+            const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+            });
 
-    //         if (!response.ok) {
-    //             throw new Error('Failed to save the blog');
-    //         }
+            if (!response.ok) {
+                throw new Error('Failed to save the blog');
+            }
 
-    //         const updatedBlog = await response.json();
-    //         dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
-    //         setSaved(true);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-    try {
-        // Optimistically update UI
-        const alreadySaved = saved; // Assuming `saved` is the state tracking if the blog is saved
-        setSaved(!alreadySaved);
-
-        const response = await fetch(`http://localhost:4000/api/blogs/${id}/save`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
-            },
-        });
-
-        if (!response.ok) {
-            // Revert UI update if API call fails
-            setSaved(alreadySaved);
-            throw new Error('Failed to save the blog');
+            const updatedBlog = await response.json();
+            dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
+            setSaved(!saved); // Toggle save state
+        } catch (error) {
+            console.error(error);
+            setError(error.message);
         }
-
-        const updatedBlog = await response.json();
-        dispatch({ type: 'UPDATE_BLOG', payload: updatedBlog });
-    } catch (error) {
-        setError(error.message);
-        console.error(error);
-    }
-};
-
+    };
 
     const handleEdit = () => {
-        if (!user) {
-            setError('You must be logged in');
-            return;
-        }
-        // if (blog.authorid.toString() !== user._id.toString()) {
-        //     setError('You cannot edit this blog');
-        // }        
         setIsEditing(!isEditing);
     };
 
     const handleSaveEdit = async () => {
-
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
         try {
             const response = await fetch(`http://localhost:4000/api/blogs/${blog._id}/content`, {
                 method: 'PATCH',
@@ -201,6 +168,7 @@ const BlogDetails = ({ blog }) => {
             setIsEditing(false);
         } catch (error) {
             console.error(error);
+            setError(error.message);
         }
     };
 
@@ -254,39 +222,39 @@ const BlogDetails = ({ blog }) => {
     const handleCommentFormToggle = () => {
         setShowCommentForm(!showCommentForm);
     };
-
-
-return (
-    <div className="blog-details">
-        <div className="blog-header">
-            <h4 className="blog-title">{blog.title}</h4>
-
-            <div className="actions">
-                <button className="DeleteBtn" title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
-                <button className="EditBtn" title="Edit Blog" onClick={() => handleEdit(blog._id)}><GoPencil /></button>
+    
+    return (
+        <div className="blog-details">
+            <div className="blog-header">
+                <h4 className="blog-title">{blog.title}</h4>
+                <div className="actions">
+                    <button className="DeleteBtn" title="Delete Blog" onClick={() => handleDelete(blog._id)}><FiTrash /></button>
+                    <button className="EditBtn" title="Edit Blog" onClick={handleEdit}><GoPencil /></button>
+                </div>
             </div>
-        </div>
+            {blog.image && (
+                <div className="blog-image">
+                    <img
+                        src={`data:${blog.image}`}
+                        alt="Blog" className="blog-image-img"
+                    />
+                </div>
+            )}
 
-        {blog.image && (
-            <div className="blog-image">
-                <img src={`http://localhost:4000/uploads/${blog.image}`} alt="Blog" className="blog-image-img" />
-            </div>
-        )}
-
-        {!isEditing ? (
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-        ) : (
-            <div>
-                <textarea
-                    value={newContent}
-                    onChange={(e) => setNewContent(e.target.value)}
-                    className="edit-content-textarea"
-                />
-                <button onClick={handleSaveEdit} classname="save-btn">Save</button>
-                <button onClick={() => setIsEditing(false)} classname="cancel-btn">Cancel</button>
-            </div>
-        )}
-
+            {!isEditing ? (
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ) : (
+                <div>
+                    <textarea
+                        value={newContent}
+                        onChange={(e) => setNewContent(e.target.value)}
+                        className="edit-content-textarea"
+                    />
+                    <button onClick={handleSaveEdit} className="save-btn">Save</button>
+                    <button onClick={() => setIsEditing(false)} className="cancel-btn">Cancel</button>
+                </div>
+            )}
+ 
             <p className='posted-on'>Posted On: {formatDate(blog.createdAt)}</p>
             <p className="blog-author"><strong>By: {blog.author}</strong></p> 
 
@@ -313,11 +281,11 @@ return (
                 className="savebtn"
                 onClick={() => handleSave(blog._id)}
                 >
-                    <FiBookmark />{blog.savedCount || 0}
+                    <FiBookmark />{blog.saves || 0}
                 </button>
-        </div>
+            </div>
 
-        {showCommentForm && (
+            {showCommentForm && (
             <div className="comment-section">
                 <div className="comment-form">
                     <textarea

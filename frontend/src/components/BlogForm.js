@@ -18,7 +18,7 @@ const BlogForm = () => {
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(e.target.files[0]));
+            setSelectedImage(e.target.files[0]);
         }
     };
 
@@ -48,13 +48,13 @@ const BlogForm = () => {
     }, [content]);
 
     const handleSubmit = async (e) => {
-        if (!user){
+        if (!user) {
             setError('You must be logged in');
             return;
         }
 
         e.preventDefault();
-    
+
         // Validate that title and content are not empty
         if (!title.trim() || !content.trim()) {
             setError('Both name and content are required!');
@@ -65,15 +65,19 @@ const BlogForm = () => {
             setError('Both name and content are required!');
             return;
         }
-    
-        const blog = { title, content };
-    
+
+
+        const formData = new FormData();
+        formData.append('image', selectedImage);
+        formData.append('title', title);
+        formData.append('content', content);
+
+
         try {
             const response = await fetch(`${BASE_URL}/api/blogs/`, {
                 method: 'POST',
-                body: JSON.stringify(blog),
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
                 },
             });
@@ -91,7 +95,7 @@ const BlogForm = () => {
             setError('An error occurred while adding the blog.');
         }
     };
-
+    
     return (
         <form enctype="multipart/form-data" className="create" onSubmit={handleSubmit}>
             <h3>Add a New Blog</h3>
@@ -116,7 +120,7 @@ const BlogForm = () => {
                         ['bold', 'italic', 'underline'],
                         ['link'],
                         [{ 'align': [] }],
-                        ['clean'] 
+                        ['clean']
                     ],
                 }}
                 style={{ height: 'auto', minHeight: '100px' }}
