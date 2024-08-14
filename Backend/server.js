@@ -5,7 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const blogRoutes = require('./routes/blogs')
 const userRoutes = require('./routes/users')
-const commentRoutes = require('./routes/commentRoutes');
+const commentRoutes = require('./routes/comments')
 
 // Express APP
 const app = express()
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 //Routes
 app.use('/api/blogs', blogRoutes)
 app.use('/api/users', userRoutes)
-app.use('/api', commentRoutes);
+app.use('/api/comments', commentRoutes);
 
 
 

@@ -6,8 +6,9 @@ const mailGun = require('nodemailer-mailgun-transport');
 const sendSupportMail = async (req, res) => {
     const auth = {
         auth: {
-            api_key: '4720129bc06769d246cc9b70028aff69-911539ec-5bb8f893',
-            domain: 'sandboxa11b427ffdd648bfbd0b4d898865d82a.mailgun.org'
+            apiKey: process.env.MAILGUN_API_KEY,
+            domain: process.env.MAILGUN_DOMAIN
+
         }
     };
     const transporter = nodemailer.createTransport(mailGun(auth));

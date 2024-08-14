@@ -11,6 +11,11 @@
     background-color: #3498db; /* Ensure this matches your desired color */
 
 }
+.create label {
+    display: block;
+    margin-top: 10px; /* Add space above the label */
+    margin-bottom: 5px; /* Add space below the label */
+}
 
 .image-upload{
     margin-bottom: 30px;

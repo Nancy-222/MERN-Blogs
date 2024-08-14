@@ -1,35 +1,35 @@
 .footer {
-    background-color: #2E4053 !important; /* Dark blue color */
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .footer p {
-    margin: 0;
-    padding: 10px 10px 10px 0;
-  }
-  
-  .navbar-social {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-  }
-  
-  .social-icon {
-    font-size: 40px; /* Increased size */
-    margin: 0 10px;
-    color: #fff !important; /* Force icons to be white */
-    transition: color 0.3s ease;
-  }
-  
-  .social-icon:hover {
-    color: #206BA4 !important; /* Lighter blue on hover */
-  }
-  
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1px 0; /* Reduced vertical padding for a smaller footer */
+}
+
+.footer-content {
+  margin: 0;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9em; /* Reduced font size for smaller text */
+}
+
+.navbar-social {
+  display: flex;
+  justify-content: center; /* Center icons horizontally */
+  margin-top: 5px; /* Reduced space between text and icons */
+}
+
+.social-icon {
+  font-size: 24px; /* Reduced size for icons */
+  margin: 0 8px; /* Reduced space between icons */
+  color: #fff; /* Force icons to be white */
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #007bff; /* Lighter blue on hover */
+}

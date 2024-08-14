@@ -94,22 +94,6 @@ const deleteBlog = async (req, res) => {
   res.status(200).json(blog);
 };
 
-// UPDATE a blog
-// const updateBlog = async (req, res) => {
-//   const { id } = req.params;
-
-//   if (!mongoose.Types.ObjectId.isValid(id)) {
-//     return res.status(400).json({ error: 'No such blog' });
-//   }
-
-//   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
-
-//   if (!blog) {
-//     return res.status(400).json({ error: 'No such blog' });
-//   }
-
-//   res.status(200).json(blog);
-// };
 
 const updateBlog = async (req, res) => {
   const { id } = req.params;
@@ -117,6 +101,9 @@ const updateBlog = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No such blog' });
   }
+  if (blog.authorid.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ error: 'You are not authorized to edit this blog' });
+}
 
   const blog = await Blog.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
 
@@ -170,17 +157,13 @@ const downvoteBlog = async (req, res) => {
 
     const userId = req.user._id;
 
-    // Check if user has already downvoted
     if (blog.downvotedBy.includes(userId)) {
-      // If already downvoted, remove the downvote
       blog.downvotes -= 1;
       blog.downvotedBy.pull(userId);
     } else {
-      // If not downvoted, add the downvote and remove upvote if exists
       blog.downvotes += 1;
       blog.downvotedBy.push(userId);
       
-      // If the user has upvoted, remove the upvote
       if (blog.upvotedBy.includes(userId)) {
         blog.upvotes -= 1;
         blog.upvotedBy.pull(userId);
@@ -194,6 +177,23 @@ const downvoteBlog = async (req, res) => {
   }
 };
 
+const getBlogComments = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await Blog.findById(id).populate('comments').exec();
+
+    if (!blog) {
+        return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    res.json(blog.comments);
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+}
+};
+
+
 
 // Export the functions as a module
 module.exports = {
@@ -203,5 +203,6 @@ module.exports = {
   deleteBlog,
   updateBlog,
   upvoteBlog,
-  downvoteBlog
+  downvoteBlog,
+  getBlogComments
 };

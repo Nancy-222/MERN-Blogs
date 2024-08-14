@@ -14,7 +14,7 @@ const BlogForm = () => {
     const [error, setError] = useState(null);
     const quillRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
-    const { user } = useAuthContext()
+    const { user } = useAuthContext();
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -49,8 +49,8 @@ const BlogForm = () => {
 
     const handleSubmit = async (e) => {
         if (!user){
-            setError('You must be logged in')
-            return
+            setError('You must be logged in');
+            return;
         }
 
         e.preventDefault();
@@ -61,11 +61,10 @@ const BlogForm = () => {
             return;
         }
 
-        
-    if (content === '<p><br></p>') {
-        setError('Both name and content are required!');
-        return;
-    }
+        if (content === '<p><br></p>') {
+            setError('Both name and content are required!');
+            return;
+        }
     
         const blog = { title, content };
     
@@ -92,7 +91,6 @@ const BlogForm = () => {
             setError('An error occurred while adding the blog.');
         }
     };
-    
 
     return (
         <form enctype="multipart/form-data" className="create" onSubmit={handleSubmit}>
@@ -121,13 +119,12 @@ const BlogForm = () => {
                         ['clean'] 
                     ],
                 }}
-                style={{ height: 'auto', minHeight: '100px'}}
+                style={{ height: 'auto', minHeight: '100px' }}
             />
 
             <div className="image-upload">
                 <label>Blog Images</label>
                 <input type="file" accept="image/*" onChange={handleImageChange} />
-
             </div>
 
             <button type="submit" className="add-blog-button">Add Blog</button>
@@ -138,4 +135,3 @@ const BlogForm = () => {
 };
 
 export default BlogForm;
-

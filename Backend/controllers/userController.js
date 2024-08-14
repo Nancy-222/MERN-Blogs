@@ -20,21 +20,25 @@ const getUsers = async (req, res) => {
 
 // GET a user by ID
 const getUser = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'No such user' });
-    }
-
     try {
-        const user = await User.findById(id);
+        const email = req.query.email;
+        console.log(email)
 
-        if (!user) {
-            return res.status(404).json({ error: 'No such user' });
+        // Check if the email is provided
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
         }
 
+        // Find the user by email
+        const user = await User.findOne({ email }).select('firstName lastName _id');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Send back the user info
         res.status(200).json(user);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Server error' });
     }
 };
@@ -49,9 +53,10 @@ const signupUser = async (req, res) => {
 
     // create a token
     const token = createToken(user._id)
+    const id = user._id
     const name = `${user.firstName} ${user.lastName}`
 
-    res.status(200).json({email, token, name})
+    res.status(200).json({email, token, name, id})
     } catch (error) {
     res.status(400).json({error: error.message})
     }
@@ -67,9 +72,9 @@ const loginUser = async (req, res) => {
 
     // create a token
     const token = createToken(user._id)
-
+    const id = user._id
     const name = `${user.firstName} ${user.lastName}`
-    res.status(200).json({email, token, name})
+    res.status(200).json({email, token, name, id})
     } catch (error) {
     res.status(400).json({error: error.message})
     }

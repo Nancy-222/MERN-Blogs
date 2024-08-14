@@ -1,89 +1,72 @@
-/* Style for the entire page */
+/* Style for the entire blog form page */
 .blog-form-details-page {
+    background-image: url('/src/images/background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
     display: flex;
     flex-direction: column; /* Stack child elements vertically */
-    min-height: 100vh; /* Full viewport height */
 }
 
 /* Style for the main content area */
 .main-content {
     display: flex;
     flex: 1; /* Grow to take up available space */
+    padding: 20px;
+    gap: 20px; /* Add gap between sections */
 }
 
-/* Style for the main content area inside the page */
-.main-content > .blog-content {
+/* Style for the blog content area */
+.blog-content {
     flex: 3; /* Takes 3/4 of the horizontal space */
     display: flex;
     flex-direction: column;
+    gap: 20px; /* Space between blog form and details */
 }
 
 /* Style for the blog form section */
 .blog-form-section {
     padding: 20px;
-    background-color: #f0f0f0; /* Light background for the blog form section */
+    background-color: white; /* Light background for the blog form section */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for the blog details section */
 .blog-details-section {
     padding: 20px;
-    flex: 1; /* Takes remaining space in the column */
-}
-
-/* Style for the form */
-.blog-form-details-form {
-    width: 100%;
-}
-
-/* Style for form groups */
-.blog-form-details-form .form-group {
-    margin-bottom: 15px;
-}
-
-/* Style for form controls */
-.blog-form-details-form input[type="text"],
-.blog-form-details-form input[type="file"],
-.blog-form-details-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; 
-}
-
-/* Style for the textarea */
-.blog-form-details-form .message-textarea {
-    max-width: 100%; 
-    min-height: 100px; 
-    resize: vertical; 
-    box-sizing: border-box; 
+    background-color: #fff; /* White background for blog details */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Scroll if content overflows */
+    gap: 10px;
 }
 
 /* Style for the sidebar (Add Friend section) */
 .sidebar {
     flex: 1; /* Takes 1/4 of the horizontal space */
-    background-color: #D6EAF8; /* Dark blue background */
-    color: white;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
-    height: 100%; /* Full height of the page */
+    height: fit-content; /* Adjusts height based on content */
     position: sticky;
-    top: 0;
-    
+    top: 0; /* Keeps it in place on scroll */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for the add friend section */
 .add-friend {
     margin-top: 20px;
+    text-align: center;
 }
 
-/* Style for the heading */
 .add-friend h3 {
-    color: #2E4053;
+    color: black;
     margin-bottom: 10px;
+    font-size: 1.5em;
 }
 
-/* Style for the list of friends */
 .add-friend ul {
     list-style-type: none;
     padding: 0;
@@ -94,9 +77,16 @@
     align-items: center;
     color: white;
     margin-bottom: 10px;
-    padding: 10px;
-    background: #5DADE2; /* Slightly lighter blue for the rectangle */
-    border-radius: 8px; /* Rounded corners for the rectangles */
+    padding: 10px 20px; /* Added padding for the block */
+    background: #007bff; /* Match the background color with the button */
+    border-radius: 8px; /* Rounded corners for the blocks */
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+.add-friend li:hover {
+    background-color: #3498db; /* Darker blue for hover effect */
 }
 
 .add-friend-btn {
@@ -106,10 +96,7 @@
     margin-right: 10px;
     cursor: pointer;
     font-size: 1.2em;
-}
-
-.add-friend-btn:hover {
-    color: #e0e0e0;
+    transition: color 0.3s ease;
 }
 
 /* Style for the blog items */
@@ -148,5 +135,10 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     resize: none; /* Disable manual resizing to keep the auto-resize functionality */
+}
+
+/* Style for the image upload section */
+.image-upload {
+    margin-bottom: 30px;
 }
 
